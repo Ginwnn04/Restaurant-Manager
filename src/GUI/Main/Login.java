@@ -74,7 +74,7 @@ public class Login extends javax.swing.JFrame {
         JLabel lbImage = new JLabel(image) {
             public void paintComponent(Graphics g) {
                 Dimension size = getSize();
-                System.out.println(size.width + " " + size.height);
+                
                 g.drawImage(image.getImage(), 0, 0, size.width, size.height, null);
             }
         };
@@ -162,10 +162,13 @@ public class Login extends javax.swing.JFrame {
 
         //Login Btn
         JButton loginBtn = new JButton("ĐĂNG NHẬP");
-        loginBtn.setPreferredSize(new Dimension(280, 35));
+        loginBtn.setPreferredSize(new Dimension(300, 35));
+        
+       
         loginBtn.setBackground(new Color(50, 168, 82));
         loginBtn.setForeground(Color.white);
         loginBtn.setMnemonic(KeyEvent.VK_ENTER);
+        logSection_panel_bot.add(new JLabel("                    "));
         logSection_panel_bot.add(loginBtn);
 
         logSection_panel_top.setLayout(new BorderLayout());
