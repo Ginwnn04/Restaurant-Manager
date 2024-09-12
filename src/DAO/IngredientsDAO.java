@@ -92,7 +92,7 @@ public class IngredientsDAO {
         try (PreparedStatement preparedStatement = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 IngredientsDTO ingredient = new IngredientsDTO();
-                ingredient.setId(resultSet.getInt("id"));
+                ingredient.setId(resultSet.getLong("id"));
                 ingredient.setName(resultSet.getString("name"));
                 ingredient.setDes(resultSet.getString("des"));
                 ingredient.setQuantity(resultSet.getInt("quantity"));

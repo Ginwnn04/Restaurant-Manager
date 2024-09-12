@@ -19,13 +19,31 @@ import javax.swing.SwingUtilities;
  */
 public class DialogIngredient extends javax.swing.JPanel {
 
-    /**
-     * Creates new form DialogIngredient
-     */
+    private IngredientsDTO ingredient = new IngredientsDTO();
+    private IngredientsBUS ingredientsBUS = new IngredientsBUS();
+    private boolean isCreate = true;
     public DialogIngredient() {
         initComponents();
+        
+
     }
 
+    public void load(boolean isCreate) {
+        this.isCreate = isCreate;
+        if (!isCreate) {
+            txtTen.setEnabled(false);
+            jButton2.setText("Sửa");
+          
+        }
+    }
+    
+    public void changeData(IngredientsDTO ingredient) {
+        this.ingredient = ingredient;
+        txtTen.setText(ingredient.getName());
+
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,17 +63,17 @@ public class DialogIngredient extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTen = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtMoTa = new javax.swing.JTextField();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtDonVi = new javax.swing.JTextField();
         jPanel17 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
@@ -87,6 +105,7 @@ public class DialogIngredient extends javax.swing.JPanel {
         pnContainer.add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
         pnCenter.setBackground(new java.awt.Color(35, 35, 35));
+        pnCenter.setPreferredSize(new java.awt.Dimension(240, 250));
         pnCenter.setLayout(new java.awt.GridLayout(5, 1));
 
         jPanel5.setBackground(new java.awt.Color(35, 35, 35));
@@ -105,8 +124,8 @@ public class DialogIngredient extends javax.swing.JPanel {
         jLabel5.setText("Tên nguyên liệu");
         jPanel5.add(jLabel5, java.awt.BorderLayout.LINE_START);
 
-        jTextField2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jPanel5.add(jTextField2, java.awt.BorderLayout.CENTER);
+        txtTen.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jPanel5.add(txtTen, java.awt.BorderLayout.CENTER);
 
         pnCenter.add(jPanel5);
 
@@ -127,8 +146,8 @@ public class DialogIngredient extends javax.swing.JPanel {
         jLabel6.setPreferredSize(new java.awt.Dimension(96, 17));
         jPanel8.add(jLabel6, java.awt.BorderLayout.LINE_START);
 
-        jTextField3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jPanel8.add(jTextField3, java.awt.BorderLayout.CENTER);
+        txtMoTa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jPanel8.add(txtMoTa, java.awt.BorderLayout.CENTER);
 
         pnCenter.add(jPanel8);
 
@@ -149,8 +168,8 @@ public class DialogIngredient extends javax.swing.JPanel {
         jLabel8.setPreferredSize(new java.awt.Dimension(96, 17));
         jPanel14.add(jLabel8, java.awt.BorderLayout.LINE_START);
 
-        jTextField1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jPanel14.add(jTextField1, java.awt.BorderLayout.CENTER);
+        txtDonVi.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jPanel14.add(txtDonVi, java.awt.BorderLayout.CENTER);
 
         pnCenter.add(jPanel14);
 
@@ -201,55 +220,51 @@ public class DialogIngredient extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String name = jTextField2.getText().trim();
-        String des = jTextField3.getText().trim();
-        String quantityInput = "0";
-        String unit = jTextField1.getText().trim();
-
-        // Kiểm tra các trường dữ liệu có bị bỏ trống hay không
-        if (name.isEmpty() || des.isEmpty() || quantityInput.isEmpty() || unit.isEmpty()) {
-            JOptionPane.showMessageDialog(DialogIngredient.this, "Vui lòng nhập đầy đủ thông tin.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            return;
+        boolean success = true;
+        String name = txtTen.getText().trim();
+        String des = txtMoTa.getText().trim();
+        String unit = txtDonVi.getText().trim();
+        
+        
+        if (isCreate) {
+            if (name.isEmpty() || des.isEmpty() || unit.isEmpty()) {
+                JOptionPane.showMessageDialog(DialogIngredient.this, "Vui lòng nhập đầy đủ thông tin.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+      
+            ingredient.setId(System.currentTimeMillis());
+   
+            ingredient.setName(name);
+            ingredient.setDes(des);
+            ingredient.setUnit(unit);
+            ingredient.setQuantity(0);
+            ingredient.setIsDeleted(false);
+            
+            
+            
+            success = ingredientsBUS.addIngredient(ingredient);
         }
+        else {
+            // Kiểm tra các trường dữ liệu có bị bỏ trống hay không
+            if (des.isEmpty() || unit.isEmpty()) {
+                JOptionPane.showMessageDialog(DialogIngredient.this, "Vui lòng nhập đầy đủ thông tin.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            ingredient.setDes(des);
+            ingredient.setUnit(unit);
 
-        // Chuyển đổi và kiểm tra số lượng
-        int quantity = Integer.parseInt(quantityInput);
 
-        if (quantity < 0) {
-            JOptionPane.showMessageDialog(DialogIngredient.this, "Số lượng không hợp lệ.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            return;
+            // Thực hiện thêm nguyên liệu vào cơ sở dữ liệu
+            success = ingredientsBUS.updateIngredient(ingredient);
+ 
+
         }
-
-        // Tạo một đối tượng IngredientsDTO để thêm vào cơ sở dữ liệu
-        IngredientsDTO newIngredient = new IngredientsDTO();
-        // Lấy thời gian hiện tại
-//        long currentTime = System.currentTimeMillis();
-        // Lấy ba chữ số cuối cùng của thời gian hiện tại
-        long id = System.currentTimeMillis();
-        newIngredient.setId(id);
-        newIngredient.setName(name);
-        newIngredient.setDes(des);
-        newIngredient.setQuantity(quantity);
-        newIngredient.setUnit(unit);
-        newIngredient.setIsDeleted(false);
-
-        // Thực hiện thêm nguyên liệu vào cơ sở dữ liệu
-        IngredientsBUS ingredientsBUS = new IngredientsBUS();
-        boolean success = false;
-        try {
-            success = ingredientsBUS.addIngredient(newIngredient);
-        } catch (Exception ex) {
-            Logger.getLogger(DialogIngredient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         // Hiển thị thông báo kết quả
         if (success) {
-            JOptionPane.showMessageDialog(DialogIngredient.this, "Thêm nguyên liệu thành công!");
+            JOptionPane.showMessageDialog(DialogIngredient.this, "Thành công!");
         } else {
-            JOptionPane.showMessageDialog(DialogIngredient.this, "Thêm nguyên liệu không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(DialogIngredient.this, "Không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-
-        // Đóng JDialog sau khi thêm thành công hoặc thất bại
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -290,10 +305,10 @@ public class DialogIngredient extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel7;
     public javax.swing.JPanel jPanel8;
     public javax.swing.JPanel jPanel9;
-    public javax.swing.JTextField jTextField1;
-    public javax.swing.JTextField jTextField2;
-    public javax.swing.JTextField jTextField3;
     public javax.swing.JPanel pnCenter;
     public javax.swing.JPanel pnContainer;
+    public javax.swing.JTextField txtDonVi;
+    public javax.swing.JTextField txtMoTa;
+    public javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

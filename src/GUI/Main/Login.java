@@ -50,6 +50,8 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(920, 500));
         Helper.ConnectDB.getInstance().openConnect();
+        
+       
     }
 
     private void LoginLayout() {
@@ -181,6 +183,11 @@ public class Login extends javax.swing.JFrame {
 
         logSection_panel_top.add(login_lbl, BorderLayout.SOUTH);
         logSection_panel_top.setBackground(new Color(35, 35, 35));
+        
+        
+        
+        usernameField.setText("quangdeptrai");
+        passwordField.setText("1234");
     }
 
     private void loginButtonActionPerformed(JTextField usernameField, JTextField passwordField) {
@@ -240,6 +247,8 @@ public class Login extends javax.swing.JFrame {
         UIManager.put("TitlePane.centerTitle", true);
         FlatMacDarkLaf.setup();
 
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -142,7 +142,7 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         dateChooser = new GUI.Comp.DateChooser.DateChooser();
@@ -194,11 +194,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground16Layout = new javax.swing.GroupLayout(panelBackground16);
         panelBackground16.setLayout(panelBackground16Layout);
         panelBackground16Layout.setHorizontalGroup(
-                panelBackground16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE));
+            panelBackground16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
         panelBackground16Layout.setVerticalGroup(
-                panelBackground16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 75, Short.MAX_VALUE));
+            panelBackground16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
 
         panelBackground10.add(panelBackground16);
 
@@ -208,11 +210,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground17Layout = new javax.swing.GroupLayout(panelBackground17);
         panelBackground17.setLayout(panelBackground17Layout);
         panelBackground17Layout.setHorizontalGroup(
-                panelBackground17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 23, Short.MAX_VALUE));
+            panelBackground17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 23, Short.MAX_VALUE)
+        );
         panelBackground17Layout.setVerticalGroup(
-                panelBackground17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 75, Short.MAX_VALUE));
+            panelBackground17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
 
         panelBackground10.add(panelBackground17);
 
@@ -232,25 +236,23 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout pnSelectAllLayout = new javax.swing.GroupLayout(pnSelectAll);
         pnSelectAll.setLayout(pnSelectAllLayout);
         pnSelectAllLayout.setHorizontalGroup(
-                pnSelectAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 85, Short.MAX_VALUE)
-                        .addGroup(pnSelectAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnSelectAllLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(chbSelectAll, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))));
+            pnSelectAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 85, Short.MAX_VALUE)
+            .addGroup(pnSelectAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnSelectAllLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(chbSelectAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
         pnSelectAllLayout.setVerticalGroup(
-                pnSelectAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 30, Short.MAX_VALUE)
-                        .addGroup(pnSelectAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnSelectAllLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(chbSelectAll, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))));
+            pnSelectAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+            .addGroup(pnSelectAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnSelectAllLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(chbSelectAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         panelBackground10.add(pnSelectAll);
 
@@ -260,11 +262,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground18Layout = new javax.swing.GroupLayout(panelBackground18);
         panelBackground18.setLayout(panelBackground18Layout);
         panelBackground18Layout.setHorizontalGroup(
-                panelBackground18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 28, Short.MAX_VALUE));
+            panelBackground18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
         panelBackground18Layout.setVerticalGroup(
-                panelBackground18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 75, Short.MAX_VALUE));
+            panelBackground18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
 
         panelBackground10.add(panelBackground18);
 
@@ -283,11 +287,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 18, Short.MAX_VALUE));
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
         jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 75, Short.MAX_VALUE));
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
 
         panelBackground10.add(jPanel2);
 
@@ -306,11 +312,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 75, Short.MAX_VALUE));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
 
         panelBackground10.add(jPanel1);
 
@@ -341,11 +349,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground7Layout = new javax.swing.GroupLayout(panelBackground7);
         panelBackground7.setLayout(panelBackground7Layout);
         panelBackground7Layout.setHorizontalGroup(
-                panelBackground7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 20, Short.MAX_VALUE));
+            panelBackground7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
         panelBackground7Layout.setVerticalGroup(
-                panelBackground7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 55, Short.MAX_VALUE));
+            panelBackground7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 55, Short.MAX_VALUE)
+        );
 
         panelBackground14.add(panelBackground7, java.awt.BorderLayout.LINE_END);
 
@@ -355,11 +365,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground6Layout = new javax.swing.GroupLayout(panelBackground6);
         panelBackground6.setLayout(panelBackground6Layout);
         panelBackground6Layout.setHorizontalGroup(
-                panelBackground6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 500, Short.MAX_VALUE));
+            panelBackground6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
         panelBackground6Layout.setVerticalGroup(
-                panelBackground6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 10, Short.MAX_VALUE));
+            panelBackground6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
 
         panelBackground14.add(panelBackground6, java.awt.BorderLayout.PAGE_END);
 
@@ -369,11 +381,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground9Layout = new javax.swing.GroupLayout(panelBackground9);
         panelBackground9.setLayout(panelBackground9Layout);
         panelBackground9Layout.setHorizontalGroup(
-                panelBackground9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 500, Short.MAX_VALUE));
+            panelBackground9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
         panelBackground9Layout.setVerticalGroup(
-                panelBackground9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 10, Short.MAX_VALUE));
+            panelBackground9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
 
         panelBackground14.add(panelBackground9, java.awt.BorderLayout.PAGE_START);
 
@@ -414,11 +428,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground2Layout = new javax.swing.GroupLayout(panelBackground2);
         panelBackground2.setLayout(panelBackground2Layout);
         panelBackground2Layout.setHorizontalGroup(
-                panelBackground2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 20, Short.MAX_VALUE));
+            panelBackground2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
         panelBackground2Layout.setVerticalGroup(
-                panelBackground2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 619, Short.MAX_VALUE));
+            panelBackground2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 619, Short.MAX_VALUE)
+        );
 
         pnContainer.add(panelBackground2, java.awt.BorderLayout.LINE_START);
 
@@ -428,11 +444,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground3Layout = new javax.swing.GroupLayout(panelBackground3);
         panelBackground3.setLayout(panelBackground3Layout);
         panelBackground3Layout.setHorizontalGroup(
-                panelBackground3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 20, Short.MAX_VALUE));
+            panelBackground3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
         panelBackground3Layout.setVerticalGroup(
-                panelBackground3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 619, Short.MAX_VALUE));
+            panelBackground3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 619, Short.MAX_VALUE)
+        );
 
         pnContainer.add(panelBackground3, java.awt.BorderLayout.LINE_END);
 
@@ -442,11 +460,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout panelBackground4Layout = new javax.swing.GroupLayout(panelBackground4);
         panelBackground4.setLayout(panelBackground4Layout);
         panelBackground4Layout.setHorizontalGroup(
-                panelBackground4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 1250, Short.MAX_VALUE));
+            panelBackground4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1250, Short.MAX_VALUE)
+        );
         panelBackground4Layout.setVerticalGroup(
-                panelBackground4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 20, Short.MAX_VALUE));
+            panelBackground4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
 
         pnContainer.add(panelBackground4, java.awt.BorderLayout.PAGE_END);
 
@@ -458,29 +478,29 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         tbInvoice.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         tbInvoice.setForeground(new java.awt.Color(255, 255, 255));
         tbInvoice.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { null, "aaaaaaaaaa", null, "ádasdasd", null, null, "aaaaaaaaaa" },
-                        { null, "aaaaaaaaaa", null, "ádasd", null, null, "aaaaaaaaaa" },
-                        { null, "aaaaaaaaaa", null, "ádasd", null, null, "aaaaaaaaaa" },
-                        { null, "aaaaaaaaaa", null, "ádasda", null, null, "aaaaaaaaaa" }
-                },
-                new String[] {
-                        "", "Mã hoá đơn", "Mã khách hàng", "Thành tiền", "Giảm giá", "Tổng tiền", "Thời gian in"
-                }) {
-            Class[] types = new Class[] {
-                    java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,
-                    java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            new Object [][] {
+                {null, "aaaaaaaaaa", null, "ádasdasd", null, null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", null, "ádasd", null, null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", null, "ádasd", null, null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", null, "ádasda", null, null, "aaaaaaaaaa"}
+            },
+            new String [] {
+                "", "Mã hoá đơn", "Mã khách hàng", "Thành tiền", "Giảm giá", "Tổng tiền", "Thời gian in"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
-            boolean[] canEdit = new boolean[] {
-                    true, false, false, false, false, false, false
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return canEdit [columnIndex];
             }
         });
         tbInvoice.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -499,12 +519,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+        );
 
         getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
@@ -549,6 +570,7 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {// GEN-FIRST:event_txtTimKiemCaretUpdate
         TableRowSorter tableRowSorter = new TableRowSorter(tbInvoice.getModel());
         String find = txtTimKiem.getText().toUpperCase().trim();
+        
         if (!find.isEmpty()) {
             // Indices 2 => Sort theo cột 2 (Name), 3 (CustomerCode)
             tableRowSorter.setRowFilter(RowFilter.regexFilter(find, 2));

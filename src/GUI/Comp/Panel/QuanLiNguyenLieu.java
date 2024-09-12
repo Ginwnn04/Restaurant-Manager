@@ -14,9 +14,11 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -28,65 +30,41 @@ import javax.swing.table.TableColumnModel;
  */
 public class QuanLiNguyenLieu extends javax.swing.JPanel {
 
-    /**
-     * Creates new form QuanLiNguyenLieu
-     */
-    public QuanLiNguyenLieu() throws Exception {
+    private boolean isSelectAll = false;
+    IngredientsBUS ingredientsBUS = new IngredientsBUS();
+    DefaultTableModel model = new DefaultTableModel();
+    ArrayList<IngredientsDTO> ingredientsList = new ArrayList<>();
+    public QuanLiNguyenLieu()  {
         initComponents();
-        loadDataToTable(jTable1);
-        jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập tên nguyên liệu");
+        
+        tbIngredients.setRowHeight(35);
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbIngredients.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(JLabel.LEFT);
+        txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập tên nguyên liệu");
+        loadDataToTable(isSelectAll);
 
     }
 
-    private void loadDataToTable(JTable table) throws Exception {
+    private void loadDataToTable(boolean isSelectAll) {
         // Tạo một đối tượng IngredientsBUS
         IngredientsBUS ingredientsBUS = new IngredientsBUS();
 
         // Gọi phương thức để lấy danh sách nguyên liệu từ cơ sở dữ liệu
-        ArrayList<IngredientsDTO> ingredientsList = ingredientsBUS.getAllActiveIngredients();
+        ingredientsList = ingredientsBUS.getAllActiveIngredients();
 
         // Tạo DefaultTableModel để đặt dữ liệu vào jTable
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model = (DefaultTableModel) tbIngredients.getModel();
 
         // Xóa toàn bộ dữ liệu cũ trong jTable
         model.setRowCount(0);
 
         // Duyệt qua danh sách nguyên liệu và thêm từng dòng vào jTable
         for (IngredientsDTO ingredient : ingredientsList) {
-            Object[] row = {false, ingredient.getId(), ingredient.getName(), ingredient.getDes(), ingredient.getQuantity(), ingredient.getUnit()};
+            Object[] row = {isSelectAll, ingredient.getId(), ingredient.getName(), ingredient.getDes(), ingredient.getUnit(),ingredient.getQuantity()};
             model.addRow(row);
         }
-        // Lấy đối tượng header của JTable
-        TableColumnModel columnModel = jTable1.getColumnModel();
-
-// Lặp qua từng cột trong JTable
-        for (int columnIndex = 0; columnIndex < jTable1.getColumnCount(); columnIndex++) {
-            // Lấy renderer của header của từng cột
-            DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer();
-
-            // Đặt căn lề trái cho renderer của header
-            headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
-
-            // Lấy đối tượng cột trong cấu hình cột của JTable
-            columnModel.getColumn(columnIndex).setHeaderRenderer(headerRenderer);
-        }
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(JLabel.LEFT);
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
-        }
-
-        columnModel.getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                JCheckBox checkBox = new JCheckBox();
-                checkBox.setSelected((boolean) value);
-                checkBox.setHorizontalAlignment(JLabel.LEFT);
-                checkBox.setBackground(new Color(35, 35, 35));
-
-                return checkBox;
-            }
-        });
+        model.fireTableDataChanged();
+        tbIngredients.setModel(model);
     }
 
     /**
@@ -101,24 +79,23 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         panelBackground1 = new GUI.Comp.Swing.PanelBackground();
         panelBackground2 = new GUI.Comp.Swing.PanelBackground();
-        panelBackground3 = new GUI.Comp.Swing.PanelBackground();
         panelBackground4 = new GUI.Comp.Swing.PanelBackground();
         panelBackground5 = new GUI.Comp.Swing.PanelBackground();
         panelBackground6 = new GUI.Comp.Swing.PanelBackground();
-        panelBackground7 = new GUI.Comp.Swing.PanelBackground();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
         panelBackground8 = new GUI.Comp.Swing.PanelBackground();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbIngredients = new javax.swing.JTable();
+        panelBackground7 = new GUI.Comp.Swing.PanelBackground();
+        pnSelectAll = new GUI.Comp.Swing.PanelBackground();
+        chbSelectAll = new javax.swing.JCheckBox();
+        jPanel1 = new javax.swing.JPanel();
+        txtSearch = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        btnAdd = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        btnChange = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        btnDelete = new javax.swing.JButton();
 
         jPanel3.setMaximumSize(new java.awt.Dimension(50, 23));
         jPanel3.setPreferredSize(new java.awt.Dimension(50, 23));
@@ -130,133 +107,147 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
         panelBackground1.setLayout(new java.awt.BorderLayout());
 
         panelBackground2.setBackground(new java.awt.Color(30, 30, 30));
+        panelBackground2.setPreferredSize(new java.awt.Dimension(20, 10));
         panelBackground1.add(panelBackground2, java.awt.BorderLayout.LINE_START);
-
-        panelBackground3.setBackground(new java.awt.Color(30, 30, 30));
-        panelBackground3.setPreferredSize(new java.awt.Dimension(10, 20));
-        panelBackground1.add(panelBackground3, java.awt.BorderLayout.PAGE_START);
 
         panelBackground4.setBackground(new java.awt.Color(30, 30, 30));
         panelBackground4.setToolTipText("");
+        panelBackground4.setMinimumSize(new java.awt.Dimension(20, 10));
+        panelBackground4.setPreferredSize(new java.awt.Dimension(20, 10));
         panelBackground1.add(panelBackground4, java.awt.BorderLayout.LINE_END);
 
         panelBackground5.setBackground(new java.awt.Color(30, 30, 30));
+        panelBackground5.setPreferredSize(new java.awt.Dimension(10, 20));
         panelBackground1.add(panelBackground5, java.awt.BorderLayout.PAGE_END);
 
         panelBackground6.setBackground(new java.awt.Color(30, 30, 30));
         panelBackground6.setLayout(new java.awt.BorderLayout(0, 25));
 
-        panelBackground7.setBackground(new java.awt.Color(35, 35, 35));
-        panelBackground7.setMinimumSize(new java.awt.Dimension(1000, 23));
-        panelBackground7.setPreferredSize(new java.awt.Dimension(1000, 60));
-        panelBackground7.setLayout(new javax.swing.BoxLayout(panelBackground7, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel2.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel2.setMaximumSize(new java.awt.Dimension(50, 23));
-        jPanel2.setPreferredSize(new java.awt.Dimension(50, 23));
-        panelBackground7.add(jPanel2);
-
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton1.setText("Thêm");
-        jButton1.setMaximumSize(new java.awt.Dimension(72, 40));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        panelBackground7.add(jButton1);
-
-        jPanel4.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel4.setMaximumSize(new java.awt.Dimension(50, 23));
-        jPanel4.setPreferredSize(new java.awt.Dimension(50, 23));
-        panelBackground7.add(jPanel4);
-
-        jButton3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton3.setText("Sửa");
-        jButton3.setMaximumSize(new java.awt.Dimension(72, 40));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        panelBackground7.add(jButton3);
-
-        jPanel5.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel5.setMaximumSize(new java.awt.Dimension(50, 23));
-        jPanel5.setPreferredSize(new java.awt.Dimension(50, 23));
-        panelBackground7.add(jPanel5);
-
-        jButton4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton4.setText("Xóa");
-        jButton4.setMaximumSize(new java.awt.Dimension(72, 40));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        panelBackground7.add(jButton4);
-
-        jPanel6.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel6.setMaximumSize(new java.awt.Dimension(50, 23));
-        jPanel6.setPreferredSize(new java.awt.Dimension(50, 23));
-        panelBackground7.add(jPanel6);
-
-        jLabel1.setText("Tìm kiếm");
-        panelBackground7.add(jLabel1);
-
-        jPanel1.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel1.setMaximumSize(new java.awt.Dimension(20, 20));
-        jPanel1.setPreferredSize(new java.awt.Dimension(20, 20));
-        panelBackground7.add(jPanel1);
-
-        jTextField1.setMaximumSize(new java.awt.Dimension(175, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(150, 50));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
-            }
-        });
-        panelBackground7.add(jTextField1);
-
-        panelBackground6.add(panelBackground7, java.awt.BorderLayout.PAGE_START);
-
         panelBackground8.setBackground(new java.awt.Color(30, 30, 30));
         panelBackground8.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setBackground(new java.awt.Color(35, 35, 35));
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbIngredients.setAutoCreateRowSorter(true);
+        tbIngredients.setBackground(new java.awt.Color(35, 35, 35));
+        tbIngredients.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        tbIngredients.setForeground(new java.awt.Color(255, 255, 255));
+        tbIngredients.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, "123", "123", "123", null, "123"},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "", "ID", "Tên", "Mô Tả", "Số lượng", "đơn vị"
+                "", "Mã Nguyên Liệu", "Tên Nguyên Liệu", "Mô Tả", "Đơn Vị", "Số Lượng"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(25);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(25);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(25);
+        jScrollPane1.setViewportView(tbIngredients);
+        if (tbIngredients.getColumnModel().getColumnCount() > 0) {
+            tbIngredients.getColumnModel().getColumn(0).setMinWidth(25);
+            tbIngredients.getColumnModel().getColumn(0).setPreferredWidth(25);
+            tbIngredients.getColumnModel().getColumn(0).setMaxWidth(25);
         }
 
         panelBackground8.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        panelBackground7.setBackground(new java.awt.Color(30, 30, 30));
+        panelBackground7.setMinimumSize(new java.awt.Dimension(1000, 23));
+        panelBackground7.setPreferredSize(new java.awt.Dimension(1000, 75));
+        panelBackground7.setLayout(new javax.swing.BoxLayout(panelBackground7, javax.swing.BoxLayout.LINE_AXIS));
+
+        pnSelectAll.setBackground(new java.awt.Color(35, 35, 35));
+        pnSelectAll.setMaximumSize(new java.awt.Dimension(100, 30));
+
+        chbSelectAll.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        chbSelectAll.setForeground(new java.awt.Color(255, 255, 255));
+        chbSelectAll.setText("Select All");
+        chbSelectAll.setPreferredSize(new java.awt.Dimension(85, 21));
+        chbSelectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbSelectAllActionPerformed(evt);
+            }
+        });
+        pnSelectAll.add(chbSelectAll);
+
+        panelBackground7.add(pnSelectAll);
+
+        jPanel1.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel1.setMaximumSize(new java.awt.Dimension(20, 20));
+        jPanel1.setPreferredSize(new java.awt.Dimension(20, 20));
+        panelBackground7.add(jPanel1);
+
+        txtSearch.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtSearch.setMaximumSize(new java.awt.Dimension(175, 30));
+        txtSearch.setPreferredSize(new java.awt.Dimension(150, 50));
+        txtSearch.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtSearchCaretUpdate(evt);
+            }
+        });
+        panelBackground7.add(txtSearch);
+
+        jPanel4.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel4.setMaximumSize(new java.awt.Dimension(50, 23));
+        jPanel4.setPreferredSize(new java.awt.Dimension(50, 23));
+        panelBackground7.add(jPanel4);
+
+        btnAdd.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnAdd.setText("Thêm");
+        btnAdd.setMaximumSize(new java.awt.Dimension(72, 40));
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+        panelBackground7.add(btnAdd);
+
+        jPanel5.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel5.setMaximumSize(new java.awt.Dimension(50, 23));
+        jPanel5.setPreferredSize(new java.awt.Dimension(50, 23));
+        panelBackground7.add(jPanel5);
+
+        btnChange.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnChange.setText("Sửa");
+        btnChange.setMaximumSize(new java.awt.Dimension(72, 40));
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeActionPerformed(evt);
+            }
+        });
+        panelBackground7.add(btnChange);
+
+        jPanel6.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel6.setMaximumSize(new java.awt.Dimension(50, 23));
+        jPanel6.setPreferredSize(new java.awt.Dimension(50, 23));
+        panelBackground7.add(jPanel6);
+
+        btnDelete.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnDelete.setText("Xóa");
+        btnDelete.setMaximumSize(new java.awt.Dimension(72, 40));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        panelBackground7.add(btnDelete);
+
+        panelBackground8.add(panelBackground7, java.awt.BorderLayout.PAGE_START);
 
         panelBackground6.add(panelBackground8, java.awt.BorderLayout.CENTER);
 
@@ -266,116 +257,61 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // Lấy dữ liệu nhập vào từ ô text field
-        String searchText = jTextField1.getText().trim();
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // Tạo một JDialog mới
+        JDialog dialog = new JDialog();
+        // Thiết lập JPanel DialogIngredient làm nội dung của JDialog
+        DialogIngredient dialogPanel = new DialogIngredient();
+        dialog.getContentPane().add(dialogPanel);
+        dialogPanel.load(true);
+        // Thiết lập thuộc tính cho JDialog
+        
+        dialog.setSize(600, 500); // Thiết lập kích thước
+        dialog.setModal(true); // Thiết lập JDialog là modal để chặn tương tác với các thành phần khác trong cửa sổ cha
+        dialog.setLocationRelativeTo(this); // Hiển thị JDialog ở giữa cửa sổ cha
+        dialog.setVisible(true); // Hiển thị JDialog
+        // Sau khi JDialog đóng lại, có thể thực hiện các hành động cần thiết tại đây
+        loadDataToTable(isSelectAll);
+    }//GEN-LAST:event_btnAddActionPerformed
 
-        // Kiểm tra xem có dữ liệu nhập vào không
-        if (!searchText.isEmpty()) {
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            int rowCount = model.getRowCount();
-            boolean found = false;
-
-            // Duyệt qua các dòng trong jTable để tìm kiếm dữ liệu phù hợp
-            for (int i = 0; i < rowCount; i++) {
-                String name = (String) model.getValueAt(i, 2); // Lấy tên nguyên liệu từ cột thứ 3 (index 2)
-
-                // Nếu tên nguyên liệu chứa chuỗi tìm kiếm thì hiển thị dòng đó
-                if (name.toLowerCase().contains(searchText.toLowerCase())) {
-                    jTable1.getSelectionModel().setSelectionInterval(i, i); // Chọn dòng tìm thấy
-                    jTable1.scrollRectToVisible(jTable1.getCellRect(i, 0, true)); // Cuộn đến dòng được chọn
-                    found = true;
-                    break;
-                }
-            }
-
-            // Nếu không tìm thấy dữ liệu phù hợp, hiển thị thông báo
-            if (!found) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu phù hợp.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1KeyReleased
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            // Tạo một JDialog mới
-            JDialog dialog = new JDialog();
-
-            // Thiết lập JPanel DialogIngredient làm nội dung của JDialog
-            DialogIngredient dialogPanel = new DialogIngredient();
-            dialog.getContentPane().add(dialogPanel);
-
-            // Thiết lập thuộc tính cho JDialog
-            dialog.setSize(600, 500); // Thiết lập kích thước
-            dialog.setLocationRelativeTo(this); // Hiển thị JDialog ở giữa cửa sổ cha
-            dialog.setModal(true); // Thiết lập JDialog là modal để chặn tương tác với các thành phần khác trong cửa sổ cha
-            dialog.setVisible(true); // Hiển thị JDialog
-
-            // Sau khi JDialog đóng lại, có thể thực hiện các hành động cần thiết tại đây
-            loadDataToTable(jTable1);
-        } catch (Exception ex) {
-            Logger.getLogger(QuanLiNhapKho.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tbIngredients.getModel();
         int rowCount = model.getRowCount();
         boolean isSelected = false; // Biến này để kiểm tra xem có ít nhất một dòng được chọn hay không
 
         for (int i = rowCount - 1; i >= 0; i--) {
-            Boolean checked = (Boolean) jTable1.getValueAt(i, 0); // Lấy giá trị của checkbox từ cột đầu tiên
+            Boolean checked = (Boolean) tbIngredients.getValueAt(i, 0); // Lấy giá trị của checkbox từ cột đầu tiên
             if (checked) {
                 isSelected = true;
-                long id = (long) jTable1.getValueAt(i, 1); // Lấy giá trị ID từ cột thứ hai
-                String currentName = (String) jTable1.getValueAt(i, 2);
-                String currentDes = (String) jTable1.getValueAt(i, 3);
-                int currentQuantity = (int) jTable1.getValueAt(i, 4);
-                String currentUnit = (String) jTable1.getValueAt(i, 5);
+                long id = (long) tbIngredients.getValueAt(i, 1); // Lấy giá trị ID từ cột thứ hai
+                String currentName = (String) tbIngredients.getValueAt(i, 2);
+                String currentDes = (String) tbIngredients.getValueAt(i, 3);
+                String currentUnit = (String) tbIngredients.getValueAt(i, 4);
+                int currentQuantity = (int) tbIngredients.getValueAt(i, 5);
 
-                // Hiển thị hộp thoại cho phép người dùng nhập thông tin mới
-                String newName = JOptionPane.showInputDialog(this, "Nhập tên mới cho nguyên liệu:", currentName);
-                if (newName == null || newName.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Tên nguyên liệu không được để trống.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    return; // Dừng phương thức nếu tên nguyên liệu bị bỏ trống
-                }
-
-                String newDes = JOptionPane.showInputDialog(this, "Nhập mô tả mới cho nguyên liệu:", currentDes);
-                if (newDes == null) {
-                    // Người dùng bấm Cancel
-                    return; // Dừng phương thức nếu người dùng hủy bỏ
-                }
-
-                String newUnit = JOptionPane.showInputDialog(this, "Nhập đơn vị mới cho nguyên liệu:", currentUnit);
-                if (newUnit == null) {
-                    // Người dùng bấm Cancel
-                    return; // Dừng phương thức nếu người dùng hủy bỏ
-                }
-
-                // Tạo một đối tượng IngredientsDTO mới để cập nhật
+            
                 IngredientsDTO ingredient = new IngredientsDTO();
                 ingredient.setId(id);
-                ingredient.setName(newName);
-                ingredient.setDes(newDes);
+                ingredient.setName(currentName);
+                ingredient.setDes(currentDes);
                 ingredient.setQuantity(currentQuantity);
-                ingredient.setUnit(newUnit);
+                ingredient.setUnit(currentUnit);
 
-                // Gọi phương thức updateIngredient() từ IngredientsBUS để cập nhật thông tin mới
-                IngredientsBUS ingredientsBUS = new IngredientsBUS();
-                boolean success = false;
-                try {
-                    success = ingredientsBUS.updateIngredient(ingredient);
-                } catch (Exception ex) {
-                    Logger.getLogger(QuanLiNguyenLieu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (!success) {
-                    JOptionPane.showMessageDialog(this, "Cập nhật nguyên liệu không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    return; // Dừng phương thức nếu cập nhật không thành công
-                }
+                JDialog dialog = new JDialog();
+                DialogIngredient dialogPanel = new DialogIngredient();
+                dialog.getContentPane().add(dialogPanel);
+                dialogPanel.load(false);
+                dialogPanel.changeData(ingredient);
+                
+                
+                
+                dialog.setSize(600, 500); // Thiết lập kích thước
+                dialog.setModal(true); // Thiết lập JDialog là modal để chặn tương tác với các thành phần khác trong cửa sổ cha
+                dialog.setLocationRelativeTo(this); // Hiển thị JDialog ở giữa cửa sổ cha
+                dialog.setVisible(true); // Hiển thị JDialog
+                
+           
+                loadDataToTable(isSelectAll);
             }
         }
 
@@ -385,28 +321,20 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
             return; // Dừng phương thức nếu không có dòng nào được chọn
         }
 
-        // Hiển thị thông báo sửa thành công
-        JOptionPane.showMessageDialog(this, "Sửa nguyên liệu thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        
+    }//GEN-LAST:event_btnChangeActionPerformed
 
-        try {
-            // Cập nhật lại dữ liệu trên jTable
-            loadDataToTable(jTable1);
-        } catch (Exception ex) {
-            Logger.getLogger(QuanLiNguyenLieu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tbIngredients.getModel();
         int rowCount = model.getRowCount();
         boolean isSelected = false; // Biến này để kiểm tra xem có ít nhất một dòng được chọn hay không
         boolean showMessage = true; // Biến này để kiểm tra xem thông báo đã được hiển thị chưa
 
         for (int i = rowCount - 1; i >= 0; i--) {
-            Boolean checked = (Boolean) jTable1.getValueAt(i, 0); // Lấy giá trị của checkbox từ cột đầu tiên
+            Boolean checked = (Boolean) tbIngredients.getValueAt(i, 0); // Lấy giá trị của checkbox từ cột đầu tiên
             if (checked) {
                 isSelected = true;
-                long id = (long) jTable1.getValueAt(i, 1); // Lấy giá trị ID từ cột thứ hai
+                long id = (long) tbIngredients.getValueAt(i, 1); // Lấy giá trị ID từ cột thứ hai
 
                 // Hỏi lại người dùng có chắc chắn muốn xóa không, chỉ hiển thị một lần
                 if (showMessage) {
@@ -444,33 +372,46 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
 
         try {
             // Cập nhật lại dữ liệu trên jTable
-            loadDataToTable(jTable1);
+            loadDataToTable(isSelectAll);
         } catch (Exception ex) {
             Logger.getLogger(QuanLiNguyenLieu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void chbSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbSelectAllActionPerformed
+        isSelectAll = !isSelectAll;
+        loadDataToTable(isSelectAll);
+    }//GEN-LAST:event_chbSelectAllActionPerformed
+
+    private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSearchCaretUpdate
+        TableRowSorter tableRowSorter = new TableRowSorter(tbIngredients.getModel());
+        String find = txtSearch.getText().toUpperCase().trim();
+        if (!find.isEmpty()) {
+            tableRowSorter.setRowFilter(RowFilter.regexFilter(find, 2));
+        }
+        tbIngredients.setRowSorter(tableRowSorter);
+    }//GEN-LAST:event_txtSearchCaretUpdate
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton jButton1;
-    public javax.swing.JButton jButton3;
-    public javax.swing.JButton jButton4;
-    public javax.swing.JLabel jLabel1;
+    public javax.swing.JButton btnAdd;
+    public javax.swing.JButton btnChange;
+    public javax.swing.JButton btnDelete;
+    public javax.swing.JCheckBox chbSelectAll;
     public javax.swing.JPanel jPanel1;
-    public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;
     public javax.swing.JPanel jPanel4;
     public javax.swing.JPanel jPanel5;
     public javax.swing.JPanel jPanel6;
     public javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable jTable1;
-    public javax.swing.JTextField jTextField1;
     public GUI.Comp.Swing.PanelBackground panelBackground1;
     public GUI.Comp.Swing.PanelBackground panelBackground2;
-    public GUI.Comp.Swing.PanelBackground panelBackground3;
     public GUI.Comp.Swing.PanelBackground panelBackground4;
     public GUI.Comp.Swing.PanelBackground panelBackground5;
     public GUI.Comp.Swing.PanelBackground panelBackground6;
     public GUI.Comp.Swing.PanelBackground panelBackground7;
     public GUI.Comp.Swing.PanelBackground panelBackground8;
+    public GUI.Comp.Swing.PanelBackground pnSelectAll;
+    public javax.swing.JTable tbIngredients;
+    public javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
