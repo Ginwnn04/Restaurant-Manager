@@ -15,7 +15,9 @@ public class ConnectDB {
     private String password = "7p3LCOi2nW7LAE9kxlfwSFq3yGKnL1gK";
     private String sslMode = "&ssl=true";
     
-    private String connectionUrl = "jdbc:postgresql://" + host + ":5432/" + dbName + "?user=" + username + "&password=" + password + sslMode;
+//    private String connectionUrl = "jdbc:postgresql://" + host + ":5432/" + dbName + "?user=" + username + "&password=" + password + sslMode;
+    
+    private String connectionUrl = "jdbc:postgresql://localhost:5432/testing?user=postgres&password=123456";
     private Connection con;
     
     private ConnectDB() {

@@ -14,6 +14,7 @@ import DTO.StaffDTO;
 import DTO.SupplierDTO;
 import java.awt.Dialog;
 import java.awt.Window;
+import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -36,7 +37,7 @@ import javax.swing.SwingUtilities;
 public class DialogDetailImport extends javax.swing.JPanel {
 
     private List<SupplierDTO> supplierList = new ArrayList<>();
-    private int currentBillId; // Biến để lưu trữ mã bill hiện tại
+    private long currentBillId; // Biến để lưu trữ mã bill hiện tại
     // Thêm biến instance để lưu trữ chỉ mục của dòng được chọn trong JTable
     private int selectedRowIndex = -1;
     private List<IngredientsDTO> ingredientsList = new ArrayList<>();
@@ -44,7 +45,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
     public DialogDetailImport() throws Exception {
         initComponents();
        
-        currentBillId = (int) System.currentTimeMillis();
+        currentBillId = System.currentTimeMillis();
         initComboBox();
         initComboBoxSupplier();
     }
@@ -75,6 +76,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -110,6 +112,11 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jComboBox2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jComboBox2.setMaximumSize(new java.awt.Dimension(120, 30));
         jComboBox2.setPreferredSize(new java.awt.Dimension(120, 30));
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
         jPanel1.add(jComboBox2);
 
         jPanel4.setMaximumSize(new java.awt.Dimension(20, 16));
@@ -162,6 +169,10 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jTextField2.setMaximumSize(new java.awt.Dimension(120, 30));
         jTextField2.setPreferredSize(new java.awt.Dimension(120, 30));
         jPanel1.add(jTextField2);
+
+        jPanel7.setMaximumSize(new java.awt.Dimension(20, 16));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jPanel7);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -252,6 +263,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
     }
 
     public void initComboBoxSupplier() {
+        jComboBox2.addItem("");
         supplierList = new SupplierBUS().getAllData();
         for (SupplierDTO x : supplierList) {
             jComboBox2.addItem(x.getName());
@@ -287,7 +299,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
 
             // Tạo một đối tượng DetailImportBillDTO mới
             DetailImportBillDTO detail = new DetailImportBillDTO();
-            detail.setId((int) id);
+            detail.setId(id);
             detail.setQuantity(quantity);
             detail.setPrice(price);
             detail.setTotal(total);
@@ -373,6 +385,12 @@ public class DialogDetailImport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            System.out.println("lalala");
+        }
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
+
     // Thêm phương thức dispose vào JDialog
     private void dispose() {
         Window window = SwingUtilities.getWindowAncestor(this);
@@ -407,6 +425,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel4;
     public javax.swing.JPanel jPanel5;
     public javax.swing.JPanel jPanel6;
+    public javax.swing.JPanel jPanel7;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTable2;
     public javax.swing.JTextField jTextField1;
