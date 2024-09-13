@@ -60,23 +60,18 @@ public class DialogDetailImport extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel18 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel23 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jPanel4 = new javax.swing.JPanel();
+        cbxSuplier = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jPanel21 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel22 = new javax.swing.JPanel();
+        cbxIngre = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jPanel19 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
+        txtQuantity = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPanel20 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jPanel7 = new javax.swing.JPanel();
+        txtPrice = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -95,84 +90,64 @@ public class DialogDetailImport extends javax.swing.JPanel {
 
         jPanel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel18.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel18);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel6.setText("Nhà cung cấp");
-        jPanel1.add(jLabel6);
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 30, -1, -1));
 
-        jPanel23.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel23);
-
-        jComboBox2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jComboBox2.setMaximumSize(new java.awt.Dimension(120, 30));
-        jComboBox2.setPreferredSize(new java.awt.Dimension(120, 30));
-        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+        cbxSuplier.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        cbxSuplier.setMaximumSize(new java.awt.Dimension(120, 30));
+        cbxSuplier.setPreferredSize(new java.awt.Dimension(120, 30));
+        cbxSuplier.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox2ItemStateChanged(evt);
+                cbxSuplierItemStateChanged(evt);
             }
         });
-        jPanel1.add(jComboBox2);
-
-        jPanel4.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel4.setLayout(new java.awt.BorderLayout());
-        jPanel1.add(jPanel4);
+        jPanel1.add(cbxSuplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 23, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel5.setText("Nguyên liệu");
-        jPanel1.add(jLabel5);
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 30, -1, -1));
 
-        jPanel21.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel21);
-
-        jComboBox1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jComboBox1.setMaximumSize(new java.awt.Dimension(120, 30));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel1.add(jComboBox1);
-
-        jPanel22.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel22);
+        cbxIngre.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        cbxIngre.setMaximumSize(new java.awt.Dimension(120, 30));
+        cbxIngre.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel1.add(cbxIngre, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 23, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel1.setText("Số lượng");
-        jPanel1.add(jLabel1);
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 30, -1, -1));
 
-        jPanel19.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel19);
-
-        jTextField1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTextField1.setMaximumSize(new java.awt.Dimension(120, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel1.add(jTextField1);
-
-        jPanel3.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel3);
+        txtQuantity.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtQuantity.setMaximumSize(new java.awt.Dimension(120, 30));
+        txtQuantity.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel1.add(txtQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 24, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel3.setText("Giá nhập");
-        jPanel1.add(jLabel3);
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
 
-        jPanel20.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel20);
+        txtPrice.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtPrice.setMaximumSize(new java.awt.Dimension(120, 30));
+        txtPrice.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel1.add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(784, 24, -1, -1));
 
-        jTextField2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTextField2.setMaximumSize(new java.awt.Dimension(120, 30));
-        jTextField2.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel1.add(jTextField2);
+        jLabel2.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        jLabel2.setText("Số lượng tồn kho");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 66, -1, -1));
 
-        jPanel7.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel7);
+        jLabel4.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        jLabel4.setText("Giá đang bán");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(686, 66, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        jLabel7.setText("0");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 66, 96, -1));
+
+        jLabel8.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        jLabel8.setText("0");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(784, 66, 120, -1));
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -258,30 +233,30 @@ public class DialogDetailImport extends javax.swing.JPanel {
     public void initComboBox() {
         ingredientsList = new IngredientsBUS().getAllActiveIngredients();
         for (IngredientsDTO x : ingredientsList) {
-            jComboBox1.addItem(x.getName());
+            cbxIngre.addItem(x.getName());
         }
     }
 
     public void initComboBoxSupplier() {
-        jComboBox2.addItem("");
+        cbxSuplier.addItem("");
         supplierList = new SupplierBUS().getAllData();
         for (SupplierDTO x : supplierList) {
-            jComboBox2.addItem(x.getName());
+            cbxSuplier.addItem(x.getName());
         }
     }
 
     // nút thêm
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Kiểm tra xem các trường text field có trống không
-        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()) {
+        if (txtQuantity.getText().isEmpty() || txtPrice.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return; // Thoát khỏi phương thức nếu có trường trống
         }
 
         try {
             // Lấy giá trị từ các text field
-            int quantity = Integer.parseInt(jTextField1.getText());
-            long price = Long.parseLong(jTextField2.getText());
+            int quantity = Integer.parseInt(txtQuantity.getText());
+            long price = Long.parseLong(txtPrice.getText());
             // Kiểm tra điều kiện số lượng không được bé hơn hoặc bằng 0
             if (quantity <= 0) {
                 JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
@@ -304,18 +279,18 @@ public class DialogDetailImport extends javax.swing.JPanel {
             detail.setPrice(price);
             detail.setTotal(total);
             detail.setBillid(currentBillId); // Sử dụng mã Bill hiện tại
-            detail.setIngredientid(ingredientsList.get(jComboBox1.getSelectedIndex()).getId());
+            detail.setIngredientid(ingredientsList.get(cbxIngre.getSelectedIndex()).getId());
 
             // Thêm dòng dữ liệu vào JTable1
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            model.addRow(new Object[]{detail.getId(), detail.getQuantity(), detail.getPrice(), detail.getTotal(), detail.getBillid(), ingredientsList.get(jComboBox1.getSelectedIndex()).getName()});
+            model.addRow(new Object[]{detail.getId(), detail.getQuantity(), detail.getPrice(), detail.getTotal(), detail.getBillid(), ingredientsList.get(cbxIngre.getSelectedIndex()).getName()});
 
             // Thông báo thêm thành công
             JOptionPane.showMessageDialog(this, "Thêm thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
             // Reset các text field sau khi thêm thành công
-            jTextField1.setText("");
-            jTextField2.setText("");
+            txtQuantity.setText("");
+            txtPrice.setText("");
         } catch (NumberFormatException ex) {
             // Xử lý nếu người dùng nhập không đúng định dạng số
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số vào các trường số lượng, giá và mã nguyên liệu.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
@@ -323,7 +298,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
             // Xử lý nếu có lỗi khi thêm dữ liệu
             JOptionPane.showMessageDialog(this, "Lỗi khi thêm dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println(ingredientsList.get(jComboBox1.getSelectedIndex()).getId());
+        System.out.println(ingredientsList.get(cbxIngre.getSelectedIndex()).getId());
     }//GEN-LAST:event_jButton1ActionPerformed
     // nút xóa
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -375,7 +350,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
                 }
 
                 // Thêm dữ liệu vào cơ sở dữ liệu thông qua BUS
-                DetailImportBillBUS.insertImportBill(currentBillId, totalQuantity, totalAmount, supplierList.get(jComboBox2.getSelectedIndex()).getId(), model, ingredientIdsArray);
+                DetailImportBillBUS.insertImportBill(currentBillId, totalQuantity, totalAmount, supplierList.get(cbxSuplier.getSelectedIndex()).getId(), model, ingredientIdsArray);
                 JOptionPane.showMessageDialog(this, "Thêm thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
                 dispose(); // Đóng dialog sau khi thêm dữ liệu thành công
@@ -385,11 +360,11 @@ public class DialogDetailImport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+    private void cbxSuplierItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxSuplierItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             System.out.println("lalala");
         }
-    }//GEN-LAST:event_jComboBox2ItemStateChanged
+    }//GEN-LAST:event_cbxSuplierItemStateChanged
 
     // Thêm phương thức dispose vào JDialog
     private void dispose() {
@@ -401,35 +376,30 @@ public class DialogDetailImport extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JComboBox<String> cbxIngre;
+    public javax.swing.JComboBox<String> cbxSuplier;
     public javax.swing.JButton jButton1;
     public javax.swing.JButton jButton3;
     public javax.swing.JButton jButton4;
-    public javax.swing.JComboBox<String> jComboBox1;
-    public javax.swing.JComboBox<String> jComboBox2;
     public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel6;
+    public javax.swing.JLabel jLabel7;
+    public javax.swing.JLabel jLabel8;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel13;
-    public javax.swing.JPanel jPanel18;
-    public javax.swing.JPanel jPanel19;
     public javax.swing.JPanel jPanel2;
-    public javax.swing.JPanel jPanel20;
-    public javax.swing.JPanel jPanel21;
-    public javax.swing.JPanel jPanel22;
-    public javax.swing.JPanel jPanel23;
     public javax.swing.JPanel jPanel25;
     public javax.swing.JPanel jPanel26;
-    public javax.swing.JPanel jPanel3;
-    public javax.swing.JPanel jPanel4;
     public javax.swing.JPanel jPanel5;
     public javax.swing.JPanel jPanel6;
-    public javax.swing.JPanel jPanel7;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTable2;
-    public javax.swing.JTextField jTextField1;
-    public javax.swing.JTextField jTextField2;
+    public javax.swing.JTextField txtPrice;
+    public javax.swing.JTextField txtQuantity;
     // End of variables declaration//GEN-END:variables
 
     private boolean isBillIdExists(int billId) {
