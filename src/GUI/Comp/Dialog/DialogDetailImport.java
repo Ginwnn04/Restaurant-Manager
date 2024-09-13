@@ -43,6 +43,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
 
     public DialogDetailImport() throws Exception {
         initComponents();
+       
         currentBillId = (int) System.currentTimeMillis();
         initComboBox();
         initComboBoxSupplier();
@@ -59,6 +60,14 @@ public class DialogDetailImport extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel23 = new javax.swing.JPanel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel22 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -66,35 +75,21 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel21 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel22 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel23 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel16 = new javax.swing.JPanel();
-        jPanel17 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jPanel26 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
 
         setMaximumSize(new java.awt.Dimension(810, 430));
         setPreferredSize(new java.awt.Dimension(810, 430));
-        setLayout(new java.awt.BorderLayout(30, 0));
+        setLayout(new java.awt.BorderLayout(10, 0));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -104,35 +99,18 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel18);
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel1.setText("số lượng");
-        jPanel1.add(jLabel1);
+        jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel6.setText("Nhà cung cấp");
+        jPanel1.add(jLabel6);
 
-        jPanel19.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel19);
+        jPanel23.setMaximumSize(new java.awt.Dimension(20, 16));
+        jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jPanel23);
 
-        jTextField1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTextField1.setMaximumSize(new java.awt.Dimension(72, 20));
-        jTextField1.setPreferredSize(new java.awt.Dimension(72, 16));
-        jPanel1.add(jTextField1);
-
-        jPanel3.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel3);
-
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel3.setText("giá mỗi kg/lít");
-        jPanel1.add(jLabel3);
-
-        jPanel20.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel20);
-
-        jTextField2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTextField2.setMaximumSize(new java.awt.Dimension(72, 20));
-        jTextField2.setPreferredSize(new java.awt.Dimension(72, 16));
-        jPanel1.add(jTextField2);
+        jComboBox2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jComboBox2.setMaximumSize(new java.awt.Dimension(120, 30));
+        jComboBox2.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel1.add(jComboBox2);
 
         jPanel4.setMaximumSize(new java.awt.Dimension(20, 16));
         jPanel4.setLayout(new java.awt.BorderLayout());
@@ -147,105 +125,95 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jPanel1.add(jPanel21);
 
         jComboBox1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jComboBox1.setMaximumSize(new java.awt.Dimension(90, 20));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(90, 20));
+        jComboBox1.setMaximumSize(new java.awt.Dimension(120, 30));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(120, 30));
         jPanel1.add(jComboBox1);
 
         jPanel22.setMaximumSize(new java.awt.Dimension(20, 16));
         jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel22);
 
-        jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel6.setText("Nhà cung cấp");
-        jPanel1.add(jLabel6);
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel1.setText("Số lượng");
+        jPanel1.add(jLabel1);
 
-        jPanel23.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel23);
+        jPanel19.setMaximumSize(new java.awt.Dimension(20, 16));
+        jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jPanel19);
 
-        jComboBox2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jComboBox2.setMaximumSize(new java.awt.Dimension(90, 20));
-        jComboBox2.setPreferredSize(new java.awt.Dimension(90, 20));
-        jPanel1.add(jComboBox2);
+        jTextField1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextField1.setMaximumSize(new java.awt.Dimension(120, 30));
+        jTextField1.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel1.add(jTextField1);
+
+        jPanel3.setMaximumSize(new java.awt.Dimension(20, 16));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jPanel3);
+
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel3.setText("Giá nhập");
+        jPanel1.add(jLabel3);
+
+        jPanel20.setMaximumSize(new java.awt.Dimension(20, 16));
+        jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jPanel20);
+
+        jTextField2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextField2.setMaximumSize(new java.awt.Dimension(120, 30));
+        jTextField2.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel1.add(jTextField2);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setMaximumSize(new java.awt.Dimension(100, 100));
-        jPanel2.setPreferredSize(new java.awt.Dimension(100, 100));
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
+        jPanel2.setPreferredSize(new java.awt.Dimension(120, 100));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jPanel25.setPreferredSize(new java.awt.Dimension(100, 200));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0);
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel25.setLayout(flowLayout1);
+
+        jButton1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         jButton1.setText("Thêm");
+        jButton1.setMaximumSize(new java.awt.Dimension(89, 35));
+        jButton1.setPreferredSize(new java.awt.Dimension(89, 35));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
+        jPanel25.add(jButton1);
 
-        jPanel12.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel12.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel12);
+        jPanel5.setPreferredSize(new java.awt.Dimension(50, 25));
+        jPanel25.add(jPanel5);
 
-        jButton3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         jButton3.setText("Xóa");
+        jButton3.setMaximumSize(new java.awt.Dimension(89, 35));
+        jButton3.setPreferredSize(new java.awt.Dimension(89, 35));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3);
+        jPanel25.add(jButton3);
 
-        jPanel5.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel5.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(jPanel25, java.awt.BorderLayout.PAGE_START);
 
-        jPanel8.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel8.setLayout(new java.awt.BorderLayout());
-        jPanel5.add(jPanel8, java.awt.BorderLayout.CENTER);
-
-        jPanel2.add(jPanel5);
-
-        jPanel7.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel7.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel7);
-
-        jPanel9.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel9.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel9);
-
-        jPanel10.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel10.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel10);
-
-        jPanel11.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel11.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel11);
-
-        jPanel14.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel14.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel14);
-
-        jPanel15.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel15.setLayout(new java.awt.BorderLayout());
-
-        jPanel16.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel16.setLayout(new java.awt.BorderLayout());
-        jPanel15.add(jPanel16, java.awt.BorderLayout.CENTER);
-
-        jPanel2.add(jPanel15);
-
-        jPanel17.setMaximumSize(new java.awt.Dimension(20, 16));
-        jPanel17.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel17);
-
-        jButton4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         jButton4.setText("Xác nhận");
+        jButton4.setMargin(new java.awt.Insets(2, 5, 3, 5));
+        jButton4.setMaximumSize(new java.awt.Dimension(89, 100));
+        jButton4.setPreferredSize(new java.awt.Dimension(89, 100));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4);
+        jPanel26.add(jButton4);
+
+        jPanel2.add(jPanel26, java.awt.BorderLayout.PAGE_END);
 
         add(jPanel2, java.awt.BorderLayout.LINE_END);
 
@@ -268,6 +236,12 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTable2);
 
         add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel6.setPreferredSize(new java.awt.Dimension(5, 100));
+        add(jPanel6, java.awt.BorderLayout.LINE_START);
+
+        jPanel13.setPreferredSize(new java.awt.Dimension(100, 15));
+        add(jPanel13, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     public void initComboBox() {
@@ -419,13 +393,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel6;
     public javax.swing.JPanel jPanel1;
-    public javax.swing.JPanel jPanel10;
-    public javax.swing.JPanel jPanel11;
-    public javax.swing.JPanel jPanel12;
-    public javax.swing.JPanel jPanel14;
-    public javax.swing.JPanel jPanel15;
-    public javax.swing.JPanel jPanel16;
-    public javax.swing.JPanel jPanel17;
+    public javax.swing.JPanel jPanel13;
     public javax.swing.JPanel jPanel18;
     public javax.swing.JPanel jPanel19;
     public javax.swing.JPanel jPanel2;
@@ -433,12 +401,12 @@ public class DialogDetailImport extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel21;
     public javax.swing.JPanel jPanel22;
     public javax.swing.JPanel jPanel23;
+    public javax.swing.JPanel jPanel25;
+    public javax.swing.JPanel jPanel26;
     public javax.swing.JPanel jPanel3;
     public javax.swing.JPanel jPanel4;
     public javax.swing.JPanel jPanel5;
-    public javax.swing.JPanel jPanel7;
-    public javax.swing.JPanel jPanel8;
-    public javax.swing.JPanel jPanel9;
+    public javax.swing.JPanel jPanel6;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTable2;
     public javax.swing.JTextField jTextField1;

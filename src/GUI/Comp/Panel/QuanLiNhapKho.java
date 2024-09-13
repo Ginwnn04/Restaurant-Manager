@@ -422,7 +422,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
             dialog.getContentPane().add(dialogPanel);
 
             // Thiết lập thuộc tính cho JDialog
-            dialog.setSize(800, 600); // Thiết lập kích thước
+            dialog.setSize(1120, 650); // Thiết lập kích thước
             dialog.setLocationRelativeTo(this); // Hiển thị JDialog ở giữa cửa sổ cha
             dialog.setModal(true); // Thiết lập JDialog là modal để chặn tương tác với các thành phần khác trong cửa sổ cha
             dialog.setVisible(true); // Hiển thị JDialog
