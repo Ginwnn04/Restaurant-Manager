@@ -70,6 +70,7 @@ import javax.swing.table.TableRowSorter;
 import GUI.Comp.DateChooser.DateChooser;
 import GUI.Comp.DateChooser.SelectedDate;
 import GUI.Comp.Dialog.DialogDetailImport;
+import GUI.Comp.Dialog.DialogDetailsImportBill;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ItemEvent;
 import java.util.Calendar;
@@ -117,11 +118,11 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         panelBackground6 = new GUI.Comp.Swing.PanelBackground();
         panelBackground7 = new GUI.Comp.Swing.PanelBackground();
         jPanel8 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnChiTiet = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
@@ -165,44 +166,44 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         jPanel8.setMaximumSize(new java.awt.Dimension(20, 23));
         panelBackground7.add(jPanel8);
 
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton1.setText("Thêm");
-        jButton1.setMaximumSize(new java.awt.Dimension(84, 40));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setMaximumSize(new java.awt.Dimension(84, 40));
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        panelBackground7.add(jButton1);
+        panelBackground7.add(btnThem);
 
         jPanel2.setBackground(new java.awt.Color(35, 35, 35));
         jPanel2.setMaximumSize(new java.awt.Dimension(20, 23));
         panelBackground7.add(jPanel2);
 
-        jButton4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton4.setText("Chi tiết");
-        jButton4.setMaximumSize(new java.awt.Dimension(84, 40));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnChiTiet.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnChiTiet.setText("Chi tiết");
+        btnChiTiet.setMaximumSize(new java.awt.Dimension(84, 40));
+        btnChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnChiTietActionPerformed(evt);
             }
         });
-        panelBackground7.add(jButton4);
+        panelBackground7.add(btnChiTiet);
 
         jPanel7.setBackground(new java.awt.Color(35, 35, 35));
         jPanel7.setMaximumSize(new java.awt.Dimension(20, 23));
         panelBackground7.add(jPanel7);
 
-        jButton3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton3.setText("Xóa");
-        jButton3.setMaximumSize(new java.awt.Dimension(72, 40));
-        jButton3.setPreferredSize(new java.awt.Dimension(72, 40));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.setMaximumSize(new java.awt.Dimension(72, 40));
+        btnXoa.setPreferredSize(new java.awt.Dimension(72, 40));
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
-        panelBackground7.add(jButton3);
+        panelBackground7.add(btnXoa);
 
         jPanel4.setBackground(new java.awt.Color(35, 35, 35));
         jPanel4.setMaximumSize(new java.awt.Dimension(20, 23));
@@ -367,7 +368,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
     // Lấy chỉ số của dòng được chọn trong JTable
     int selectedRowIndex = tbImportBill.getSelectedRow();
 
@@ -395,7 +396,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         // Hiển thị thông báo nếu không có dòng nào được chọn
         JOptionPane.showMessageDialog(null, "Vui lòng chọn một dòng để xóa.");
     }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
     // Lấy ngày được nhập vào từ text field
@@ -425,7 +426,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     }
     }//GEN-LAST:event_jTextField1KeyReleased
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         try {
             // Tạo một JDialog mới
             JDialog dialog = new JDialog();
@@ -450,66 +451,18 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(QuanLiNhapKho.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         int selectedRow = tbImportBill.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xem chi tiết.");
             return;
         }
-        long selectedBillId = (long) tbImportBill.getValueAt(selectedRow, 0);
-        StringBuilder detailInfo = new StringBuilder();
-        try {
-            // Lấy chi tiết hóa đơn từ BUS
-            DetailImportBillBUS detailImportBillBUS = new DetailImportBillBUS();
-            ArrayList<DetailImportBillDTO> importBillDetails = detailImportBillBUS.getDetailImportBillByBillId(selectedBillId);
-
-            // Kiểm tra nếu không có chi tiết nào cho hóa đơn này
-            if (importBillDetails.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Không có chi tiết nào cho hóa đơn này.");
-                return;
-            }
-
-            // Lấy thông tin nhà cung cấp từ BUS
-            long supplierId = (long) tbImportBill.getValueAt(selectedRow, 5);
-            SupplierDTO supplier = detailImportBillBUS.getSupplierById(supplierId);
-            if (supplier != null) {
-                detailInfo.append("Thông tin nhà cung cấp:\n");
-                detailInfo.append("ID: ").append(supplier.getId()).append("\n");
-                detailInfo.append("Tên: ").append(supplier.getName()).append("\n");
-                detailInfo.append("Địa chỉ: ").append(supplier.getAddress()).append("\n");
-                detailInfo.append("Số điện thoại: ").append(supplier.getPhone()).append("\n\n");
-            }
-
-            // Thêm thông tin chi tiết hóa đơn vào StringBuilder
-            detailInfo.append("Chi tiết nhập hàng cho hóa đơn có ID: ").append(selectedBillId).append("\n\n");
-            for (DetailImportBillDTO importBillDetail : importBillDetails) {
-                detailInfo.append("ID chi tiết: ").append(importBillDetail.getId()).append("\n");
-                detailInfo.append("Số lượng: ").append(importBillDetail.getQuantity()).append("\n");
-                detailInfo.append("Giá tiền mỗi kg/lít: ").append(importBillDetail.getPrice()).append("\n");
-                detailInfo.append("Tổng tiền: ").append(importBillDetail.getTotal()).append("\n");
-                detailInfo.append("ID nguyên liệu: ").append(importBillDetail.getIngredientid()).append("\n");
-
-                // Lấy tên nguyên liệu từ BUS
-                try {
-                    String ingredientName = detailImportBillBUS.getIngredientNameById(importBillDetail.getIngredientid());
-                    detailInfo.append("Tên nguyên liệu: ").append(ingredientName).append("\n");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    detailInfo.append("Không thể lấy tên nguyên liệu cho ID ").append(importBillDetail.getIngredientid()).append("\n");
-                }
-                detailInfo.append("\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi tải chi tiết nhập hàng.");
-            return;
-        }
-        // Hiển thị dialog chi tiết hóa đơn
-        BillDetailDialog dialog = new BillDetailDialog((JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), "Chi tiết hóa đơn", detailInfo.toString());
-        dialog.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+        DialogDetailsImportBill dialogDetailImport = new DialogDetailsImportBill(null, true);
+        dialogDetailImport.setVisible(true);
+        
+    }//GEN-LAST:event_btnChiTietActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         int selectedRow = tbImportBill.getSelectedRow();
@@ -794,10 +747,10 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton jButton1;
+    public javax.swing.JButton btnChiTiet;
+    public javax.swing.JButton btnThem;
+    public javax.swing.JButton btnXoa;
     public javax.swing.JButton jButton2;
-    public javax.swing.JButton jButton3;
-    public javax.swing.JButton jButton4;
     public javax.swing.JButton jButton6;
     public javax.swing.JButton jButton8;
     public javax.swing.JPanel jPanel1;
