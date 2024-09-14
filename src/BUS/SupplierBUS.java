@@ -20,6 +20,11 @@ public class SupplierBUS {
         }
     }
     
+    public SupplierDTO getSupplierById(long id) {
+        return supplierDAO.getSupplierById(id);
+    }
+    
+    
     public boolean insertSupplier(SupplierDTO supplier) {
         try {
             return supplierDAO.insertSupplierData(supplier);

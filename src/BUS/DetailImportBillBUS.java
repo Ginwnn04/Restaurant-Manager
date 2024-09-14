@@ -33,16 +33,16 @@ public class DetailImportBillBUS {
     }
 
     public String getIngredientNameById(long ingredientId){
-        DetailImportBillDAO detailImportBillDAO = new DetailImportBillDAO();
         return detailImportBillDAO.getIngredientNameById(ingredientId);
     }
     public DetailImportBillBUS() {
         this.detailImportBillDAO = new DetailImportBillDAO();
     }
 
-    public void addDetailImportBill(long detailId, int quantity, double price, double total, int billId, int ingredientId) {
-        detailImportBillDAO.addDetailImportBill(detailId, quantity, price, total, billId, ingredientId);
+    public boolean addDetailImportBill(DetailImportBillDTO detail) {
+        return detailImportBillDAO.addDetailImportBill(detail);
     }
+    
     public static void deleteDetailImportBill(Long importBillId) {
         DetailImportBillDAO.deleteDetailImportBill(importBillId);
     }

@@ -38,6 +38,33 @@ public class StaffDAO {
         }
         return list;
     }
+    
+    public StaffDTO getStaffById(long id) {
+        StaffDTO staff = new StaffDTO();
+        String query = "SELECT * FROM tb_staff WHERE isdeleted = false AND id = ?";
+        try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+            pstm.setLong(1, id);
+            ResultSet rs = pstm.executeQuery();
+            if(rs.next()) {
+                staff.setId(rs.getLong("id"));
+                staff.setUsername(rs.getString("username"));
+                staff.setPassword(rs.getString("password"));
+                staff.setEmail(rs.getString("email"));
+                staff.setPhone(rs.getString("phone"));
+                staff.setAddress(rs.getString("address"));
+                staff.setisDeleted(rs.getBoolean("isdeleted"));
+                staff.setRoleId(rs.getString("roleid"));
+                staff.setCreateTime(rs.getDate("create_time"));
+                staff.setUpdateTime(rs.getDate("update_time"));
+                staff.setFirst_name(rs.getString("first_name"));
+                staff.setLast_name(rs.getString("last_name"));
+              
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return staff;
+    }
 
     public String[] getRoleIDs() {
         ArrayList<String> roleList = new ArrayList<>();

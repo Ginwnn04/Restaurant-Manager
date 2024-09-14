@@ -6,9 +6,11 @@ package GUI.Comp.Dialog;
 
 import static BUS.ConnectDB.openConnect;
 import BUS.DetailImportBillBUS;
+import BUS.ImportBillBUS;
 import BUS.IngredientsBUS;
 import BUS.SupplierBUS;
 import DTO.DetailImportBillDTO;
+import DTO.ImportBillDTO;
 import DTO.IngredientsDTO;
 import DTO.StaffDTO;
 import DTO.SupplierDTO;
@@ -23,11 +25,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -37,15 +42,27 @@ import javax.swing.SwingUtilities;
 public class DialogDetailImport extends javax.swing.JPanel {
 
     private List<SupplierDTO> supplierList = new ArrayList<>();
-    private long currentBillId; // Biến để lưu trữ mã bill hiện tại
+    private ImportBillDTO importBill = new ImportBillDTO();
     // Thêm biến instance để lưu trữ chỉ mục của dòng được chọn trong JTable
     private int selectedRowIndex = -1;
+    private double totalPrice = 0;
     private List<IngredientsDTO> ingredientsList = new ArrayList<>();
-
-    public DialogDetailImport() throws Exception {
+    private List<DetailImportBillDTO> detailImportBillList = new ArrayList<>();
+    private IngredientsBUS ingredientsBUS = new IngredientsBUS();
+    private DefaultTableModel model = new DefaultTableModel();
+    
+    private DetailImportBillBUS detailImportBillBUS = new DetailImportBillBUS();
+    private ImportBillBUS importBillBUS = new ImportBillBUS();
+    
+    
+    
+    public DialogDetailImport() {
         initComponents();
        
-        currentBillId = System.currentTimeMillis();
+        importBill.setId(System.currentTimeMillis());
+        tbDetails.setRowHeight(35);
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbDetails.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(JLabel.LEFT);
         initComboBox();
         initComboBoxSupplier();
     }
@@ -74,13 +91,13 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         jPanel26 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnXacNhan = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbDetails = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
 
@@ -99,11 +116,6 @@ public class DialogDetailImport extends javax.swing.JPanel {
         cbxSuplier.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         cbxSuplier.setMaximumSize(new java.awt.Dimension(120, 30));
         cbxSuplier.setPreferredSize(new java.awt.Dimension(120, 30));
-        cbxSuplier.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbxSuplierItemStateChanged(evt);
-            }
-        });
         jPanel1.add(cbxSuplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 23, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -160,66 +172,71 @@ public class DialogDetailImport extends javax.swing.JPanel {
         flowLayout1.setAlignOnBaseline(true);
         jPanel25.setLayout(flowLayout1);
 
-        jButton1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton1.setText("Thêm");
-        jButton1.setMaximumSize(new java.awt.Dimension(89, 35));
-        jButton1.setPreferredSize(new java.awt.Dimension(89, 35));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setMaximumSize(new java.awt.Dimension(89, 35));
+        btnThem.setPreferredSize(new java.awt.Dimension(89, 35));
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        jPanel25.add(jButton1);
+        jPanel25.add(btnThem);
 
         jPanel5.setPreferredSize(new java.awt.Dimension(50, 25));
         jPanel25.add(jPanel5);
 
-        jButton3.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton3.setText("Xóa");
-        jButton3.setMaximumSize(new java.awt.Dimension(89, 35));
-        jButton3.setPreferredSize(new java.awt.Dimension(89, 35));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.setMaximumSize(new java.awt.Dimension(89, 35));
+        btnXoa.setPreferredSize(new java.awt.Dimension(89, 35));
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
-        jPanel25.add(jButton3);
+        jPanel25.add(btnXoa);
 
         jPanel2.add(jPanel25, java.awt.BorderLayout.PAGE_START);
 
-        jButton4.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton4.setText("Xác nhận");
-        jButton4.setMargin(new java.awt.Insets(2, 5, 3, 5));
-        jButton4.setMaximumSize(new java.awt.Dimension(89, 100));
-        jButton4.setPreferredSize(new java.awt.Dimension(89, 100));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnXacNhan.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.setMargin(new java.awt.Insets(2, 5, 3, 5));
+        btnXacNhan.setMaximumSize(new java.awt.Dimension(89, 100));
+        btnXacNhan.setPreferredSize(new java.awt.Dimension(89, 100));
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnXacNhanActionPerformed(evt);
             }
         });
-        jPanel26.add(jButton4);
+        jPanel26.add(btnXacNhan);
 
         jPanel2.add(jPanel26, java.awt.BorderLayout.PAGE_END);
 
         add(jPanel2, java.awt.BorderLayout.LINE_END);
 
-        jTable2.setBackground(new java.awt.Color(35, 35, 35));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbDetails.setBackground(new java.awt.Color(35, 35, 35));
+        tbDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
             },
             new String [] {
-                "ID", "số lượng", "giá mỗi kg/lít", "tổng tiền", "Bill ID", "Tên nguyên liệu"
+                "Mã chi tiết", "Tên nguyên liệu", "Giá nhập", "Số lượng", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Integer.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        tbDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDetailsMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbDetails);
 
         add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -230,6 +247,17 @@ public class DialogDetailImport extends javax.swing.JPanel {
         add(jPanel13, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void render() {
+        model = (DefaultTableModel) tbDetails.getModel();
+        model.setRowCount(0);
+        for (DetailImportBillDTO x : detailImportBillList) {
+            totalPrice += x.getTotal();
+            model.addRow(new Object[]{x.getId(), ingredientsBUS.getIngredientById(x.getIngredientid()).getName(), x.getPrice(), x.getQuantity(), x.getTotal()});
+        }
+        model.fireTableDataChanged();
+        tbDetails.setModel(model);
+    }
+    
     public void initComboBox() {
         ingredientsList = new IngredientsBUS().getAllActiveIngredients();
         for (IngredientsDTO x : ingredientsList) {
@@ -238,7 +266,6 @@ public class DialogDetailImport extends javax.swing.JPanel {
     }
 
     public void initComboBoxSupplier() {
-        cbxSuplier.addItem("");
         supplierList = new SupplierBUS().getAllData();
         for (SupplierDTO x : supplierList) {
             cbxSuplier.addItem(x.getName());
@@ -246,13 +273,12 @@ public class DialogDetailImport extends javax.swing.JPanel {
     }
 
     // nút thêm
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // Kiểm tra xem các trường text field có trống không
         if (txtQuantity.getText().isEmpty() || txtPrice.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return; // Thoát khỏi phương thức nếu có trường trống
         }
-
         try {
             // Lấy giá trị từ các text field
             int quantity = Integer.parseInt(txtQuantity.getText());
@@ -278,19 +304,20 @@ public class DialogDetailImport extends javax.swing.JPanel {
             detail.setQuantity(quantity);
             detail.setPrice(price);
             detail.setTotal(total);
-            detail.setBillid(currentBillId); // Sử dụng mã Bill hiện tại
+            detail.setBillid(importBill.getId()); // Sử dụng mã Bill hiện tại
             detail.setIngredientid(ingredientsList.get(cbxIngre.getSelectedIndex()).getId());
+            detailImportBillList.add(detail);
 
-            // Thêm dòng dữ liệu vào JTable1
-            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            model.addRow(new Object[]{detail.getId(), detail.getQuantity(), detail.getPrice(), detail.getTotal(), detail.getBillid(), ingredientsList.get(cbxIngre.getSelectedIndex()).getName()});
 
             // Thông báo thêm thành công
             JOptionPane.showMessageDialog(this, "Thêm thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
+            render();
             // Reset các text field sau khi thêm thành công
             txtQuantity.setText("");
             txtPrice.setText("");
+            if (detailImportBillList.size() > 0) {
+                cbxSuplier.setEnabled(false);
+            }
         } catch (NumberFormatException ex) {
             // Xử lý nếu người dùng nhập không đúng định dạng số
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số vào các trường số lượng, giá và mã nguyên liệu.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
@@ -298,73 +325,60 @@ public class DialogDetailImport extends javax.swing.JPanel {
             // Xử lý nếu có lỗi khi thêm dữ liệu
             JOptionPane.showMessageDialog(this, "Lỗi khi thêm dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println(ingredientsList.get(cbxIngre.getSelectedIndex()).getId());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
     // nút xóa
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // Kiểm tra xem có dòng nào được chọn không
-        if (jTable2.getSelectedRow() == -1) {
+        if (selectedRowIndex == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // Lấy chỉ mục của dòng được chọn
-        int selectedRow = jTable2.getSelectedRow();
-
-        // Xóa dòng được chọn khỏi JTable
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        model.removeRow(selectedRow);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        detailImportBillList.remove(selectedRowIndex);
+        JOptionPane.showMessageDialog(this, "Xoá thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        render();
+        selectedRowIndex = -1;
+        if (detailImportBillList.size() == 0) {
+            cbxSuplier.setEnabled(true);
+        }
+     
+       
+    }//GEN-LAST:event_btnXoaActionPerformed
     // nút xác nhận
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         int confirmation = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm dữ liệu?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (confirmation == JOptionPane.YES_OPTION) {
             try {
-                // Lấy số lượng dòng dữ liệu trong jTable
-                int totalQuantity = jTable2.getRowCount();
-
-                // Tính tổng tiền
-                long totalAmount = 0;
-                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-                List<Long> ingredientIds = new ArrayList<>(); // Danh sách chứa Ingredientid của các dòng
-                for (int i = 0; i < model.getRowCount(); i++) {
-                    totalAmount += (long) model.getValueAt(i, 3);
-                    // Lấy tên nguyên liệu từ cột "Tên nguyên liệu" (cột cuối cùng)
-                    String selectedIngredientName = (String) model.getValueAt(i, model.getColumnCount() - 1);
-                    int selectedIngredientIndex = -1; // Chuyển từ long sang int
-                    for (int j = 0; j < ingredientsList.size(); j++) {
-                        if (ingredientsList.get(j).getName().equals(selectedIngredientName)) {
-                            selectedIngredientIndex = j;
-                            break;
-                        }
-                    }
-                    if (selectedIngredientIndex != -1) {
-                        ingredientIds.add(ingredientsList.get(selectedIngredientIndex).getId());
-                    }
+                importBill.setQuantity(detailImportBillList.size());
+                importBill.setTotal(totalPrice);
+                importBill.setImport_date(new Date());
+                importBill.setSupplierID(supplierList.get(cbxSuplier.getSelectedIndex()).getId());
+                importBill.setUserId(StaffDTO.staffLogging.getId());
+                
+                if (!importBillBUS.addImportBill(importBill)) {
+                    JOptionPane.showConfirmDialog(this, "Nhập hàng thất bại.");
+                    return;
                 }
-
-                // Chuyển đổi danh sách ingredientIds thành mảng long[]
-                long[] ingredientIdsArray = new long[ingredientIds.size()];
-                for (int i = 0; i < ingredientIds.size(); i++) {
-                    ingredientIdsArray[i] = ingredientIds.get(i);
+                
+                for (DetailImportBillDTO x : detailImportBillList) {
+                    detailImportBillBUS.addDetailImportBill(x);
                 }
-
+                
                 // Thêm dữ liệu vào cơ sở dữ liệu thông qua BUS
-                DetailImportBillBUS.insertImportBill(currentBillId, totalQuantity, totalAmount, supplierList.get(cbxSuplier.getSelectedIndex()).getId(), model, ingredientIdsArray);
-                JOptionPane.showMessageDialog(this, "Thêm thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Nhập hàng thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
                 dispose(); // Đóng dialog sau khi thêm dữ liệu thành công
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "UserID và SupplierID phải là số nguyên.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "UserID và SupplierID phải là số nguyên dương.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnXacNhanActionPerformed
 
-    private void cbxSuplierItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxSuplierItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            System.out.println("lalala");
-        }
-    }//GEN-LAST:event_cbxSuplierItemStateChanged
+    private void tbDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetailsMouseClicked
+        selectedRowIndex = tbDetails.getSelectedRow();
+     
+    }//GEN-LAST:event_tbDetailsMouseClicked
 
     // Thêm phương thức dispose vào JDialog
     private void dispose() {
@@ -376,11 +390,11 @@ public class DialogDetailImport extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnThem;
+    public javax.swing.JButton btnXacNhan;
+    public javax.swing.JButton btnXoa;
     public javax.swing.JComboBox<String> cbxIngre;
     public javax.swing.JComboBox<String> cbxSuplier;
-    public javax.swing.JButton jButton1;
-    public javax.swing.JButton jButton3;
-    public javax.swing.JButton jButton4;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
@@ -397,7 +411,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel5;
     public javax.swing.JPanel jPanel6;
     public javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JTable jTable2;
+    public javax.swing.JTable tbDetails;
     public javax.swing.JTextField txtPrice;
     public javax.swing.JTextField txtQuantity;
     // End of variables declaration//GEN-END:variables

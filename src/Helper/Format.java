@@ -12,6 +12,6 @@ import java.text.SimpleDateFormat;
  * @author pc
  */
 public class Format {
-    public static DecimalFormat formatNumber = new DecimalFormat("###,###,###");
+   public static DecimalFormat formatNumber = new DecimalFormat("###,###,###");
    public static SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 }

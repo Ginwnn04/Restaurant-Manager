@@ -19,61 +19,58 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class ImportBillDAO {
-    public static ArrayList<Object[]> getImportBills() {
-        ArrayList<Object[]> importBillData = new ArrayList<>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-
+    
+    public static ArrayList<ImportBillDTO> getImportBills() {
+        ArrayList<ImportBillDTO> importBillList = new ArrayList<>();
         String query = "SELECT i.id, i.quantity, i.total, i.import_date, st.username AS username, s.name AS supplierName, staffid, supplierid FROM tb_import_bill AS i LEFT JOIN tb_staff AS st ON i.staffid = st.id LEFT JOIN tb_supplier AS s ON i.supplierID = s.id WHERE i.isdeleted = false";
         try (PreparedStatement ps = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                double total = rs.getDouble("total");
-                String formattedTotal = Helper.Format.formatNumber.format(total);
-                java.sql.Date importDate = rs.getDate("import_date");
-                String formattedImportDate = (importDate != null) ? dateFormat.format(importDate) : "";
-                Object[] row = {
-                    rs.getLong("id"),
-                    rs.getInt("quantity"),
-                    formattedTotal, // Format tổng tiền using FormatNumber
-                    formattedImportDate,
-                    rs.getLong("staffid"),
-                    rs.getLong("supplierid"),
-                    rs.getString("username"),
-                    rs.getString("supplierName")
-                };
-                importBillData.add(row);
+              
+                ImportBillDTO importBill = new ImportBillDTO();
+                importBill.setId(rs.getLong("id"));
+                importBill.setQuantity(rs.getInt("quantity"));
+                importBill.setTotal(rs.getLong("total"));
+                importBill.setSupplierID( rs.getLong("supplierid"));
+                importBill.setUserId(rs.getLong("staffid"));
+                importBill.setImport_date(rs.getTimestamp("import_date"));
+                importBillList.add(importBill);
+            
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        return importBillData;
+        return importBillList;
+        
     }
 
 
 
-    public void addImportBill(Connection con, int billId, int quantity, double total, Date importDate, long userId, int supplierId) {
+    public boolean addImportBill(ImportBillDTO importBill) {
         String sql = "INSERT INTO tb_import_bill (id, quantity, total, import_date, staffid, supplierid, isdeleted) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setInt(1, billId);
-            pstmt.setInt(2, quantity);
-            pstmt.setDouble(3, total);
-            pstmt.setDate(4, new java.sql.Date(importDate.getTime()));
-            pstmt.setLong(5, userId);
-            pstmt.setInt(6, supplierId);
+        try (PreparedStatement pstmt = Helper.ConnectDB.getInstance().getConnection().prepareStatement(sql)) {
+            pstmt.setLong(1, importBill.getId());
+            pstmt.setInt(2, importBill.getQuantity());
+            pstmt.setDouble(3, importBill.getTotal());
+            pstmt.setTimestamp(4, new Timestamp(importBill.getImport_date().getTime()));
+            pstmt.setLong(5, importBill.getUserId());
+            pstmt.setLong(6, importBill.getSupplierID());
             pstmt.setBoolean(7, false);
-            pstmt.executeUpdate();
+            return pstmt.executeUpdate() > 0;
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
     
     public static void deleteImportBill(Long importBillId) {

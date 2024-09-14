@@ -8,18 +8,28 @@ package DTO;
  *
  * @author Tai
  */
-import java.sql.Date;
+import java.util.Date;
+
+
 
 public class ImportBillDTO {
-    private int id;
+    private long id;
     private int quantity;
-    private float total;
+    private double total;
     private Date import_date;
     private long userId;
-    private int supplierID;
+    private long supplierID;
 
+    
+    
+    public ImportBillDTO() {
+    
+    }
+
+    
+    
     // Constructor
-    public ImportBillDTO(int id, int quantity, float total, Date import_date, long userId, int supplierID) {
+    public ImportBillDTO(long id, int quantity, double total, Date import_date, long userId, long supplierID) {
         this.id = id;
         this.quantity = quantity;
         this.total = total;
@@ -29,11 +39,11 @@ public class ImportBillDTO {
     }
 
     // Getters and Setters
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -49,7 +59,7 @@ public class ImportBillDTO {
         return total;
     }
 
-    public void setTotal(float total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
@@ -69,11 +79,11 @@ public class ImportBillDTO {
         this.userId = userId;
     }
 
-    public int getSupplierID() {
+    public long getSupplierID() {
         return supplierID;
     }
 
-    public void setSupplierID(int supplierID) {
+    public void setSupplierID(long supplierID) {
         this.supplierID = supplierID;
     }
 }

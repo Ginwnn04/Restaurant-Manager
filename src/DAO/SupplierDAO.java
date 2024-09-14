@@ -42,6 +42,25 @@ public class SupplierDAO {
 	    return list;
 	}
 
+        public SupplierDTO getSupplierById(long id) {
+	    SupplierDTO supplier = new SupplierDTO();
+	    String query = "SELECT * FROM tb_supplier WHERE isdeleted = false AND id = ?";
+	    try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+	        pstm.setLong(1, id);
+                ResultSet rs = pstm.executeQuery();
+	        if(rs.next()) {
+	            supplier.setId(rs.getInt("id"));
+	            supplier.setName(rs.getString("name"));
+	            supplier.setAddress(rs.getString("address"));
+	            supplier.setPhone(rs.getString("phone"));
+	            supplier.setIsdeleted(rs.getBoolean("isdeleted"));
+	        }
+	    } catch(SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return supplier;
+	}
+        
     
 	public boolean insertSupplierData(SupplierDTO supplier) throws HeadlessException, Exception {
 	    // Kiểm tra xem số điện thoại đã tồn tại chưa

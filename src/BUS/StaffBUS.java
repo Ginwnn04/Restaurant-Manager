@@ -12,8 +12,11 @@ public class StaffBUS {
     }
     
     public ArrayList<StaffDTO> getAllData() {
-     
         return staffDAO.readAllStaffData();
+    }
+    
+    public StaffDTO getStaffById(long id) {
+        return staffDAO.getStaffById(id);
     }
     
     public boolean insertStaff(StaffDTO staff) {

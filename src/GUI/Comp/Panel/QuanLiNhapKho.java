@@ -12,7 +12,10 @@ import BUS.ConnectDB;
 import BUS.DetailImportBillBUS;
 import BUS.ImportBillBUS;
 import BUS.IngredientsBUS;
+import BUS.StaffBUS;
+import BUS.SupplierBUS;
 import DTO.DetailImportBillDTO;
+import DTO.ImportBillDTO;
 import DTO.StaffDTO;
 import DTO.SupplierDTO;
 import GUI.Comp.Dialog.BillDetailDialog;
@@ -46,6 +49,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import Helper.Format;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -73,18 +77,27 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import java.text.SimpleDateFormat;
 import java.util.regex.PatternSyntaxException;
+import javax.swing.JLabel;
 
 /**
  *
  * @author Tai
  */
 public class QuanLiNhapKho extends javax.swing.JPanel {
+    
     private ImportBillBUS importBillBUS = new ImportBillBUS();
+    private ArrayList<ImportBillDTO> importBillList = new ArrayList<>();
+    private DefaultTableModel model = new DefaultTableModel();
+    private SupplierBUS supplierBUS = new SupplierBUS();
+    private StaffBUS staffBUS = new StaffBUS();
     
     public QuanLiNhapKho() {
         initComponents();
         loadImportBills();
         jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "dd/MM/YYYY");
+        tbImportBill.setRowHeight(35);
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbImportBill.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(JLabel.LEFT);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,7 +132,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         panelBackground8 = new GUI.Comp.Swing.PanelBackground();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbImportBill = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -257,28 +270,29 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         panelBackground8.setBackground(new java.awt.Color(35, 35, 35));
         panelBackground8.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setBackground(new java.awt.Color(35, 35, 35));
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbImportBill.setBackground(new java.awt.Color(35, 35, 35));
+        tbImportBill.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        tbImportBill.setForeground(new java.awt.Color(255, 255, 255));
+        tbImportBill.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Số loại nguyên liệu", "Tổng tiền", "Ngày nhập hàng", "ID người nhập", "ID NCC", "Tên người nhập", "Tên NCC"
+                "Mã đơn nhập", "Số loại nguyên liệu", "Tổng tiền", "Ngày nhập hàng", "Nhân viên nhập", "Nhà cung cấp"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbImportBill);
 
         panelBackground8.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -294,21 +308,19 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
 
  
     private void loadImportBills(){
-        importBillBUS.loadImportBills((DefaultTableModel) jTable1.getModel());
+        importBillList = importBillBUS.loadImportBills();
+        model = (DefaultTableModel)tbImportBill.getModel();
+        model.setRowCount(0);
+        for (ImportBillDTO x : importBillList) {
+            String nameSupplier = supplierBUS.getSupplierById(x.getSupplierID()).getName();
+            String nameStaff =  staffBUS.getStaffById(x.getUserId()).getLast_name() + " " + staffBUS.getStaffById(x.getUserId()).getFirst_name();
+            model.addRow(new Object[] {x.getId(), x.getQuantity(), Format.formatNumber.format(x.getTotal()), Format.formatDate.format(x.getImport_date()), nameStaff, nameSupplier});
+        }
+        model.fireTableDataChanged();
+        tbImportBill.setModel(model);
 
-        // Cấu hình renderer cho cột
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
-        for (int i = 0; i < jTable1.getColumnCount(); i++) {
-            TableColumnModel columnModel = jTable1.getColumnModel();
-            columnModel.getColumn(i).setCellRenderer(centerRenderer);
-
-                    // Cấu hình renderer cho header sang bên trái
-            DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer();
-            headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
-            columnModel.getColumn(i).setHeaderRenderer(headerRenderer);
     }
-}
+
 
     
     
@@ -317,9 +329,9 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         String inputDate = jTextField1.getText().trim();
 
         // Khởi tạo TableRowSorter để lọc dữ liệu trong bảng jTable
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbImportBill.getModel();
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-        jTable1.setRowSorter(sorter);
+        tbImportBill.setRowSorter(sorter);
 
         // Nếu ngày nhập vào có ít nhất 1 ký tự và đúng định dạng dd/MM/YYYY
         if (inputDate.length() > 0 && inputDate.matches("\\d{2}/\\d{2}/\\d{4}")) {
@@ -357,12 +369,12 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     // Lấy chỉ số của dòng được chọn trong JTable
-    int selectedRowIndex = jTable1.getSelectedRow();
+    int selectedRowIndex = tbImportBill.getSelectedRow();
 
     // Kiểm tra xem có dòng nào được chọn không
     if (selectedRowIndex != -1) {
         // Lấy giá trị của cột ID trong dòng được chọn
-        Long importBillId = (Long) jTable1.getValueAt(selectedRowIndex, 0);
+        Long importBillId = (Long) tbImportBill.getValueAt(selectedRowIndex, 0);
 
         // Hiển thị hộp thoại xác nhận
         int option = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa hóa đơn này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
@@ -390,9 +402,9 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     String inputDate = jTextField1.getText().trim();
 
     // Khởi tạo TableRowSorter để lọc dữ liệu trong bảng jTable
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    DefaultTableModel model = (DefaultTableModel) tbImportBill.getModel();
     TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-    jTable1.setRowSorter(sorter);
+    tbImportBill.setRowSorter(sorter);
 
     // Nếu ngày nhập vào có ít nhất 1 ký tự và đúng định dạng dd/MM/YYYY
     if (inputDate.length() > 0 && inputDate.matches("\\d{2}/\\d{2}/\\d{4}")) {
@@ -441,12 +453,12 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = tbImportBill.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xem chi tiết.");
             return;
         }
-        long selectedBillId = (long) jTable1.getValueAt(selectedRow, 0);
+        long selectedBillId = (long) tbImportBill.getValueAt(selectedRow, 0);
         StringBuilder detailInfo = new StringBuilder();
         try {
             // Lấy chi tiết hóa đơn từ BUS
@@ -460,7 +472,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
             }
 
             // Lấy thông tin nhà cung cấp từ BUS
-            long supplierId = (long) jTable1.getValueAt(selectedRow, 5);
+            long supplierId = (long) tbImportBill.getValueAt(selectedRow, 5);
             SupplierDTO supplier = detailImportBillBUS.getSupplierById(supplierId);
             if (supplier != null) {
                 detailInfo.append("Thông tin nhà cung cấp:\n");
@@ -500,7 +512,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = tbImportBill.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xuất file PDF.");
             return;
@@ -521,15 +533,15 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
                 File selectedDirectory = fileChooser.getSelectedFile();
 
                 // Tạo đường dẫn đầy đủ cho file PDF
-                String filePath = selectedDirectory.getAbsolutePath() + "/ChiTietHoaDon_" + jTable1.getValueAt(selectedRow, 0) + ".pdf";
+                String filePath = selectedDirectory.getAbsolutePath() + "/ChiTietHoaDon_" + tbImportBill.getValueAt(selectedRow, 0) + ".pdf";
 
                 // Tạo một thể hiện của lớp DetailImportBillBUS
                 DetailImportBillBUS detailImportBillBUS = new DetailImportBillBUS();
 
                 // Lấy thông tin chi tiết từ JTable
-                long selectedBillId = (long) jTable1.getValueAt(selectedRow, 0);
+                long selectedBillId = (long) tbImportBill.getValueAt(selectedRow, 0);
                 ArrayList<DetailImportBillDTO> detailImportBillList = detailImportBillBUS.getDetailImportBillByBillId(selectedBillId);
-                SupplierDTO supplier = detailImportBillBUS.getSupplierById((long) jTable1.getValueAt(selectedRow, 5));
+                SupplierDTO supplier = detailImportBillBUS.getSupplierById((long) tbImportBill.getValueAt(selectedRow, 5));
 
                 // Tạo tài liệu PDF mới
                 Document document = new Document();
@@ -602,7 +614,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = tbImportBill.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xuất file Excel.");
             return;
@@ -623,7 +635,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
                 File selectedDirectory = fileChooser.getSelectedFile();
 
                 // Tạo đường dẫn đầy đủ cho file Excel
-                String filePath = selectedDirectory.getAbsolutePath() + "/ChiTietHoaDon_" + jTable1.getValueAt(selectedRow, 0) + ".xlsx";
+                String filePath = selectedDirectory.getAbsolutePath() + "/ChiTietHoaDon_" + tbImportBill.getValueAt(selectedRow, 0) + ".xlsx";
 
                 // Tạo workbook mới
                 Workbook workbook = new XSSFWorkbook();
@@ -639,7 +651,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
                 }
 
                 // Lấy thông tin chi tiết từ JTable
-                long selectedBillId = (long) jTable1.getValueAt(selectedRow, 0);
+                long selectedBillId = (long) tbImportBill.getValueAt(selectedRow, 0);
                 int rowIndex = 1;
 
                 // Tạo một thể hiện của lớp DetailImportBillBUS
@@ -647,7 +659,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
 
                 // Gọi phương thức từ thể hiện đã tạo
                 ArrayList<DetailImportBillDTO> detailImportBillList = detailImportBillBUS.getDetailImportBillByBillId(selectedBillId);
-                SupplierDTO supplier = detailImportBillBUS.getSupplierById((long) jTable1.getValueAt(selectedRow, 5));
+                SupplierDTO supplier = detailImportBillBUS.getSupplierById((long) tbImportBill.getValueAt(selectedRow, 5));
 
                 for (DetailImportBillDTO detailImportBill : detailImportBillList) {
                     Row row = sheet.createRow(rowIndex++);
@@ -723,43 +735,43 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
                 }
             }
 
-            // Get current date
-            java.util.Date currentDate = new java.util.Date();
-
-            
-            long userId = StaffDTO.staffLogging.getId();
-
-            String supplierIdInput = JOptionPane.showInputDialog(null, "Nhập supplierid:");
-            int supplierId = Integer.parseInt(supplierIdInput);
-
-            Cell billIdCell = sheet.getRow(2).getCell(4);
-            int billId = (int) billIdCell.getNumericCellValue();
-
-            ImportBillBUS importBillBUS = new ImportBillBUS();
-            importBillBUS.addImportBill(con, billId, quantity, total, new java.sql.Date(currentDate.getTime()), userId, supplierId);
-
-            for (int i = startRow; i <= endRow; i++) {
-                Row row = sheet.getRow(i);
-                if (row != null) {
-                    int detailQuantity = (int) row.getCell(1).getNumericCellValue();
-                    double price = row.getCell(2).getNumericCellValue();
-                    double detailTotal = row.getCell(3).getNumericCellValue();
-                    int ingredientId = (int) row.getCell(5).getNumericCellValue();
-
-                    long detailId = System.currentTimeMillis() % 1000000;
-
-                    DetailImportBillBUS detailImportBillBUS = new DetailImportBillBUS();
-                    detailImportBillBUS.addDetailImportBill(detailId, detailQuantity, price, detailTotal, billId, ingredientId);
-
-                    IngredientsBUS ingredientsBUS = new IngredientsBUS();
-                    boolean ingredientExists = ingredientsBUS.checkIngredientExistence(ingredientId);
-                    if (ingredientExists) {
-                        int existingQuantity = ingredientsBUS.getIngredientQuantity(ingredientId);
-                        int newQuantity = existingQuantity + detailQuantity;
-                        ingredientsBUS.updateIngredientQuantity(ingredientId, newQuantity);
-                    }
-                }
-            }
+//            // Get current date
+//            java.util.Date currentDate = new java.util.Date();
+//
+//            
+//            long userId = StaffDTO.staffLogging.getId();
+//
+//            String supplierIdInput = JOptionPane.showInputDialog(null, "Nhập supplierid:");
+//            int supplierId = Integer.parseInt(supplierIdInput);
+//
+//            Cell billIdCell = sheet.getRow(2).getCell(4);
+//            int billId = (int) billIdCell.getNumericCellValue();
+//
+//            ImportBillBUS importBillBUS = new ImportBillBUS();
+//            importBillBUS.addImportBill(con, billId, quantity, total, new java.sql.Date(currentDate.getTime()), userId, supplierId);
+//
+//            for (int i = startRow; i <= endRow; i++) {
+//                Row row = sheet.getRow(i);
+//                if (row != null) {
+//                    int detailQuantity = (int) row.getCell(1).getNumericCellValue();
+//                    double price = row.getCell(2).getNumericCellValue();
+//                    double detailTotal = row.getCell(3).getNumericCellValue();
+//                    int ingredientId = (int) row.getCell(5).getNumericCellValue();
+//
+//                    long detailId = System.currentTimeMillis() % 1000000;
+//
+//                    DetailImportBillBUS detailImportBillBUS = new DetailImportBillBUS();
+//                    detailImportBillBUS.addDetailImportBill(detailId, detailQuantity, price, detailTotal, billId, ingredientId);
+//
+//                    IngredientsBUS ingredientsBUS = new IngredientsBUS();
+//                    boolean ingredientExists = ingredientsBUS.checkIngredientExistence(ingredientId);
+//                    if (ingredientExists) {
+//                        int existingQuantity = ingredientsBUS.getIngredientQuantity(ingredientId);
+//                        int newQuantity = existingQuantity + detailQuantity;
+//                        ingredientsBUS.updateIngredientQuantity(ingredientId, newQuantity);
+//                    }
+//                }
+//            }
 
             workbook.close();
             loadImportBills();
@@ -797,7 +809,6 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel8;
     public javax.swing.JPanel jPanel9;
     public javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable jTable1;
     public javax.swing.JTextField jTextField1;
     public GUI.Comp.Swing.PanelBackground panelBackground1;
     public GUI.Comp.Swing.PanelBackground panelBackground2;
@@ -807,5 +818,6 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     public GUI.Comp.Swing.PanelBackground panelBackground6;
     public GUI.Comp.Swing.PanelBackground panelBackground7;
     public GUI.Comp.Swing.PanelBackground panelBackground8;
+    public javax.swing.JTable tbImportBill;
     // End of variables declaration//GEN-END:variables
 }

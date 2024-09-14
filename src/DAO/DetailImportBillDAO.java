@@ -78,21 +78,23 @@ public class DetailImportBillDAO {
         return null;
     }
 
-    public void addDetailImportBill(long detailId, int quantity, double price, double total, int billId, int ingredientId) {
+    public boolean addDetailImportBill(DetailImportBillDTO detail) {
         String sql = "INSERT INTO tb_detail_import_bill (id, quantity, price, total, billid, ingredientid, isdeleted) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = Helper.ConnectDB.getInstance().getConnection().prepareStatement(sql)) {
-            pstmt.setLong(1, detailId);
-            pstmt.setInt(2, quantity);
-            pstmt.setDouble(3, price);
-            pstmt.setDouble(4, total);
-            pstmt.setInt(5, billId);
-            pstmt.setInt(6, ingredientId);
+            pstmt.setLong(1, detail.getId());
+            pstmt.setInt(2, detail.getQuantity());
+            pstmt.setDouble(3, detail.getPrice());
+            pstmt.setDouble(4, detail.getTotal());
+            pstmt.setLong(5, detail.getBillid());
+            pstmt.setLong(6, detail.getIngredientid());
             pstmt.setBoolean(7, false);
-            pstmt.executeUpdate();
+            return pstmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace(); 
         }
+        return false;
     }
+    
     public static void deleteDetailImportBill(Long importBillId)  {
         String query = "UPDATE tb_detail_import_bill SET isdeleted = true WHERE billid = ?";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {

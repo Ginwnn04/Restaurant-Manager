@@ -27,24 +27,17 @@ public class ImportBillBUS {
     private ImportBillDAO importBillDAO = new ImportBillDAO();
     private ArrayList<ImportBillDTO> listImportBills = new ArrayList<>();
 
-    public void loadImportBills(DefaultTableModel model) {
-        ArrayList<Object[]> importBillData = importBillDAO.getImportBills();
+    public ArrayList<ImportBillDTO> loadImportBills() {
+        return importBillDAO.getImportBills();
 
-        // Xóa dữ liệu cũ trong bảng
-        model.setRowCount(0);
-
-        // Thêm dữ liệu mới vào bảng
-        for (Object[] row : importBillData) {
-            model.addRow(row);
-        } 
     }
     
     public ImportBillBUS() {
         this.importBillDAO = new ImportBillDAO();
     }
 
-    public void addImportBill(Connection con, int billId, int quantity, double total, Date importDate, long userId, int supplierId) {
-        importBillDAO.addImportBill((java.sql.Connection) con, billId, quantity, total, importDate, userId, supplierId);
+    public boolean addImportBill(ImportBillDTO importBill) {
+        return importBillDAO.addImportBill(importBill);
     }
     public static void deleteImportBill(Long importBillId) {
         ImportBillDAO.deleteImportBill(importBillId);
