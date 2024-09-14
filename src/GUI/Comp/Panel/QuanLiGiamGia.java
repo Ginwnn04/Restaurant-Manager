@@ -68,6 +68,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         setBackground(new Color(0, 0, 0, 0));
         tbDiscount.setRowHeight(35);
         
+        
 //        listTable = new TableBUS().getAllData();
         // header table nam ben trai
         DefaultTableCellRenderer  renderer = (DefaultTableCellRenderer) tbDiscount.getTableHeader().getDefaultRenderer();
@@ -110,8 +111,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         panelBackground11 = new GUI.Comp.Swing.PanelBackground();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
+        panelBackground12 = new GUI.Comp.Swing.PanelBackground();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         txtTenChuongTrinh = new javax.swing.JTextField();
@@ -124,7 +124,6 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         jPanel23 = new javax.swing.JPanel();
         txtDieuKien = new javax.swing.JTextField();
         jPanel13 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         txtSoLuong = new javax.swing.JTextField();
@@ -133,8 +132,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         jPanel17 = new javax.swing.JPanel();
         cbxLoaiGiam = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
-        jPanel20 = new javax.swing.JPanel();
-        jPanel21 = new javax.swing.JPanel();
+        panelBackground13 = new GUI.Comp.Swing.PanelBackground();
         jLabel6 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         txtGiaTri = new javax.swing.JTextField();
@@ -182,7 +180,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         );
         panelBackground7Layout.setVerticalGroup(
             panelBackground7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addGap(0, 170, Short.MAX_VALUE)
         );
 
         panelBackground14.add(panelBackground7, java.awt.BorderLayout.LINE_END);
@@ -204,7 +202,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         panelBackground14.add(panelBackground6, java.awt.BorderLayout.PAGE_END);
 
         panelBackground9.setBackground(new java.awt.Color(30, 30, 30));
-        panelBackground9.setPreferredSize(new java.awt.Dimension(500, 10));
+        panelBackground9.setPreferredSize(new java.awt.Dimension(500, 20));
 
         javax.swing.GroupLayout panelBackground9Layout = new javax.swing.GroupLayout(panelBackground9);
         panelBackground9.setLayout(panelBackground9Layout);
@@ -214,7 +212,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         );
         panelBackground9Layout.setVerticalGroup(
             panelBackground9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         panelBackground14.add(panelBackground9, java.awt.BorderLayout.PAGE_START);
@@ -264,17 +262,17 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setBackground(new java.awt.Color(30, 30, 30));
-        jPanel2.setPreferredSize(new java.awt.Dimension(557, 10));
+        jPanel2.setPreferredSize(new java.awt.Dimension(557, 20));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 910, Short.MAX_VALUE)
+            .addGap(0, 806, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
@@ -286,7 +284,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 910, Short.MAX_VALUE)
+            .addGap(0, 806, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,31 +297,14 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         panelBackground11.setRound(35);
         panelBackground11.setLayout(new java.awt.GridLayout(3, 1));
 
-        jPanel9.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel12.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel12.setMaximumSize(new java.awt.Dimension(15, 32767));
-        jPanel12.setMinimumSize(new java.awt.Dimension(15, 100));
-        jPanel12.setPreferredSize(new java.awt.Dimension(15, 90));
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 15, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel9.add(jPanel12);
+        panelBackground12.setBackground(new java.awt.Color(35, 35, 35));
+        panelBackground12.setRound(45);
+        panelBackground12.setLayout(new javax.swing.BoxLayout(panelBackground12, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Tên chương trình");
-        jPanel9.add(jLabel1);
+        jLabel1.setText("   Tên chương trình");
+        panelBackground12.add(jLabel1);
 
         jPanel5.setBackground(new java.awt.Color(35, 35, 35));
         jPanel5.setMaximumSize(new java.awt.Dimension(15, 32767));
@@ -341,13 +322,13 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel9.add(jPanel5);
+        panelBackground12.add(jPanel5);
 
         txtTenChuongTrinh.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtTenChuongTrinh.setMaximumSize(new java.awt.Dimension(150, 30));
         txtTenChuongTrinh.setMinimumSize(new java.awt.Dimension(64, 25));
         txtTenChuongTrinh.setPreferredSize(new java.awt.Dimension(71, 25));
-        jPanel9.add(txtTenChuongTrinh);
+        panelBackground12.add(txtTenChuongTrinh);
 
         jPanel7.setBackground(new java.awt.Color(35, 35, 35));
         jPanel7.setMaximumSize(new java.awt.Dimension(15, 32767));
@@ -365,12 +346,12 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel9.add(jPanel7);
+        panelBackground12.add(jPanel7);
 
         jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Mô tả");
-        jPanel9.add(jLabel2);
+        panelBackground12.add(jLabel2);
 
         jPanel6.setBackground(new java.awt.Color(35, 35, 35));
         jPanel6.setMaximumSize(new java.awt.Dimension(40, 32767));
@@ -388,13 +369,13 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel9.add(jPanel6);
+        panelBackground12.add(jPanel6);
 
         txtMoTa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtMoTa.setMaximumSize(new java.awt.Dimension(150, 30));
         txtMoTa.setMinimumSize(new java.awt.Dimension(64, 25));
         txtMoTa.setPreferredSize(new java.awt.Dimension(71, 25));
-        jPanel9.add(txtMoTa);
+        panelBackground12.add(txtMoTa);
 
         jPanel11.setBackground(new java.awt.Color(35, 35, 35));
         jPanel11.setMaximumSize(new java.awt.Dimension(15, 32767));
@@ -412,12 +393,12 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel9.add(jPanel11);
+        panelBackground12.add(jPanel11);
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Điều kiện");
-        jPanel9.add(jLabel3);
+        panelBackground12.add(jLabel3);
 
         jPanel23.setBackground(new java.awt.Color(35, 35, 35));
         jPanel23.setMaximumSize(new java.awt.Dimension(15, 32767));
@@ -435,40 +416,22 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel9.add(jPanel23);
+        panelBackground12.add(jPanel23);
 
         txtDieuKien.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtDieuKien.setMaximumSize(new java.awt.Dimension(150, 30));
         txtDieuKien.setMinimumSize(new java.awt.Dimension(64, 25));
         txtDieuKien.setPreferredSize(new java.awt.Dimension(71, 25));
-        jPanel9.add(txtDieuKien);
+        panelBackground12.add(txtDieuKien);
 
-        panelBackground11.add(jPanel9);
+        panelBackground11.add(panelBackground12);
 
         jPanel13.setBackground(new java.awt.Color(35, 35, 35));
         jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel14.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel14.setMaximumSize(new java.awt.Dimension(15, 32767));
-        jPanel14.setMinimumSize(new java.awt.Dimension(15, 100));
-        jPanel14.setPreferredSize(new java.awt.Dimension(15, 90));
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 15, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel13.add(jPanel14);
-
         jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Số lượng");
+        jLabel4.setText("   Số lượng");
         jPanel13.add(jLabel4);
 
         jPanel15.setBackground(new java.awt.Color(35, 35, 35));
@@ -562,31 +525,14 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
 
         panelBackground11.add(jPanel13);
 
-        jPanel20.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel20.setLayout(new javax.swing.BoxLayout(jPanel20, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel21.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel21.setMaximumSize(new java.awt.Dimension(15, 32767));
-        jPanel21.setMinimumSize(new java.awt.Dimension(15, 100));
-        jPanel21.setPreferredSize(new java.awt.Dimension(15, 90));
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 15, Short.MAX_VALUE)
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel20.add(jPanel21);
+        panelBackground13.setBackground(new java.awt.Color(35, 35, 35));
+        panelBackground13.setRound(45);
+        panelBackground13.setLayout(new javax.swing.BoxLayout(panelBackground13, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Giá trị");
-        jPanel20.add(jLabel6);
+        jLabel6.setText("   Giá trị");
+        panelBackground13.add(jLabel6);
 
         jPanel18.setBackground(new java.awt.Color(35, 35, 35));
         jPanel18.setMaximumSize(new java.awt.Dimension(83, 32767));
@@ -604,13 +550,13 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel20.add(jPanel18);
+        panelBackground13.add(jPanel18);
 
         txtGiaTri.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtGiaTri.setMaximumSize(new java.awt.Dimension(150, 30));
         txtGiaTri.setMinimumSize(new java.awt.Dimension(64, 25));
         txtGiaTri.setPreferredSize(new java.awt.Dimension(71, 25));
-        jPanel20.add(txtGiaTri);
+        panelBackground13.add(txtGiaTri);
 
         jPanel19.setBackground(new java.awt.Color(35, 35, 35));
         jPanel19.setMaximumSize(new java.awt.Dimension(15, 32767));
@@ -628,12 +574,12 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel20.add(jPanel19);
+        panelBackground13.add(jPanel19);
 
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Ngày hết hạn");
-        jPanel20.add(jLabel7);
+        panelBackground13.add(jLabel7);
 
         jPanel22.setBackground(new java.awt.Color(35, 35, 35));
         jPanel22.setMaximumSize(new java.awt.Dimension(15, 32767));
@@ -651,13 +597,13 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel20.add(jPanel22);
+        panelBackground13.add(jPanel22);
 
         txtDate.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtDate.setMaximumSize(new java.awt.Dimension(150, 30));
         txtDate.setMinimumSize(new java.awt.Dimension(64, 25));
         txtDate.setPreferredSize(new java.awt.Dimension(71, 25));
-        jPanel20.add(txtDate);
+        panelBackground13.add(txtDate);
 
         jPanel25.setBackground(new java.awt.Color(35, 35, 35));
         jPanel25.setMaximumSize(new java.awt.Dimension(15, 32767));
@@ -675,7 +621,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel20.add(jPanel25);
+        panelBackground13.add(jPanel25);
 
         jPanel26.setBackground(new java.awt.Color(35, 35, 35));
         jPanel26.setMaximumSize(new java.awt.Dimension(15, 32767));
@@ -693,9 +639,9 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel20.add(jPanel26);
+        panelBackground13.add(jPanel26);
 
-        panelBackground11.add(jPanel20);
+        panelBackground11.add(panelBackground13);
 
         jPanel1.add(panelBackground11, java.awt.BorderLayout.CENTER);
 
@@ -742,7 +688,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         panelBackground4.setLayout(panelBackground4Layout);
         panelBackground4Layout.setHorizontalGroup(
             panelBackground4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1245, Short.MAX_VALUE)
+            .addGap(0, 1141, Short.MAX_VALUE)
         );
         panelBackground4Layout.setVerticalGroup(
             panelBackground4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -795,7 +741,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 1141, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1029,17 +975,13 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel25;
@@ -1049,11 +991,12 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private GUI.Comp.Swing.PanelBackground panelBackground1;
     private GUI.Comp.Swing.PanelBackground panelBackground10;
     private GUI.Comp.Swing.PanelBackground panelBackground11;
+    private GUI.Comp.Swing.PanelBackground panelBackground12;
+    private GUI.Comp.Swing.PanelBackground panelBackground13;
     private GUI.Comp.Swing.PanelBackground panelBackground14;
     private GUI.Comp.Swing.PanelBackground panelBackground2;
     private GUI.Comp.Swing.PanelBackground panelBackground3;

@@ -123,10 +123,6 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         btnThem = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnChiTiet = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        btnXoa = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
@@ -146,15 +142,21 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         panelBackground1.setLayout(new java.awt.BorderLayout());
 
         panelBackground2.setBackground(new java.awt.Color(30, 30, 30));
+        panelBackground2.setMinimumSize(new java.awt.Dimension(20, 10));
+        panelBackground2.setPreferredSize(new java.awt.Dimension(20, 10));
         panelBackground1.add(panelBackground2, java.awt.BorderLayout.LINE_START);
 
         panelBackground3.setBackground(new java.awt.Color(30, 30, 30));
+        panelBackground3.setPreferredSize(new java.awt.Dimension(10, 20));
         panelBackground1.add(panelBackground3, java.awt.BorderLayout.PAGE_START);
 
         panelBackground4.setBackground(new java.awt.Color(30, 30, 30));
+        panelBackground4.setMinimumSize(new java.awt.Dimension(20, 10));
+        panelBackground4.setPreferredSize(new java.awt.Dimension(20, 10));
         panelBackground1.add(panelBackground4, java.awt.BorderLayout.LINE_END);
 
         panelBackground5.setBackground(new java.awt.Color(30, 30, 30));
+        panelBackground5.setPreferredSize(new java.awt.Dimension(10, 20));
         panelBackground1.add(panelBackground5, java.awt.BorderLayout.PAGE_END);
 
         panelBackground6.setBackground(new java.awt.Color(30, 30, 30));
@@ -191,35 +193,6 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
             }
         });
         panelBackground7.add(btnChiTiet);
-
-        jPanel7.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel7.setMaximumSize(new java.awt.Dimension(20, 23));
-        panelBackground7.add(jPanel7);
-
-        btnXoa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnXoa.setText("Xóa");
-        btnXoa.setMaximumSize(new java.awt.Dimension(72, 40));
-        btnXoa.setPreferredSize(new java.awt.Dimension(72, 40));
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
-        panelBackground7.add(btnXoa);
-
-        jPanel4.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel4.setMaximumSize(new java.awt.Dimension(20, 23));
-        panelBackground7.add(jPanel4);
-
-        jButton8.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton8.setText("In PDF");
-        jButton8.setMaximumSize(new java.awt.Dimension(75, 40));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        panelBackground7.add(jButton8);
 
         jPanel11.setBackground(new java.awt.Color(35, 35, 35));
         jPanel11.setMaximumSize(new java.awt.Dimension(20, 23));
@@ -375,36 +348,6 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-    // Lấy chỉ số của dòng được chọn trong JTable
-    int selectedRowIndex = tbImportBill.getSelectedRow();
-
-    // Kiểm tra xem có dòng nào được chọn không
-    if (selectedRowIndex != -1) {
-        // Lấy giá trị của cột ID trong dòng được chọn
-        Long importBillId = (Long) tbImportBill.getValueAt(selectedRowIndex, 0);
-
-        // Hiển thị hộp thoại xác nhận
-        int option = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa hóa đơn này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-        
-        // Kiểm tra xem người dùng đã xác nhận xóa hay không
-        if (option == JOptionPane.YES_OPTION) {
-            // Xóa chi tiết hóa đơn nhập
-            DetailImportBillBUS.deleteDetailImportBill(importBillId);
-
-            // Xóa hóa đơn nhập
-            ImportBillBUS.deleteImportBill(importBillId);
-
-            // Sau khi xóa thành công, cập nhật lại hiển thị trên JTable và thông báo thành công
-            loadImportBills();
-            JOptionPane.showMessageDialog(null, "Đã xóa hóa đơn thành công.");
-        }
-    } else {
-        // Hiển thị thông báo nếu không có dòng nào được chọn
-        JOptionPane.showMessageDialog(null, "Vui lòng chọn một dòng để xóa.");
-    }
-    }//GEN-LAST:event_btnXoaActionPerformed
-
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
     // Lấy ngày được nhập vào từ text field
     String inputDate = jTextField1.getText().trim();
@@ -461,7 +404,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
-      
+    
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xem chi tiết.");
             return;
@@ -471,112 +414,10 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
 
         dialogDetailImport.setImportBill(importBill);
         dialogDetailImport.setVisible(true);
-        selectedRow = -1;
+        
         
         
     }//GEN-LAST:event_btnChiTietActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        int selectedRow = tbImportBill.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xuất file PDF.");
-            return;
-        }
-
-        try {
-            // Tạo hộp thoại để người dùng chọn thư mục lưu file PDF
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Chọn nơi lưu file PDF");
-            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-            // Hiển thị hộp thoại và lấy kết quả từ người dùng
-            int userSelection = fileChooser.showSaveDialog(this);
-
-            // Nếu người dùng chọn một thư mục và nhấn OK
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                // Lấy thư mục được chọn bởi người dùng
-                File selectedDirectory = fileChooser.getSelectedFile();
-
-                // Tạo đường dẫn đầy đủ cho file PDF
-                String filePath = selectedDirectory.getAbsolutePath() + "/ChiTietHoaDon_" + tbImportBill.getValueAt(selectedRow, 0) + ".pdf";
-
-                // Tạo một thể hiện của lớp DetailImportBillBUS
-                DetailImportBillBUS detailImportBillBUS = new DetailImportBillBUS();
-
-                // Lấy thông tin chi tiết từ JTable
-                long selectedBillId = (long) tbImportBill.getValueAt(selectedRow, 0);
-                ArrayList<DetailImportBillDTO> detailImportBillList = detailImportBillBUS.getDetailImportBillByBillId(selectedBillId);
-                SupplierDTO supplier = detailImportBillBUS.getSupplierById((long) tbImportBill.getValueAt(selectedRow, 5));
-
-                // Tạo tài liệu PDF mới
-                Document document = new Document();
-                PdfWriter.getInstance(document, new FileOutputStream(filePath));
-                document.open();
-
-                // Tạo tiêu đề cho tài liệu PDF
-                Paragraph title = new Paragraph("Import bill detail", FontFactory.getFont(FontFactory.TIMES_ROMAN, 18, Font.BOLD));
-                title.setAlignment(Element.ALIGN_CENTER);
-                document.add(title);
-
-                // Thêm thông tin chi tiết hóa đơn vào tài liệu PDF
-                PdfPTable table = new PdfPTable(7); // 7 cột cho thông tin chi tiết hóa đơn
-                table.setWidthPercentage(100);
-                table.setSpacingBefore(10f);
-                table.setSpacingAfter(10f);
-
-                // Header cho bảng
-                String[] detailHeaders = {"Bill ID", "Detail ID", "Quantity", "Price", "Total", "Ingredient ID", "Ingredient Name"};
-                for (String header : detailHeaders) {
-                    PdfPCell cell = new PdfPCell(new Paragraph(header));
-                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                    table.addCell(cell);
-                }
-
-                // Dữ liệu chi tiết hóa đơn
-                for (DetailImportBillDTO detailImportBill : detailImportBillList) {
-                    table.addCell(String.valueOf(detailImportBill.getBillid()));
-                    table.addCell(String.valueOf(detailImportBill.getId()));
-                    table.addCell(String.valueOf(detailImportBill.getQuantity()));
-                    table.addCell(String.valueOf(detailImportBill.getPrice()));
-                    table.addCell(String.valueOf(detailImportBill.getTotal()));
-                    table.addCell(String.valueOf(detailImportBill.getIngredientid()));
-                    long ingredientId = detailImportBill.getIngredientid();
-                    // Lấy tên nguyên liệu từ bảng tb_ingredients
-                    String ingredientName = detailImportBillBUS.getIngredientNameById(ingredientId);
-                    if (ingredientName != null) {
-                        table.addCell(ingredientName);
-                    } else {
-                        table.addCell("");
-                    }
-                }
-
-                document.add(table);
-
-                // Thêm thông tin nhà cung cấp vào tài liệu PDF
-                if (supplier != null) {
-                    Paragraph supplierInfo = new Paragraph("Supplier's information", FontFactory.getFont(FontFactory.TIMES_ROMAN, 14, Font.BOLD));
-                    supplierInfo.setAlignment(Element.ALIGN_CENTER);
-                    document.add(supplierInfo);
-
-                    Paragraph supplierDetail = new Paragraph();
-                    supplierDetail.add(new Phrase("ID: " + supplier.getId() + "\n"));
-                    supplierDetail.add(new Phrase("Name: " + supplier.getName() + "\n"));
-                    supplierDetail.add(new Phrase("Address: " + supplier.getAddress() + "\n"));
-                    supplierDetail.add(new Phrase("Phone: " + supplier.getPhone() + "\n"));
-                    document.add(supplierDetail);
-                }
-
-                document.close();
-
-                // Hiển thị thông báo khi xuất file PDF thành công
-                JOptionPane.showMessageDialog(this, "Xuất file PDF thành công.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi xuất file PDF.");
-        }
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         int selectedRow = tbImportBill.getSelectedRow();
@@ -766,16 +607,12 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnChiTiet;
     public javax.swing.JButton btnThem;
-    public javax.swing.JButton btnXoa;
     public javax.swing.JButton jButton2;
     public javax.swing.JButton jButton6;
-    public javax.swing.JButton jButton8;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel11;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;
-    public javax.swing.JPanel jPanel4;
-    public javax.swing.JPanel jPanel7;
     public javax.swing.JPanel jPanel8;
     public javax.swing.JPanel jPanel9;
     public javax.swing.JScrollPane jScrollPane1;
