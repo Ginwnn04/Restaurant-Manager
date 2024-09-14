@@ -23,7 +23,7 @@ public class DetailImportBillBUS {
     private DetailImportBillDAO detailImportBillDAO = new DetailImportBillDAO();
     private ArrayList<DetailImportBillDTO> listDetailImportBills = new ArrayList<>();
 
-    public ArrayList<DetailImportBillDTO> getDetailImportBillByBillId(long billId) throws SQLException, Exception {
+    public ArrayList<DetailImportBillDTO> getDetailImportBillByBillId(long billId) {
         return detailImportBillDAO.getDetailImportBillByBillId(billId);
     }
 

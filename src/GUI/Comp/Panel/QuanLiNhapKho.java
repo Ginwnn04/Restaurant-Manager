@@ -72,6 +72,7 @@ import GUI.Comp.DateChooser.SelectedDate;
 import GUI.Comp.Dialog.DialogDetailImport;
 import GUI.Comp.Dialog.DialogDetailsImportBill;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.Frame;
 import java.awt.event.ItemEvent;
 import java.util.Calendar;
 import javax.swing.JTable;
@@ -91,6 +92,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     private DefaultTableModel model = new DefaultTableModel();
     private SupplierBUS supplierBUS = new SupplierBUS();
     private StaffBUS staffBUS = new StaffBUS();
+    private int selectedRow = -1;
     
     public QuanLiNhapKho() {
         initComponents();
@@ -293,6 +295,11 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbImportBill.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbImportBillMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbImportBill);
 
         panelBackground8.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -454,13 +461,18 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
-        int selectedRow = tbImportBill.getSelectedRow();
+      
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xem chi tiết.");
             return;
         }
         DialogDetailsImportBill dialogDetailImport = new DialogDetailsImportBill(null, true);
+        ImportBillDTO importBill = importBillList.get(selectedRow);
+
+        dialogDetailImport.setImportBill(importBill);
         dialogDetailImport.setVisible(true);
+        selectedRow = -1;
+        
         
     }//GEN-LAST:event_btnChiTietActionPerformed
 
@@ -663,6 +675,11 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi xuất file Excel.");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void tbImportBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbImportBillMouseClicked
+        selectedRow = tbImportBill.getSelectedRow();
+        
+    }//GEN-LAST:event_tbImportBillMouseClicked
 
     private void processDataFromExcel(File file) {
         Connection con = null;

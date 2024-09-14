@@ -32,6 +32,11 @@ public class ImportBillBUS {
 
     }
     
+    public ImportBillDTO getImportBillById(long id) {
+        return importBillDAO.getImportBillById(id);
+    }
+    
+    
     public ImportBillBUS() {
         this.importBillDAO = new ImportBillDAO();
     }

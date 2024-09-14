@@ -54,7 +54,29 @@ public class ImportBillDAO {
     }
 
 
+    public ImportBillDTO getImportBillById(long id) {
+        ImportBillDTO importBill = new ImportBillDTO();
+        String query = "SELECT * FROM tb_import_bill WHERE isdeleted = false AND id = ?";
+        try (PreparedStatement ps = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                importBill.setId(rs.getLong("id"));
+                importBill.setQuantity(rs.getInt("quantity"));
+                importBill.setTotal(rs.getLong("total"));
+                importBill.setSupplierID( rs.getLong("supplierid"));
+                importBill.setUserId(rs.getLong("staffid"));
+                importBill.setImport_date(rs.getTimestamp("import_date"));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return importBill;
 
+    }
+        
+        
     public boolean addImportBill(ImportBillDTO importBill) {
         String sql = "INSERT INTO tb_import_bill (id, quantity, total, import_date, staffid, supplierid, isdeleted) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = Helper.ConnectDB.getInstance().getConnection().prepareStatement(sql)) {
