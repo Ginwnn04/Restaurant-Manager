@@ -379,10 +379,11 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
     }//GEN-LAST:event_chbSelectAllActionPerformed
 
     private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSearchCaretUpdate
+        txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         TableRowSorter tableRowSorter = new TableRowSorter(tbIngredients.getModel());
-        String find = txtSearch.getText().toUpperCase().trim();
+        String find = txtSearch.getText().trim();
         if (!find.isEmpty()) {
-            tableRowSorter.setRowFilter(RowFilter.regexFilter(find, 2));
+            tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + find, 2));
         }
         tbIngredients.setRowSorter(tableRowSorter);
     }//GEN-LAST:event_txtSearchCaretUpdate

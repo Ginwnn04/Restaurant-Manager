@@ -21,7 +21,9 @@ public class OrderBUS {
         return orderDAO.read(criteria);
     }
 
-    public ArrayList<OrderDTO> getOrderByID(long id) {
+    
+    
+    public ArrayList<OrderDTO> getOrderByInvoiceID(long id) {
         return orderDAO.readByInvoiceID(id);
     }
 
@@ -66,6 +68,13 @@ public class OrderBUS {
         criteria.setId(order.getId());
         criteria.setTotal(order.getTotal());
         criteria.setUpdateTime(new Date());
+        return orderDAO.update(criteria, "");
+    }
+    
+    public boolean updateNote(OrderDTO order) {
+        OrderCriteria criteria = new OrderCriteria();
+        criteria.setId(order.getId());
+        criteria.setNote(order.getNote());
         return orderDAO.update(criteria, "");
     }
 

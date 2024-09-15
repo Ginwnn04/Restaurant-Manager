@@ -380,7 +380,7 @@ public class PanelDashbroad extends javax.swing.JPanel implements PropertyChange
             if (x.getName().equals(txtSaveTable.getText())) {
                 customerCode = x.getCustomerCode();
                 table = x;
-                System.out.println(x.getNote());
+                
                 break;
             }
         }

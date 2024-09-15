@@ -38,7 +38,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
         // header table nam ben trai
         DefaultTableCellRenderer  renderer = (DefaultTableCellRenderer) tbMonAn.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.LEFT);
-        txtTimKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập bàn cần tìm");
+        txtTimKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập tên món ăn cần tìm");
         render(isSelectAll);
         
         tbMonAn.getModel().addTableModelListener(new TableModelListener() {
@@ -475,7 +475,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
         String find = txtTimKiem.getText().trim();
         if (!find.isEmpty()) {
 //          Indices 2 => Sort theo cột 2 (Name)
-            tableRowSorter.setRowFilter(RowFilter.regexFilter(find, 2));
+            tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + find, 2));
         }
         tbMonAn.setRowSorter(tableRowSorter);
     }//GEN-LAST:event_txtTimKiemCaretUpdate

@@ -54,9 +54,6 @@ public class TableDAO {
             if (criteria.getCreateTime()!= null) {
                 pstm.setTimestamp(i++, new Timestamp(criteria.getCreateTime().getTime()));
             }
-            if (criteria.getNote()!= null) {
-                pstm.setString(i++, criteria.getNote());
-            }
             
             
             ResultSet rs = pstm.executeQuery();
@@ -70,8 +67,7 @@ public class TableDAO {
                 table.setCreateTime(rs.getTimestamp("create_time"));
                 table.setUpdateTime(rs.getTimestamp("update_time"));
                 table.setIsDelete(rs.getBoolean("isdeleted"));
-                table.setNote(rs.getString("note"));
-                
+       
                 TableStatusDTO tableStatusDTO = new TableStatusDTO();
                 tableStatusDTO.setName(rs.getString("status_name"));
                 table.setTableStatusDTO(tableStatusDTO);
@@ -86,7 +82,7 @@ public class TableDAO {
 
 
     public boolean insert(TableDTO table) {
-        String query = "INSERT INTO tb_tables VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO tb_tables VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
             pstm.setLong(1, table.getId());
             pstm.setString(2, table.getName());
@@ -100,7 +96,6 @@ public class TableDAO {
 
             pstm.setTimestamp(7, new Timestamp(table.getUpdateTime().getTime()));
             pstm.setTimestamp(8, new Timestamp(table.getCreateTime().getTime()));
-            pstm.setString(9, table.getNote());
             return pstm.executeUpdate() > 0;
         }
         catch(Exception e) {
@@ -148,9 +143,6 @@ public class TableDAO {
             }
             if (criteria.getUpdateTime()!= null) {
                 pstm.setTimestamp(i++, new Timestamp(criteria.getUpdateTime().getTime()));
-            }
-            if (criteria.getNote()!= null) {
-                pstm.setString(i++, criteria.getNote());
             }
             if (listID.isEmpty()) {
                 pstm.setLong(i++, criteria.getId());

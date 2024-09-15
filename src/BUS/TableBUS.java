@@ -59,7 +59,6 @@ public class TableBUS {
     
     public boolean updateNote(TableDTO table) {
         TableCriteria criteria = new TableCriteria();
-        criteria.setNote(table.getNote());
         criteria.setId(table.getId());
         return tableDAO.update(criteria, "");
     }

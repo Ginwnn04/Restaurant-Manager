@@ -23,34 +23,10 @@ public class OrderDTO {
     private Date createTime;
     private ArrayList<DetailOrderDTO> listDetailOrder = new ArrayList<>();
     private boolean isSelected;
+    private String note;
     
     private TableDTO tableDTO;
     
-    // Luc create Order
-    public OrderDTO(boolean isSingle, long staffID, long tableID, String note,boolean isDelete, Date updateTime, Date createTime) {
-        createID();
-        this.customerCode = createCustomerCode(isSingle);
-        this.staffID = staffID;
-        this.tableID = tableID;
-        this.isDelete = isDelete;
-        this.updateTime = updateTime;
-        this.createTime = createTime;
-        
-    }
-
-    // Luc read tu db len
-
-    public OrderDTO(long id, long staffID, long tableID, long total, String customerCode, boolean isDelete, Date updateTime, Date createTime) {
-        this.id = id;
-        this.staffID = staffID;
-        this.tableID = tableID;
-        this.total = total;
-        this.customerCode = customerCode;
-        this.isDelete = isDelete;
-        this.updateTime = updateTime;
-        this.createTime = createTime;
-
-    }
 
  
 
@@ -63,6 +39,14 @@ public class OrderDTO {
 
     public void setTableDTO(TableDTO tableDTO) {
         this.tableDTO = tableDTO;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     

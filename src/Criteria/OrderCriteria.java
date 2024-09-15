@@ -19,6 +19,7 @@ public class OrderCriteria {
     private Boolean isDelete;
     private Date updateTime;
     private Date createTime;
+    private String note;
 
        public String createClause(boolean isUpdate) {
         String clause = "";
@@ -41,6 +42,9 @@ public class OrderCriteria {
             }
             if (updateTime != null) {
                 clause += "update_time = ?, ";
+            }
+            if (note != null) {
+                clause += "note = ?, ";
             }
             if (!clause.isEmpty()) {
             clause = clause.substring(0, clause.length() - 2);
@@ -73,13 +77,25 @@ public class OrderCriteria {
             if (updateTime != null) {
                 clause += nameTable + "update_time = ? AND ";
             }
+            if (note != null) {
+                clause += "note = ? AND ";
+            }
             if (!clause.isEmpty()) {
                 clause = clause.substring(0, clause.length() - 5);
             }
         }
         return clause;
     }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
     
+       
     
     public Long getId() {
         return id;

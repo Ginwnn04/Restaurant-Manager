@@ -72,8 +72,7 @@ public class QuanLiDatMon extends javax.swing.JPanel {
         model.setRowCount(0);
         for (OrderDTO x : listOrder) {
             x.setIsSelected(isSelectAll);
-//            TableDTO table = tableBUS.findTableByID(x.getTableID());
-            model.addRow(new Object[] {x.isIsSelected(), x.getId(), x.getTableDTO().getName(), x.getCustomerCode(), Helper.Format.formatNumber.format( x.getTotal()), Helper.Format.formatDate.format(x.getUpdateTime()), Helper.Format.formatDate.format(x.getCreateTime())});
+            model.addRow(new Object[] {x.isIsSelected(), x.getId(), x.getTableDTO().getName(), x.getCustomerCode(), Helper.Format.formatNumber.format( x.getTotal()), x.getNote(), Helper.Format.formatDate.format(x.getUpdateTime()), Helper.Format.formatDate.format(x.getCreateTime())});
         }
         model.fireTableDataChanged();
         tbDatMon.setModel(model);
@@ -432,20 +431,20 @@ public class QuanLiDatMon extends javax.swing.JPanel {
         tbDatMon.setForeground(new java.awt.Color(255, 255, 255));
         tbDatMon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "aaaaaaaaaa", "aaaaaaaaaa", "ádasdasd", null, null, "aaaaaaaaaa"},
-                {null, "aaaaaaaaaa", "aaaaaaaaaa", "ádasd", null, null, "aaaaaaaaaa"},
-                {null, "aaaaaaaaaa", "aaaaaaaaaa", "ádasd", null, null, "aaaaaaaaaa"},
-                {null, "aaaaaaaaaa", "aaaaaaaaaa", "ádasda", null, null, "aaaaaaaaaa"}
+                {null, "aaaaaaaaaa", "aaaaaaaaaa", "ádasdasd", "123123", "123123", null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", "aaaaaaaaaa", "ádasd", null, null, null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", "aaaaaaaaaa", "ádasd", null, null, null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", "aaaaaaaaaa", "ádasda", null, null, null, "aaaaaaaaaa"}
             },
             new String [] {
-                "", "Mã đặt món", "Tên bàn", "Mã khách hàng", "Tổng tiền", "Ngày sửa", "Ngày tạo"
+                "", "Mã đặt món", "Tên bàn", "Mã khách hàng", "Tổng tiền", "Ghi chú", "Ngày sửa", "Ngày tạo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
+                true, false, false, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {

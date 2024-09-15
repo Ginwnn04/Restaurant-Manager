@@ -59,7 +59,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
     private DiscountBUS discountBUS = new DiscountBUS();
     private TableBUS tableBUS = new TableBUS();
     private ArrayList<DiscountDTO> listDiscount;
-    private DiscountDTO discount;
+    private OrderDTO order = new OrderDTO();
     private double amount = 0;
     private double discountPrice = 0;
     private double total = 0;
@@ -89,7 +89,9 @@ public class DialogKiemTra extends javax.swing.JDialog {
         renderTableMonAn(listOrderId);
         renderTableDiscount();
         lbBan.setText("BÀN " + table.getName() + " - " + table.getCustomerCode());
-        tarNote.setText(table.getNote());
+        System.out.println(listOrderId);
+        order = new OrderBUS().findOrderByID(Long.parseLong(listOrderId));
+        tarNote.setText(order.getNote());
 
     }
     
@@ -506,8 +508,8 @@ public class DialogKiemTra extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveNoteActionPerformed
-        table.setNote(tarNote.getText());
-        if(new TableBUS().updateNote(table)) {
+        order.setNote(tarNote.getText());
+        if(new OrderBUS().updateNote(order)) {
             JOptionPane.showMessageDialog(rootPane, "Lưu thành công");
         }
         else {
@@ -549,6 +551,8 @@ public class DialogKiemTra extends javax.swing.JDialog {
     private void tbDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDiscountMouseClicked
         System.out.println("1");
         int row = tbDiscount.getSelectedRow();
+        
+        txtSaveDiscountID.setText(listDiscount.get(row).getId());
         String strDiscountPrice = tbDiscount.getModel().getValueAt(row, 4).toString();
         discountPrice = Double.parseDouble(strDiscountPrice.replaceAll("\\.", ""));
         total = amount - discountPrice;

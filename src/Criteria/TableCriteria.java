@@ -13,7 +13,6 @@ public class TableCriteria {
     private String des;
     private String status;
     private String customerCode;
-    private String note;
     private Date createTime;
     private Date updateTime;
     private Boolean isDelete;
@@ -42,9 +41,6 @@ public class TableCriteria {
             }
             if (updateTime != null) {
                 clause += "update_time = ?, ";
-            }
-            if (note != null) {
-                clause += "note = ?, ";
             }
             if (!clause.isEmpty()) {
                 clause = clause.substring(0, clause.length() - 2);
@@ -76,9 +72,6 @@ public class TableCriteria {
             }
             if (createTime != null) {
                 clause += nameTable + "create_time = ? AND ";
-            }
-            if (note != null) {
-                clause += nameTable + "note = ? AND ";
             }
             
             if (!clause.isEmpty()) {
@@ -123,9 +116,7 @@ public class TableCriteria {
         this.customerCode = customerCode;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
+
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
@@ -159,9 +150,6 @@ public class TableCriteria {
         return customerCode;
     }
 
-    public String getNote() {
-        return note;
-    }
 
     public Date getCreateTime() {
         return createTime;

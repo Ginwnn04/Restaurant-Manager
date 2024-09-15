@@ -67,7 +67,7 @@ public class QuanLiBan extends javax.swing.JPanel {
         for (TableDTO x : listTable) {
             x.setIsSelected(isSelectAll);
 //            TableStatusDTO statusDTO = new TableStatusBUS().getTableStatusByID(x.getStatusID());
-            model.addRow(new Object[] {isSelectAll, x.getId(), x.getName(), x.getCustomerCode(), x.getTableStatusDTO().getName(), x.getNote(), Helper.Format.formatDate.format(x.getUpdateTime()), Helper.Format.formatDate.format(x.getCreateTime())});
+            model.addRow(new Object[] {isSelectAll, x.getId(), x.getName(), x.getCustomerCode(), x.getTableStatusDTO().getName(), Helper.Format.formatDate.format(x.getUpdateTime()), Helper.Format.formatDate.format(x.getCreateTime())});
         }
         model.fireTableDataChanged();
         tbBan.setModel(model);
@@ -360,20 +360,20 @@ public class QuanLiBan extends javax.swing.JPanel {
         tbBan.setForeground(new java.awt.Color(255, 255, 255));
         tbBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "aaaaaaaaaa", "ádasdasd", null, "aaaaaaaaaa", "aaaaaaaaaa", null, "aaaaaaaaaa"},
-                {null, "aaaaaaaaaa", "ádasd", null, "aaaaaaaaaa", "aaaaaaaaaa", null, "aaaaaaaaaa"},
-                {null, "aaaaaaaaaa", "ádasd", null, "aaaaaaaaaa", "aaaaaaaaaa", null, "aaaaaaaaaa"},
-                {null, "aaaaaaaaaa", "ádasda", null, "aaaaaaaaaa", "aaaaaaaaaa", null, "aaaaaaaaaa"}
+                {null, "aaaaaaaaaa", "ádasdasd", null, "aaaaaaaaaa", null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", "ádasd", null, "aaaaaaaaaa", null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", "ádasd", null, "aaaaaaaaaa", null, "aaaaaaaaaa"},
+                {null, "aaaaaaaaaa", "ádasda", null, "aaaaaaaaaa", null, "aaaaaaaaaa"}
             },
             new String [] {
-                "", "Mã bàn", "Tên bàn", "Mã khách hàng", "Trạng thái", "Ghi chú", "Ngày sửa", "Ngày tạo"
+                "", "Mã bàn", "Tên bàn", "Mã khách hàng", "Trạng thái", "Ngày sửa", "Ngày tạo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false
+                true, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -397,8 +397,6 @@ public class QuanLiBan extends javax.swing.JPanel {
             tbBan.getColumnModel().getColumn(2).setMaxWidth(75);
             tbBan.getColumnModel().getColumn(4).setPreferredWidth(120);
             tbBan.getColumnModel().getColumn(4).setMaxWidth(120);
-            tbBan.getColumnModel().getColumn(5).setPreferredWidth(150);
-            tbBan.getColumnModel().getColumn(5).setMaxWidth(150);
         }
 
         panelBackground5.add(jScrollPane2, java.awt.BorderLayout.CENTER);

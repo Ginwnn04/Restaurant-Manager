@@ -41,7 +41,7 @@ public class Order extends javax.swing.JDialog {
     }
 
     public void render(boolean isSelectAll) {
-        listOrder = orderBUS.getOrderByID(id);
+        listOrder = orderBUS.getOrderByInvoiceID(id);
         model = (DefaultTableModel) tbDatMon.getModel();
         model.setRowCount(0);
         for (OrderDTO x : listOrder) {

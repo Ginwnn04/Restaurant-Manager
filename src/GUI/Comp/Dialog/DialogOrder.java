@@ -36,6 +36,7 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
     
     private MenuItemBUS menuItemBUS = new MenuItemBUS();
     private TableBUS tableBUS = new TableBUS();
+    private String note = "";
     
     // danh sách những bàn đã chọn
     private ArrayList<TableDTO> listTableSelected = new ArrayList<>();
@@ -294,6 +295,10 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         lbTotalSelected = new javax.swing.JLabel();
+        panelBackground7 = new GUI.Comp.Swing.PanelBackground();
+        btnXacNhan = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         txtMapData.setText("0");
 
@@ -519,6 +524,29 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
 
         jTabbedPane1.addTab("Bàn", panelBackground2);
 
+        panelBackground7.setBackground(new java.awt.Color(30, 30, 30));
+        panelBackground7.setLayout(new java.awt.BorderLayout(0, 50));
+
+        btnXacNhan.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.setPreferredSize(new java.awt.Dimension(104, 75));
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacNhanActionPerformed(evt);
+            }
+        });
+        panelBackground7.add(btnXacNhan, java.awt.BorderLayout.PAGE_END);
+
+        jTextArea1.setBackground(new java.awt.Color(35, 35, 35));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextArea1.setRows(5);
+        jScrollPane4.setViewportView(jTextArea1);
+
+        panelBackground7.add(jScrollPane4, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Ghi chú", panelBackground7);
+
         pnCenter.add(jTabbedPane1);
 
         pnContainer.add(pnCenter, java.awt.BorderLayout.CENTER);
@@ -546,26 +574,20 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
             JOptionPane.showMessageDialog(pnContainerTable, "Bạn chưa chọn Món Ăn hoặc Bàn");
             return;
         }
-        
-//        System.out.println("---------------");
-        
 
-        
-        
+        //        System.out.println("---------------");
+
         ArrayList<DetailsRecipeDTO> listDetailRecipe = new ArrayList<>();
-      
+
         int size = listTableSelected.size();
-
-
-        
 
         for (DetailOrderDTO x : listDetailOrder) {
             listDetailRecipe = new DetailsReciptBUS().readByIDItem(x.getItemID());
             for (DetailsRecipeDTO detailRecipe : listDetailRecipe) {
                 IngredientsDTO ingredientsDTO = new IngredientsBUS().getIngredientById(detailRecipe.getIngredientID());
                 if (detailRecipe.getQuantity() * size * x.getQuantity() > ingredientsDTO.getQuantity()) {
-                        JOptionPane.showMessageDialog(pnContainer, "Món " + x.getName() + " Không đủ số lượng");
-                        return;      
+                    JOptionPane.showMessageDialog(pnContainer, "Món " + x.getName() + " Không đủ số lượng");
+                    return;
                 }
             }
         }
@@ -578,39 +600,38 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
                 new IngredientsBUS().updateIngredient(ingredientsDTO);
             }
         }
-        
 
         Date date = new Date();
-        
+
         boolean isSingle = listTableSelected.size() == 1 ? true : false;
         boolean isOrderMore = listTableSelected.get(0).getStatusID().equals("DANGSUDUNG") ? true : false;
-        
-        
+
         OrderDTO order = new OrderDTO();
         String customerCode = order.createCustomerCode(isSingle);
-        
+
         OrderBUS orderBUS = new OrderBUS();
-        
+
         // Update customer vào tb_table
         TableBUS tableBUS = new TableBUS();
         for (TableDTO table : listTableSelected) {
             if (isOrderMore) {
                 OrderDTO multiOrder = new OrderDTO();
                 multiOrder.createID();
-                
+
                 multiOrder.setStaffID(StaffDTO.staffLogging.getId());
                 multiOrder.setTableID(table.getId());
                 multiOrder.setCustomerCode(table.getCustomerCode());
                 multiOrder.setIsDelete(false);
                 multiOrder.setUpdateTime(date);
                 multiOrder.setCreateTime(date);
-    //          Thêm chi tiết cho order
+                multiOrder.setNote(note);
+                //          Thêm chi tiết cho order
                 for (DetailOrderDTO detail : listDetailOrder) {
                     multiOrder.insertDetailOrder(detail);
                     detail.createID();
                     try {
                         Thread.sleep(1);
-                    } 
+                    }
                     catch (InterruptedException ex) {
                         Logger.getLogger(DialogOrder.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -631,13 +652,15 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
                 multiOrder.setIsDelete(false);
                 multiOrder.setUpdateTime(date);
                 multiOrder.setCreateTime(date);
-    //          Thêm chi tiết cho order
+                multiOrder.setNote(note);
+
+                //          Thêm chi tiết cho order
                 for (DetailOrderDTO detail : listDetailOrder) {
                     multiOrder.insertDetailOrder(detail);
                     detail.createID();
                     try {
                         Thread.sleep(1);
-                    } 
+                    }
                     catch (InterruptedException ex) {
                         Logger.getLogger(DialogOrder.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -645,11 +668,16 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
                 orderBUS.insertOrder(multiOrder);
             }
         }
- 
+
         JOptionPane.showMessageDialog(rootPane, "Gọi món thành công !!");
         // Sau khi goi mon xong thi close dialog order
         dispose();
     }//GEN-LAST:event_btnOrderActionPerformed
+
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+        note = jTextArea1.getText();
+        JOptionPane.showMessageDialog(rootPane, "Lưu ghi chú thành công");
+    }//GEN-LAST:event_btnXacNhanActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -692,13 +720,16 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOrder;
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbShowTien;
     private javax.swing.JLabel lbTitleTongTien;
     private javax.swing.JLabel lbTotalSelected;
@@ -708,6 +739,7 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
     private GUI.Comp.Swing.PanelBackground panelBackground4;
     private GUI.Comp.Swing.PanelBackground panelBackground5;
     private GUI.Comp.Swing.PanelBackground panelBackground6;
+    private GUI.Comp.Swing.PanelBackground panelBackground7;
     private GUI.Comp.Swing.PanelBackground pnCenter;
     private GUI.Comp.Swing.PanelBackground pnCheckout;
     private GUI.Comp.Swing.PanelBackground pnContainer;

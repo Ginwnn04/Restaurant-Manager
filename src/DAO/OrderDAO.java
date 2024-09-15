@@ -9,10 +9,12 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class OrderDAO {
+    
+    
     public ArrayList<OrderDTO> readByInvoiceID(long id) {
         ArrayList<OrderDTO> list = new ArrayList<>();
         String query = """
-                SELECT DISTINCT tb_orders.id, tb_orders.customer_code, tb_orders.total, tb_orders.isdeleted, tb_orders.staffid, tb_orders.tableid, tb_orders.update_time, tb_orders.create_time FROM tb_orders
+                SELECT DISTINCT tb_orders.id, tb_orders.customer_code, tb_orders.total, tb_orders.isdeleted, tb_orders.staffid, tb_orders.tableid, tb_orders.update_time, tb_orders.create_time , tb_orders.note FROM tb_orders
                 JOIN tb_detail_order ON  tb_detail_order.orderid = tb_orders.id
                 JOIN tb_invoices ON tb_detail_order.invoiceid = ?""";
 
@@ -29,7 +31,7 @@ public class OrderDAO {
                 order.setTableID(rs.getLong("tableid"));
                 order.setUpdateTime(rs.getTimestamp("update_time"));
                 order.setCreateTime(rs.getTimestamp("create_time"));
-
+                order.setNote(rs.getString("note"));
                 list.add(order);
             }
             return list;
@@ -72,7 +74,10 @@ public class OrderDAO {
             if (criteria.getUpdateTime() != null) {
                 pstm.setTimestamp(i++, new Timestamp(criteria.getUpdateTime().getTime()));
             }
-
+            if (criteria.getNote() != null) {
+                pstm.setString(i++, criteria.getNote());
+            }
+            
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 OrderDTO order = new OrderDTO();
@@ -84,7 +89,7 @@ public class OrderDAO {
                 order.setTableID(rs.getLong("tableid"));
                 order.setUpdateTime(rs.getTimestamp("update_time"));
                 order.setCreateTime(rs.getTimestamp("create_time"));
-
+                order.setNote(rs.getString("note"));
                 TableDTO table = new TableDTO();
                 table.setName(rs.getString("name"));
                 order.setTableDTO(table);
@@ -99,7 +104,7 @@ public class OrderDAO {
     }
 
     public boolean insert(OrderDTO order) {
-        String query = "INSERT INTO tb_orders VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO tb_orders VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
             pstm.setLong(1, order.getId());
             pstm.setString(2, order.getCustomerCode());
@@ -112,7 +117,7 @@ public class OrderDAO {
             Timestamp sqlDateCreate = new Timestamp(order.getCreateTime().getTime());
             pstm.setTimestamp(7, sqlDateCreate);
             pstm.setTimestamp(8, sqlDateUpdate);
-
+            pstm.setString(9, order.getNote());
             return pstm.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,6 +159,9 @@ public class OrderDAO {
             }
             if (criteria.getUpdateTime() != null) {
                 pstm.setTimestamp(i++, new Timestamp(criteria.getUpdateTime().getTime()));
+            }
+            if (criteria.getNote() != null) {
+                pstm.setString(i++, criteria.getNote());
             }
             if (listID.isEmpty()) {
                 pstm.setLong(i++, criteria.getId());
