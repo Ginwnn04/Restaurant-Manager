@@ -47,7 +47,7 @@ public class OrderDAO {
         if (criteria.createClause(false).isEmpty()) {
             return null;
         }
-        query += " WHERE " + criteria.createClause(false);
+        query += " WHERE " + criteria.createClause(false) + " ORDER BY create_time DESC";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query);) {
             int i = 1;
             if (criteria.getId() != null) {

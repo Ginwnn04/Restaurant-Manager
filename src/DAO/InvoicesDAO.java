@@ -26,7 +26,7 @@ public class InvoicesDAO {
             pstm.setBoolean(5, invoices.isIsDelete());
             Timestamp dateSQL = new Timestamp(invoices.getCreateTime().getTime());
             pstm.setTimestamp(6, dateSQL);
-            pstm.setString(7, invoices.getDiscountID());
+            pstm.setLong(7, invoices.getDiscountID());
             return pstm.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,7 +47,7 @@ public class InvoicesDAO {
                 invoice.setTotal(rs.getDouble("total"));
                 invoice.setIsDelete(rs.getBoolean("isdeleted"));
                 invoice.setCreateTime(rs.getTimestamp("time"));
-                invoice.setDiscountID(rs.getString("discountid"));
+                invoice.setDiscountID(rs.getLong("discountid"));
                 return invoice;
             }
 
@@ -71,7 +71,7 @@ public class InvoicesDAO {
                 invoice.setTotal(rs.getDouble("total"));
                 invoice.setIsDelete(rs.getBoolean("isdeleted"));
                 invoice.setCreateTime(rs.getTimestamp("time"));
-                invoice.setDiscountID(rs.getString("discountid"));
+                invoice.setDiscountID(rs.getLong("discountid"));
 
                 OrderDTO orderDTO = new OrderDTO();
                 orderDTO.setCustomerCode(rs.getString("customer_code"));

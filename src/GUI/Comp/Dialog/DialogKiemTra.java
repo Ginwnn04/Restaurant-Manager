@@ -89,23 +89,24 @@ public class DialogKiemTra extends javax.swing.JDialog {
         renderTableMonAn(listOrderId);
         renderTableDiscount();
         lbBan.setText("BÀN " + table.getName() + " - " + table.getCustomerCode());
-        System.out.println(listOrderId);
         if ((listOrderId.split(",")).length > 1) {
             order = new OrderBUS().findOrderByID(Long.parseLong(listOrderId.substring(0, listOrderId.indexOf(",") )));
         }
         else {
             order = new OrderBUS().findOrderByID(Long.parseLong(listOrderId));
         }
-        
+        System.out.println(listOrderId);
         tarNote.setText(order.getNote());
-        loadInvoice(listOrderId);
+       
     }
     
     public void loadInvoice(String listOrderId) {
         listDetailOrder = new DetailOrderBUS().mergeDetails(listOrderId);
         for (DetailOrderDTO x : listDetailOrder) {
             amount += x.getTotal();
+          
         }
+        System.out.println(amount);
         total = amount - discountPrice;
         lbThanhTien.setText(Helper.Format.formatNumber.format(amount) + "đ");
         lbTienGiam.setText(Helper.Format.formatNumber.format(discountPrice) + "đ");
@@ -129,7 +130,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
     public void renderTableDiscount() {
         tbDiscount.setRowHeight(25);
         modelDiscount = (DefaultTableModel)tbDiscount.getModel();
-        listDiscount = discountBUS.getAllData();
+        listDiscount = discountBUS.getAllData(true);
         System.out.println(listDiscount.size());
         modelDiscount.setRowCount(0);
         for (DiscountDTO x : listDiscount) {   
@@ -140,7 +141,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
                     modelDiscount.addRow(new Object[] {x.getName(), x.getValue(), x.getType(), Format.formatNumber.format(x.getMinimum()), Format.formatNumber.format(amountDiscount), Format.formatDate.format(x.getExpiredTime())});
                 }
                 else {
-                    amountDiscount = amount - x.getValue();
+                    amountDiscount =  x.getValue();
                     modelDiscount.addRow(new Object[] {x.getName(), Format.formatNumber.format(x.getValue()), x.getType(), Format.formatNumber.format(x.getMinimum()), Format.formatNumber.format(amountDiscount), Format.formatDate.format(x.getExpiredTime())});
                 }
             }
@@ -542,6 +543,12 @@ public class DialogKiemTra extends javax.swing.JDialog {
 //        // Update id invoice cho các details order
         if (detailOrderBUS.updateDetails(listOrderID, invoice.getId())) {
             if (tableBUS.cancelTable(listTableID)) {
+                DiscountDTO discountDTO = new DiscountDTO();
+   
+                discountDTO = discountBUS.getDataById(Long.parseLong(txtSaveDiscountID.getText()));
+                
+                
+                discountBUS.updateRemainingById(discountDTO.getId(), discountDTO.getRemaining() - 1);
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công !!!");
                 dispose();
             }
@@ -558,7 +565,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
         System.out.println("1");
         int row = tbDiscount.getSelectedRow();
         
-        txtSaveDiscountID.setText(listDiscount.get(row).getId());
+        txtSaveDiscountID.setText(listDiscount.get(row).getId() + "");
         String strDiscountPrice = tbDiscount.getModel().getValueAt(row, 4).toString();
         discountPrice = Double.parseDouble(strDiscountPrice.replaceAll("\\.", ""));
         total = amount - discountPrice;
@@ -582,7 +589,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
             invoice.addDiscount(null, 0);
         }
         else {
-            invoice.addDiscount(txtSaveDiscountID.getText(), discountPrice);
+            invoice.addDiscount(Long.parseLong(txtSaveDiscountID.getText()), discountPrice);
         }
         
         

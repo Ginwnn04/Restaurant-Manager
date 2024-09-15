@@ -15,9 +15,14 @@ import java.util.ArrayList;
 public class DiscountBUS {
     private DiscountDAO discountDAO = new DiscountDAO();
     
-    public ArrayList<DiscountDTO> getAllData() {
-        return discountDAO.read();
+    public ArrayList<DiscountDTO> getAllData(boolean isValid) {
+        return discountDAO.read(isValid);
     }
+    
+    public DiscountDTO getDataById(long id) {
+        return discountDAO.getDataById(id);
+    }
+    
     
     public boolean insertDiscount(DiscountDTO discount) {
         return discountDAO.insert(discount);
@@ -25,6 +30,10 @@ public class DiscountBUS {
     
     public boolean updateDiscount(DiscountDTO discount) {
         return discountDAO.update(discount);
+    }
+    
+    public boolean updateRemainingById(long id, int remaining) {
+        return discountDAO.updateRemainingById(id, remaining);
     }
     
     public boolean deleteDiscount(DiscountDTO discount) {

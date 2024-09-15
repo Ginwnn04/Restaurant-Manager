@@ -10,7 +10,7 @@ public class InvoicesDTO {
     private double discount;
     private double total;
     private Date createTime;
-    private String discountID;
+    private Long discountID;
     private boolean isDelete;
     private OrderDTO orderDTO;
 
@@ -22,7 +22,7 @@ public class InvoicesDTO {
         this.isDelete = isDelete;
     }
 
-    public InvoicesDTO(long id, double amount, double discount, double total, Date createTime, String discountID,
+    public InvoicesDTO(long id, double amount, double discount, double total, Date createTime, Long discountID,
         boolean isDelete) {
         this.id = id;
         this.amount = amount;
@@ -41,7 +41,7 @@ public class InvoicesDTO {
         return id;
     }
 
-    public void addDiscount(String discountID, double discount) {
+    public void addDiscount(Long discountID, double discount) {
         this.discountID = discountID;
         this.discount = discount;
         total = amount - discount;
@@ -87,11 +87,11 @@ public class InvoicesDTO {
         this.createTime = createTime;
     }
 
-    public String getDiscountID() {
+    public Long getDiscountID() {
         return discountID;
     }
 
-    public void setDiscountID(String discountID) {
+    public void setDiscountID(Long discountID) {
         this.discountID = discountID;
     }
 

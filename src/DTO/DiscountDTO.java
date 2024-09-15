@@ -11,7 +11,7 @@ import java.util.Date;
  * @author quang
  */
 public class DiscountDTO {
-    private String id;
+    private long id;
     private String name;
     private String des;
     private long minimum;
@@ -42,17 +42,17 @@ public class DiscountDTO {
     
     
 
-    public String createID() {
-        this.id = System.currentTimeMillis() + "";
+    public long createID() {
+        this.id = System.currentTimeMillis() ;
         return id;
     }
 
     
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

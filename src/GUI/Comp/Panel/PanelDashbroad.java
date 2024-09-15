@@ -440,12 +440,24 @@ public class PanelDashbroad extends javax.swing.JPanel implements PropertyChange
             if (tableSelected.getCustomerCode().substring(0, 1).equals("S")) {
                 // Lúc này ta biết bàn này là bàn đơn => chắc chắn sẽ có duy nhất 1 obj order được trả ra
                 OrderDTO order = listOrderMerge.get(0);
+                
+                System.out.println(order.getId()); //
+                
                 customerCodeNew = order.createCustomerCode(false);
+                
+                System.out.println(customerCodeNew); //
+                
+                
                 TableDTO tableWillMove = listTableMerge.get(0);
+                
+                System.out.println(tableWillMove.getId()); //
+                
                 // Tạo lại customerCode là bàn Đôi
                 order.createCustomerCode(false);
                 listTableID = tableSelected.getId() + ", " + tableWillMove.getId();
                 listOrderID = orderBUS.findOrderByTableID(tableSelected.getId()).getId() + ", " + orderBUS.findOrderByTableID(tableWillMove.getId()).getId();
+                
+                System.out.println("End");
             }
             else {
                 customerCodeNew = tableSelected.getCustomerCode();

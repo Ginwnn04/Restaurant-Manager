@@ -45,7 +45,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
     }
 
     public void render() {
-        listDiscount = discountBUS.getAllData();
+        listDiscount = discountBUS.getAllData(false);
         model = (DefaultTableModel)tbDiscount.getModel();
         model.setRowCount(0);
         for (DiscountDTO x : listDiscount) {
