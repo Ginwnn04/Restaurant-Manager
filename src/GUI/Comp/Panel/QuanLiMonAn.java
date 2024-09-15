@@ -38,7 +38,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
         // header table nam ben trai
         DefaultTableCellRenderer  renderer = (DefaultTableCellRenderer) tbMonAn.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.LEFT);
-        txtTimKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập tên món ăn cần tìm");
+        txtTimKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm món ăn");
         render(isSelectAll);
         
         tbMonAn.getModel().addTableModelListener(new TableModelListener() {
@@ -112,13 +112,13 @@ public class QuanLiMonAn extends javax.swing.JPanel {
         panelBackground10.setLayout(new javax.swing.BoxLayout(panelBackground10, javax.swing.BoxLayout.LINE_AXIS));
 
         panelBackground16.setBackground(new java.awt.Color(30, 30, 30));
-        panelBackground16.setPreferredSize(new java.awt.Dimension(35, 75));
+        panelBackground16.setPreferredSize(new java.awt.Dimension(45, 75));
 
         javax.swing.GroupLayout panelBackground16Layout = new javax.swing.GroupLayout(panelBackground16);
         panelBackground16.setLayout(panelBackground16Layout);
         panelBackground16Layout.setHorizontalGroup(
             panelBackground16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 23, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
         panelBackground16Layout.setVerticalGroup(
             panelBackground16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +170,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
         panelBackground17.setLayout(panelBackground17Layout);
         panelBackground17Layout.setHorizontalGroup(
             panelBackground17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 34, Short.MAX_VALUE)
+            .addGap(0, 22, Short.MAX_VALUE)
         );
         panelBackground17Layout.setVerticalGroup(
             panelBackground17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +181,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
 
         txtTimKiem.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtTimKiem.setMaximumSize(new java.awt.Dimension(200, 30));
-        txtTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtTimKiem.setPreferredSize(new java.awt.Dimension(300, 30));
         txtTimKiem.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtTimKiemCaretUpdate(evt);

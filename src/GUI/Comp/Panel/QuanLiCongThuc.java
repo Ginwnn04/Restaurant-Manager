@@ -440,7 +440,7 @@ public class QuanLiCongThuc extends javax.swing.JPanel {
         String find = txtTimKiem.getText().toUpperCase().trim();
         if (!find.isEmpty()) {
 //          Indices 2 => Sort theo cột 2 (Name), 3 (CustomerCode)
-            tableRowSorter.setRowFilter(RowFilter.regexFilter(find, 2, 3));
+            tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + find, 2, 3));
         }
         tbDatMon.setRowSorter(tableRowSorter);
     }//GEN-LAST:event_txtTimKiemCaretUpdate

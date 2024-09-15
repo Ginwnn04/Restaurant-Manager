@@ -36,6 +36,8 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.raven.swing.PanelBackground;
 import BUS.StaffBUS;
 import DTO.StaffDTO;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -637,19 +639,14 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
             }
 
             private void search() {
-                String searchText = searchField.getText().trim().toLowerCase();
-                ArrayList<StaffDTO> filteredList = new ArrayList<>();
-                for (StaffDTO staff : listStaff) {
-                    if (staff.getUsername().toLowerCase().contains(searchText) ||
-                        staff.getEmail().toLowerCase().contains(searchText) ||
-                        staff.getFirst_name().toLowerCase().contains(searchText) || // Tìm kiếm theo họ tên
-                        staff.getLast_name().toLowerCase().contains(searchText)) { // Tìm kiếm theo họ tên
-                        filteredList.add(staff);
-                    }
+                searchField.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+                TableRowSorter tableRowSorter = new TableRowSorter(tbStaff.getModel());
+                String find = searchField.getText().trim();
+                if (!find.isEmpty()) {
+        //          Indices 2 => Sort theo cột 2 (Name)
+                    tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + find, 2));
                 }
-
-                // Hiển thị lại danh sách nhân viên lọc được
-                renderFilteredStaff(filteredList);
+                tbStaff.setRowSorter(tableRowSorter);
             }
         });
 

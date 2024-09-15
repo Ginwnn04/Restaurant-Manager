@@ -535,12 +535,13 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
     }// GEN-LAST:event_btnChiTietActionPerformed
 
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {// GEN-FIRST:event_txtTimKiemCaretUpdate
+        txtTimKiem.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         TableRowSorter tableRowSorter = new TableRowSorter(tbInvoice.getModel());
-        String find = txtTimKiem.getText().toUpperCase().trim();
+        String find = txtTimKiem.getText().trim();
         
         if (!find.isEmpty()) {
             // Indices 2 => Sort theo cột 2 (Name), 3 (CustomerCode)
-            tableRowSorter.setRowFilter(RowFilter.regexFilter(find, 2));
+            tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+ find, 2));
         }
         tbInvoice.setRowSorter(tableRowSorter);
     }// GEN-LAST:event_txtTimKiemCaretUpdate

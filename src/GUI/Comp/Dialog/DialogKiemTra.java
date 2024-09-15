@@ -90,9 +90,15 @@ public class DialogKiemTra extends javax.swing.JDialog {
         renderTableDiscount();
         lbBan.setText("BÀN " + table.getName() + " - " + table.getCustomerCode());
         System.out.println(listOrderId);
-        order = new OrderBUS().findOrderByID(Long.parseLong(listOrderId));
+        if ((listOrderId.split(",")).length > 1) {
+            order = new OrderBUS().findOrderByID(Long.parseLong(listOrderId.substring(0, listOrderId.indexOf(",") )));
+        }
+        else {
+            order = new OrderBUS().findOrderByID(Long.parseLong(listOrderId));
+        }
+        
         tarNote.setText(order.getNote());
-
+        loadInvoice(listOrderId);
     }
     
     public void loadInvoice(String listOrderId) {

@@ -34,6 +34,8 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.raven.swing.PanelBackground;
 import BUS.SupplierBUS;
 import DTO.SupplierDTO;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -388,19 +390,15 @@ public class QuanLiSupplier extends javax.swing.JPanel {
     	        search();
     	    }
 
-    	    private void search() {
-    	        String searchText = searchField.getText().trim().toLowerCase();
-    	        ArrayList<SupplierDTO> filteredList = new ArrayList<>();
-    	        for (SupplierDTO supplier : listSupplier) {
-    	            if (supplier.getName().toLowerCase().contains(searchText) ||
-    	                supplier.getAddress().toLowerCase().contains(searchText) ||
-    	                supplier.getPhone().toLowerCase().contains(searchText)) {
-    	                filteredList.add(supplier);
-    	            }
-    	        }
-
-    	        // Hiển thị lại danh sách nhà cung cấp lọc được
-    	        renderFilteredSupplier(filteredList);
+    	    private void search() { 
+                searchField.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+                TableRowSorter tableRowSorter = new TableRowSorter(tbSupplier.getModel());
+                String find = searchField.getText().trim();
+                if (!find.isEmpty()) {
+        //          Indices 2 => Sort theo cột 2 (Name)
+                    tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + find, 1));
+                }
+                tbSupplier.setRowSorter(tableRowSorter);
     	    }
     	});
      

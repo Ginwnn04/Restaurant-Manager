@@ -550,11 +550,12 @@ public class QuanLiDatMon extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
+        txtTimKiem.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         TableRowSorter tableRowSorter = new TableRowSorter(tbDatMon.getModel());
         String find = txtTimKiem.getText().toUpperCase().trim();
         if (!find.isEmpty()) {
 //          Indices 2 => Sort theo cột 2 (Name), 3 (CustomerCode)
-            tableRowSorter.setRowFilter(RowFilter.regexFilter(find, 2, 3));
+            tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + find, 2, 3));
         }
         tbDatMon.setRowSorter(tableRowSorter);
     }//GEN-LAST:event_txtTimKiemCaretUpdate
