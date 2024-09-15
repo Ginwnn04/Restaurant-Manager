@@ -8,46 +8,29 @@ import BUS.RoleBUS;
 import GUI.Comp.Panel.QuanLiNhapKho;
 import GUI.Comp.Panel.QuanLi_Staff;
 import GUI.Comp.Panel.QuanLiNguyenLieu;
-//import GUI.Comp.QuanLiBan;
-//import GUI.Comp.DialogOrder;
-
 import GUI.Comp.Panel.QuanLiBan;
-import GUI.Comp.Dialog.DialogOrder;
-
 import GUI.Comp.Panel.PanelDashbroad;
-import GUI.Comp.Panel.QuanLiCongThuc;
 import GUI.Comp.Panel.QuanLiGiamGia;
 import GUI.Comp.Panel.QuanLiDatMon;
 import GUI.Comp.Panel.QuanLiTheLoai;
 import Helper.MyListener;
-
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-
-import BUS.StaffBUS;
 import DTO.StaffDTO;
 import GUI.Comp.Panel.PanelStatistic;
 import GUI.Comp.Panel.QuanLiMonAn;
 import GUI.Comp.Panel.QuanLiSupplier;
 import GUI.Comp.Panel.QuanLiHoaDon;
-
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Action;
 import javax.swing.JPanel;
 
 import javax.swing.UIManager;
-import javax.swing.border.Border;
 
 /**
  *

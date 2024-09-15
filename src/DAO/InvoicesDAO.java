@@ -1,26 +1,18 @@
 package DAO;
 
-import DTO.DetailOrderDTO;
 import DTO.InvoicesDTO;
 import DTO.OrderDTO;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import GUI.Comp.chart.ModelChartPie;
 import java.awt.Color;
 import java.time.DayOfWeek;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class InvoicesDAO {
 
@@ -28,9 +20,9 @@ public class InvoicesDAO {
         String query = "INSERT INTO tb_invoices VALUES(?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
             pstm.setLong(1, invoices.getId());
-            pstm.setLong(2, invoices.getAmount());
-            pstm.setLong(3, invoices.getDiscount());
-            pstm.setLong(4, invoices.getTotal());
+            pstm.setDouble(2, invoices.getAmount());
+            pstm.setDouble(3, invoices.getDiscount());
+            pstm.setDouble(4, invoices.getTotal());
             pstm.setBoolean(5, invoices.isIsDelete());
             Timestamp dateSQL = new Timestamp(invoices.getCreateTime().getTime());
             pstm.setTimestamp(6, dateSQL);
@@ -50,9 +42,9 @@ public class InvoicesDAO {
             if (rs.next()) {
                 InvoicesDTO invoice = new InvoicesDTO();
                 invoice.setId(rs.getLong("id"));
-                invoice.setAmount(rs.getLong("amount"));
-                invoice.setDiscount(rs.getLong("discount_price"));
-                invoice.setTotal(rs.getLong("total"));
+                invoice.setAmount(rs.getDouble("amount"));
+                invoice.setDiscount(rs.getDouble("discount_price"));
+                invoice.setTotal(rs.getDouble("total"));
                 invoice.setIsDelete(rs.getBoolean("isdeleted"));
                 invoice.setCreateTime(rs.getTimestamp("time"));
                 invoice.setDiscountID(rs.getString("discountid"));
@@ -74,9 +66,9 @@ public class InvoicesDAO {
             while (rs.next()) {
                 InvoicesDTO invoice = new InvoicesDTO();
                 invoice.setId(rs.getLong("id"));
-                invoice.setAmount(rs.getLong("amount"));
-                invoice.setDiscount(rs.getLong("discount_price"));
-                invoice.setTotal(rs.getLong("total"));
+                invoice.setAmount(rs.getDouble("amount"));
+                invoice.setDiscount(rs.getDouble("discount_price"));
+                invoice.setTotal(rs.getDouble("total"));
                 invoice.setIsDelete(rs.getBoolean("isdeleted"));
                 invoice.setCreateTime(rs.getTimestamp("time"));
                 invoice.setDiscountID(rs.getString("discountid"));
@@ -116,7 +108,7 @@ public class InvoicesDAO {
             while (rs.next()) {
                 ModelChartPie pie = new ModelChartPie();
                 pie.setName(rs.getString("name"));
-                pie.setValue(rs.getLong("total"));
+                pie.setValue(rs.getDouble("total"));
                 pie.setColor(new Color(rand.nextInt(250), rand.nextInt(250), rand.nextInt(250)));
                 res.add(pie);
             }

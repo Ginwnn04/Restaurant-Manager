@@ -5,54 +5,19 @@
 package GUI.Comp.Panel;
 
 import BUS.DiscountBUS;
-import BUS.TableBUS;
 import DTO.DiscountDTO;
-
-import DTO.TableDTO;
-import GUI.Comp.DateChooser.SelectedDate;
-import GUI.Comp.Dialog.DialogActionTable;
-import com.formdev.flatlaf.FlatClientProperties;
-
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JCheckBox;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-
-import javax.swing.RowFilter;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import Helper.Format;
 
 /**
  *
@@ -85,7 +50,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         model.setRowCount(0);
         for (DiscountDTO x : listDiscount) {
 
-            model.addRow(new Object[] {x.getId(), x.getName(), x.getDes(), x.getMinimum(), x.getRemaining(), x.getValue(), x.getType(), Helper.Format.formatDate.format(x.getExpiredTime()) ,Helper.Format.formatDate.format(x.getUpdateTime()), Helper.Format.formatDate.format(x.getCreateTime())});
+            model.addRow(new Object[] {x.getId(), x.getName(), x.getDes(), Format.formatNumber.format(x.getMinimum()), x.getRemaining(), x.getValue(), x.getType(), Format.formatDate.format(x.getExpiredTime()) ,Format.formatDate.format(x.getUpdateTime()), Format.formatDate.format(x.getCreateTime())});
         }
         model.fireTableDataChanged();
         tbDiscount.setModel(model);

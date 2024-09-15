@@ -8,7 +8,6 @@ import DTO.DiscountDTO;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 

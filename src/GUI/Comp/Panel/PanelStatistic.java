@@ -7,7 +7,6 @@ package GUI.Comp.Panel;
 import GUI.Comp.chart.*;
 import DTO.InvoicesDTO;
 import BUS.InvoicesBUS;
-import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -15,9 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -212,7 +209,7 @@ public class PanelStatistic extends javax.swing.JPanel {
 
     private void comboBoxWeekActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_comboBoxWeekActionPerformed
         // Get the time selected and load data that match to the table
-        long[] arrLine = new long[7];
+        double[] arrLine = new double[7];
         int index = comboBoxWeek.getSelectedIndex();
         if (index != -1) {
             DefaultTableModel modelTable = (DefaultTableModel) tableInvoices.getModel();
@@ -237,7 +234,7 @@ public class PanelStatistic extends javax.swing.JPanel {
                 String createTime = dateFormat.format(i.getCreateTime());
                 if (isDateInWeek(date, createTime)) {
                     int dayInWeek = compareDay(date, createTime);
-                    long total = i.getTotal();
+                    double total = i.getTotal();
                     arrLine[dayInWeek] += total;
                     modelTable.addRow(new ModelInvoices(i.getCreateTime(), i.getId(), i.getAmount(), i.getDiscount(),
                             i.getTotal()).toDataTable());

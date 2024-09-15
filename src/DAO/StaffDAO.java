@@ -1,7 +1,6 @@
 package DAO;
 
 import DTO.StaffDTO;
-import GUI.Main.Main;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

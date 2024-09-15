@@ -2,10 +2,8 @@ package GUI.Comp.Dialog;
 
 import BUS.TableBUS;
 import BUS.TableStatusBUS;
-import DAO.TableDAO;
 import DTO.TableDTO;
 import DTO.TableStatusDTO;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;

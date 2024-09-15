@@ -6,15 +6,15 @@ import java.util.Random;
 
 public class InvoicesDTO {
     private long id;
-    private long amount;
-    private long discount;
-    private long total;
+    private double amount;
+    private double discount;
+    private double total;
     private Date createTime;
     private String discountID;
     private boolean isDelete;
     private OrderDTO orderDTO;
 
-    public InvoicesDTO(long amount, long total, Date createTime, boolean isDelete) {
+    public InvoicesDTO(double amount, double total, Date createTime, boolean isDelete) {
         createID();
         this.amount = amount;
         this.total = total;
@@ -22,8 +22,8 @@ public class InvoicesDTO {
         this.isDelete = isDelete;
     }
 
-    public InvoicesDTO(long id, long amount, long discount, long total, Date createTime, String discountID,
-            boolean isDelete) {
+    public InvoicesDTO(long id, double amount, double discount, double total, Date createTime, String discountID,
+        boolean isDelete) {
         this.id = id;
         this.amount = amount;
         this.discount = discount;
@@ -41,7 +41,7 @@ public class InvoicesDTO {
         return id;
     }
 
-    public void addDiscount(String discountID, long discount) {
+    public void addDiscount(String discountID, double discount) {
         this.discountID = discountID;
         this.discount = discount;
         total = amount - discount;
@@ -55,27 +55,27 @@ public class InvoicesDTO {
         this.id = id;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public long getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(long discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 
-    public long getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(long total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 

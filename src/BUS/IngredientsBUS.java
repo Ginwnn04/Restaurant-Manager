@@ -10,9 +10,10 @@ package BUS;
  */
 import DAO.IngredientsDAO;
 import DTO.IngredientsDTO;
-import java.sql.Connection;
 import java.util.ArrayList;
-import java.sql.SQLException;
+
+
+
 public class IngredientsBUS {
     private IngredientsDAO ingredientsDAO = new IngredientsDAO();
     private ArrayList<IngredientsDTO> listIngredients = new ArrayList<>();

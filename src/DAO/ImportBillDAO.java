@@ -9,21 +9,11 @@ package DAO;
  * @author Tai
  */
 import DTO.ImportBillDTO;
-import BUS.ConnectDB;
-import Helper.FormatNumber;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.sql.Timestamp;
-import java.util.List;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
+
 
 public class ImportBillDAO {
     

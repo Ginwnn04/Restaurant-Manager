@@ -8,8 +8,6 @@ import BUS.IngredientsBUS;
 import DTO.IngredientsDTO;
 import java.awt.Dialog;
 import java.awt.Window;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 

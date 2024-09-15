@@ -4,7 +4,6 @@ import BUS.TableStatusBUS;
 import DTO.TableStatusDTO;
 import Helper.MyListener;
 import java.awt.Color;
-import javax.swing.ImageIcon;
 
 public class PanelTableBooking extends javax.swing.JPanel {
     private String nameTable;

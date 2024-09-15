@@ -20,7 +20,7 @@ public class ModelInvoices {
         this.ID = ID;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -28,23 +28,23 @@ public class ModelInvoices {
         this.price = price;
     }
 
-    public long getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(long discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 
-    public long getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(long total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public ModelInvoices(Date date, long ID, long price, long discount, long total) {
+    public ModelInvoices(Date date, long ID, double price, double discount, double total) {
         this.date = date;
         this.ID = ID;
         this.price = price;
@@ -57,9 +57,9 @@ public class ModelInvoices {
 
     private Date date;
     private long ID;
-    private long price;
-    private long discount;
-    private long total;
+    private double price;
+    private double discount;
+    private double total;
 
     public Object[] toDataTable() {
         return new Object[] { date, ID, price, discount, total };

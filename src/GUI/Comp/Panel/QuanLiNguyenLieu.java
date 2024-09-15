@@ -4,20 +4,15 @@ import BUS.IngredientsBUS;
 import DTO.IngredientsDTO;
 import GUI.Comp.Dialog.DialogIngredient;
 import com.formdev.flatlaf.FlatClientProperties;
-import java.awt.Color;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
 /*

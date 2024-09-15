@@ -4,7 +4,6 @@
  */
 package GUI.Comp.Dialog;
 
-import static BUS.ConnectDB.openConnect;
 import BUS.DetailImportBillBUS;
 import BUS.ImportBillBUS;
 import BUS.IngredientsBUS;
@@ -16,22 +15,12 @@ import DTO.StaffDTO;
 import DTO.SupplierDTO;
 import java.awt.Dialog;
 import java.awt.Window;
-import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 

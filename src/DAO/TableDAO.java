@@ -9,8 +9,6 @@ import DTO.TableDTO;
 import DTO.TableStatusDTO;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 

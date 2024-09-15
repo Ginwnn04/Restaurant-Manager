@@ -6,29 +6,19 @@ package GUI.Comp.Panel;
 
 import BUS.OrderBUS;
 import BUS.TableBUS;
-import DAO.OrderDAO;
-import DAO.TableDAO;
 import DTO.OrderDTO;
 import DTO.TableDTO;
 import GUI.Comp.Dialog.DialogKiemTra;
 import GUI.Comp.Dialog.DialogOrder;
 import Helper.MyListener;
-import java.awt.Button;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class PanelDashbroad extends javax.swing.JPanel implements PropertyChangeListener {
     private ArrayList<TableDTO> listTable = new ArrayList<>();

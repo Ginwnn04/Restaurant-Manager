@@ -12,9 +12,7 @@ import DTO.InvoicesDTO;
 import DTO.OrderDTO;
 import DTO.StaffDTO;
 import DTO.TableDTO;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.awt.Color;
@@ -29,16 +27,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import java.awt.Desktop;
@@ -46,10 +39,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.StringReader;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Helper.Format;
 
 
 
@@ -68,9 +60,9 @@ public class DialogKiemTra extends javax.swing.JDialog {
     private TableBUS tableBUS = new TableBUS();
     private ArrayList<DiscountDTO> listDiscount;
     private DiscountDTO discount;
-    private long amount = 0;
-    private long discountPrice = 0;
-    private long total = 0;
+    private double amount = 0;
+    private double discountPrice = 0;
+    private double total = 0;
    
     public DialogKiemTra(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -93,21 +85,15 @@ public class DialogKiemTra extends javax.swing.JDialog {
     
     public void loadForm(String listOrderId, TableDTO table) {
         this.table = table;
+        loadInvoice(listOrderId);
         renderTableMonAn(listOrderId);
         renderTableDiscount();
         lbBan.setText("BÀN " + table.getName() + " - " + table.getCustomerCode());
         tarNote.setText(table.getNote());
 
-        loadInvoice(listOrderId);
     }
     
     public void loadInvoice(String listOrderId) {
-//        long idInvoice = detailOrderBUS.getInvoiceByOrderID(orderID);
-//        if (idInvoice == 0) {
-//            System.out.println("Khong ton tai hoa don");
-//            return;
-//        }
-//        InvoicesDTO invoice = invoicesDAO.readData(idInvoice);
         listDetailOrder = new DetailOrderBUS().mergeDetails(listOrderId);
         for (DetailOrderDTO x : listDetailOrder) {
             amount += x.getTotal();
@@ -125,7 +111,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
         listDetailOrder = new DetailOrderBUS().mergeDetails(listOrderId);
         modelMonAn.setRowCount(0);
         for (DetailOrderDTO x : listDetailOrder) {
-            modelMonAn.addRow(new Object[] {x.getItemID(), x.getName(), Helper.Format.formatNumber.format(x.getPrice()), x.getQuantity(), Helper.Format.formatNumber.format(x.getTotal())});
+            modelMonAn.addRow(new Object[] {x.getItemID(), x.getName(), Format.formatNumber.format(x.getPrice()), x.getQuantity(), Format.formatNumber.format(x.getTotal())});
         }
         modelMonAn.fireTableDataChanged();
         tbMonAn.setModel(modelMonAn);  
@@ -136,13 +122,19 @@ public class DialogKiemTra extends javax.swing.JDialog {
         tbDiscount.setRowHeight(25);
         modelDiscount = (DefaultTableModel)tbDiscount.getModel();
         listDiscount = discountBUS.getAllData();
+        System.out.println(listDiscount.size());
         modelDiscount.setRowCount(0);
-        for (DiscountDTO x : listDiscount) {
-            if (x.getType().equals("percent")) {
-                modelDiscount.addRow(new Object[] {x.getName(), x.getValue(), x.getType(), Helper.Format.formatNumber.format(x.getMinimum()), Helper.Format.formatDate.format(x.getExpiredTime())});
-            }
-            else {
-                modelDiscount.addRow(new Object[] {x.getName(), Helper.Format.formatNumber.format(x.getValue()), x.getType(), Helper.Format.formatNumber.format(x.getMinimum()), Helper.Format.formatDate.format(x.getExpiredTime())});
+        for (DiscountDTO x : listDiscount) {   
+            if (amount >= x.getMinimum()) {
+                double amountDiscount;
+                if (x.getType().equals("percent")) {
+                    amountDiscount = (x.getValue() / 100.0) * amount;
+                    modelDiscount.addRow(new Object[] {x.getName(), x.getValue(), x.getType(), Format.formatNumber.format(x.getMinimum()), Format.formatNumber.format(amountDiscount), Format.formatDate.format(x.getExpiredTime())});
+                }
+                else {
+                    amountDiscount = amount - x.getValue();
+                    modelDiscount.addRow(new Object[] {x.getName(), Format.formatNumber.format(x.getValue()), x.getType(), Format.formatNumber.format(x.getMinimum()), Format.formatNumber.format(amountDiscount), Format.formatDate.format(x.getExpiredTime())});
+                }
             }
         }
         modelDiscount.fireTableDataChanged();
@@ -295,7 +287,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
         panelBackground1.setLayout(new javax.swing.BoxLayout(panelBackground1, javax.swing.BoxLayout.LINE_AXIS));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(750, 402));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(650, 402));
 
         tbMonAn.setBackground(new java.awt.Color(35, 35, 35));
         tbMonAn.setModel(new javax.swing.table.DefaultTableModel(
@@ -382,21 +374,22 @@ public class DialogKiemTra extends javax.swing.JDialog {
 
         panelBackground4.setBackground(new java.awt.Color(30, 30, 30));
 
+        tbDiscount.setAutoCreateRowSorter(true);
         tbDiscount.setBackground(new java.awt.Color(35, 35, 35));
         tbDiscount.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         tbDiscount.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Tên mã", "Giá trị", "Loại", "Điều kiện", "Hết hạn"
+                "Tên mã", "Giá trị", "Loại", "Điều kiện", "Tiền giảm", "Hết hạn"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -414,7 +407,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
         panelBackground4.setLayout(panelBackground4Layout);
         panelBackground4Layout.setHorizontalGroup(
             panelBackground4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
         );
         panelBackground4Layout.setVerticalGroup(
             panelBackground4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,6 +535,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
         if (detailOrderBUS.updateDetails(listOrderID, invoice.getId())) {
             if (tableBUS.cancelTable(listTableID)) {
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công !!!");
+                dispose();
             }
             else {
                 System.out.println("Thanh toán thất bại òi");
@@ -549,35 +543,20 @@ public class DialogKiemTra extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
+  
+    
+    
     private void tbDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDiscountMouseClicked
+        System.out.println("1");
         int row = tbDiscount.getSelectedRow();
-        discount = listDiscount.get(row);
-        if (amount < discount.getMinimum()) {
-            JOptionPane.showMessageDialog(rootPane, "Hoá đơn không đủ điều kiện để giảm giá");
-            return;
-        }
-        if (discount.getId().equals(txtSaveDiscountID.getText())) {
-            tbDiscount.clearSelection();
-            txtSaveDiscountID.setText(0 + "");
-            discountPrice = 0;
-            total = amount - discountPrice;
-            lbThanhTien.setText(Helper.Format.formatNumber.format(amount) + "đ");
-            lbTienGiam.setText(Helper.Format.formatNumber.format(discountPrice) + "đ");
-            lbTongTien.setText(Helper.Format.formatNumber.format(total) + "đ");
-        }
-        else {
-            txtSaveDiscountID.setText(discount.getId());
-            if (discount.getType().equals("percent")) {
-                discountPrice = (long)((discount.getValue() / 100.0) * amount);
-
-            }
-            else {
-                discountPrice = discount.getValue();
-            }
-            total = amount - discountPrice;
-            lbTienGiam.setText(Helper.Format.formatNumber.format(discountPrice) + "đ");
-            lbTongTien.setText(Helper.Format.formatNumber.format(total) + "đ");
-        }
+        String strDiscountPrice = tbDiscount.getModel().getValueAt(row, 4).toString();
+        discountPrice = Double.parseDouble(strDiscountPrice.replaceAll("\\.", ""));
+        total = amount - discountPrice;
+        
+        
+        lbThanhTien.setText(Helper.Format.formatNumber.format(amount) + "đ");
+        lbTienGiam.setText(Helper.Format.formatNumber.format(discountPrice) + "đ");
+        lbTongTien.setText(Helper.Format.formatNumber.format(total) + "đ");
     }//GEN-LAST:event_tbDiscountMouseClicked
 
     private void btnInBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInBillActionPerformed

@@ -11,10 +11,7 @@ import Helper.MyListener;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 
 /**

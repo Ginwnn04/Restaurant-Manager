@@ -5,40 +5,27 @@ import BUS.DiscountBUS;
 import BUS.InvoicesBUS;
 import BUS.OrderBUS;
 import BUS.TableBUS;
-import DAO.InvoicesDAO;
 import DTO.DetailOrderDTO;
 import DTO.DiscountDTO;
 import DTO.InvoicesDTO;
-import DTO.OrderDTO;
 import DTO.StaffDTO;
 import DTO.TableDTO;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import java.awt.Color;
-
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import java.awt.Desktop;
@@ -46,8 +33,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.StringReader;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

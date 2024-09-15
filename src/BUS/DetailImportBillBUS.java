@@ -9,19 +9,15 @@ package BUS;
  * @author Tai
  */
 
-import static BUS.ConnectDB.openConnect;
 import DAO.DetailImportBillDAO;
 import DTO.DetailImportBillDTO;
 import DTO.SupplierDTO;
 import java.util.ArrayList;
-import java.sql.SQLException;
-import java.sql.Connection;
-import javax.swing.JOptionPane;
+
 import javax.swing.table.DefaultTableModel;
 public class DetailImportBillBUS {
 
     private DetailImportBillDAO detailImportBillDAO = new DetailImportBillDAO();
-    private ArrayList<DetailImportBillDTO> listDetailImportBills = new ArrayList<>();
 
     public ArrayList<DetailImportBillDTO> getDetailImportBillByBillId(long billId) {
         return detailImportBillDAO.getDetailImportBillByBillId(billId);
