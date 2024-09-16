@@ -359,6 +359,10 @@ public class QuanLiSupplier extends javax.swing.JPanel {
      tbSupplier.addMouseListener(new MouseAdapter() {
     	    @Override
     	    public void mouseClicked(MouseEvent e) {
+                txtName.setEnabled(false);
+                btnThem.setEnabled(false);
+                
+                
     	        int selectedRow = tbSupplier.getSelectedRow();
     	        if (selectedRow != -1) {
     	            DefaultTableModel model = (DefaultTableModel) tbSupplier.getModel();
@@ -458,6 +462,8 @@ public class QuanLiSupplier extends javax.swing.JPanel {
     	        } else {
     	            JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp cần xóa.");
     	        }
+                txtName.setEnabled(true);
+                btnThem.setEnabled(true);
     	    }
     	});
 
@@ -491,6 +497,8 @@ public class QuanLiSupplier extends javax.swing.JPanel {
     	        } else {
     	            JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp cần cập nhật.");
     	        }
+                txtName.setEnabled(true);
+                btnThem.setEnabled(true);
     	    }
     	});
 

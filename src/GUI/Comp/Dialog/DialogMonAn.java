@@ -59,6 +59,16 @@ public class DialogMonAn extends javax.swing.JDialog {
         renderer.setHorizontalAlignment(JLabel.LEFT);
     }
 
+    public void isUpdate(boolean isUpdate) {
+        if (isUpdate) {
+            txtTenMon.setEnabled(false);
+            txtGiaBan.setEnabled(false);
+            txtLoiNhuan.setEnabled(false);
+            cbxTheLoai.setEnabled(false);
+            btnAnh.setEnabled(false);
+        }
+    }
+    
     
     public void initCombobox() {
         listIngredients = new IngredientsBUS().getAllActiveIngredients();
@@ -1542,7 +1552,7 @@ public class DialogMonAn extends javax.swing.JDialog {
             item.setDescription(txtMoTa.getText());
             item.setImage(btnAnh.getText());
             item.setPrice(Long.parseLong(txtGiaBan.getText()));
-            item.setProfit(Long.parseLong(txtGiaBan.getText()));
+            item.setProfit(Long.parseLong(txtLoiNhuan.getText()));
             item.setIsDelete(false);
             item.setStatusID(listMenuItemStatus.get(cbxTrangThai.getSelectedIndex()).getId());
             item.setCategoryID(listCate.get(cbxTheLoai.getSelectedIndex()).getId());

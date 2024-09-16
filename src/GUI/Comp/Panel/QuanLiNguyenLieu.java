@@ -11,6 +11,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableRowSorter;
@@ -37,6 +39,8 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
         renderer.setHorizontalAlignment(JLabel.LEFT);
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập tên nguyên liệu");
         loadDataToTable(isSelectAll);
+        
+        
 
     }
 

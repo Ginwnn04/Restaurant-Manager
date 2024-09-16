@@ -51,8 +51,8 @@ public class QuanLiBan extends javax.swing.JPanel {
                     // Lay row cua table ban dau
                     int row1 = e.getFirstRow();
                     
-                    listTable.get(row1).setIsSelected((boolean)tbBan.getValueAt(row1, 0));
-                    cntTableSelected += listTable.get(row1).isIsSelected() ? 1 : -1;
+                    listTable.get(row1).setIsSelected((boolean)tbBan.getValueAt(row, 0));
+                    cntTableSelected += listTable.get(row).isIsSelected() ? 1 : -1;
 
                 }
             }

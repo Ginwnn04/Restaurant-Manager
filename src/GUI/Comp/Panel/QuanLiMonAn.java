@@ -46,8 +46,9 @@ public class QuanLiMonAn extends javax.swing.JPanel {
                 if (e.getColumn() == 0) { 
 
                     // Lay row cua table ban dau
-                    int row = e.getFirstRow();
-                    listItem.get(row).setIsSelected((boolean)tbMonAn.getValueAt(row, 0));
+                    int row = tbMonAn.getSelectedRow();
+                    int row1 = e.getFirstRow();
+                    listItem.get(row1).setIsSelected((boolean)tbMonAn.getValueAt(row, 0));
                     cntRowSelected += listItem.get(row).isIsSelected() ? 1 : -1;
    
                 }
@@ -455,6 +456,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
                 }
             }
             DialogMonAn x = new DialogMonAn(null, true);
+            x.isUpdate(true);
             x.setItem(itemSelected);
             x.setVisible(true);
         }

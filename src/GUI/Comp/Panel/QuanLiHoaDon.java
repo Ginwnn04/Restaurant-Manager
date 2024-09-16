@@ -58,13 +58,14 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
             @Override
             public void tableChanged(TableModelEvent e) {
                 if (e.getColumn() == 0) { // Check if the event is from the first column
-
+                    
+                    int row = tbInvoice.getSelectedRow();
                     int row1 = e.getFirstRow();
 
-                    listInvoice.get(row1).setIsSelected((boolean)tbInvoice.getValueAt(row1, 0));
-                    if (listInvoice.get(row1).isIsSelected()) {
+                    listInvoice.get(row1).setIsSelected((boolean)tbInvoice.getValueAt(row, 0));
+                    if (listInvoice.get(row).isIsSelected()) {
                         cntOrderSelected++;
-                        customerCode = listInvoice.get(row1).getOrderDTO().getCustomerCode();
+                        customerCode = listInvoice.get(row).getOrderDTO().getCustomerCode();
                     }
                     else {
                         cntOrderSelected--;

@@ -775,6 +775,13 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         else {
             JOptionPane.showMessageDialog(pnContainer, "Xoá thất bại");
         }
+        txtTenChuongTrinh.setEnabled(true);
+        txtSoLuong.setEnabled(true);
+        cbxLoaiGiam.setEnabled(true);
+        txtGiaTri.setEnabled(true);
+        txtDate.setEnabled(true);
+        btnThem.setEnabled(true);
+        txtDieuKien.setEnabled(true);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -832,7 +839,13 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         else {
             JOptionPane.showMessageDialog(pnContainer, "Sửa thất bại");
         }
-        
+        txtTenChuongTrinh.setEnabled(true);
+        txtSoLuong.setEnabled(true);
+        cbxLoaiGiam.setEnabled(true);
+        txtGiaTri.setEnabled(true);
+        txtDate.setEnabled(true);
+        btnThem.setEnabled(true);
+        txtDieuKien.setEnabled(true);
 
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -914,6 +927,15 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tbDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDiscountMouseClicked
+        txtTenChuongTrinh.setEnabled(false);
+        txtSoLuong.setEnabled(false);
+        cbxLoaiGiam.setEnabled(false);
+        txtGiaTri.setEnabled(false);
+        txtDate.setEnabled(false);
+        btnThem.setEnabled(false);
+        txtDieuKien.setEnabled(false);
+        
+        
         discountSelected = listDiscount.get(tbDiscount.getSelectedRow());
         txtTenChuongTrinh.setText(discountSelected.getName());
         txtMoTa.setText(discountSelected.getDes());

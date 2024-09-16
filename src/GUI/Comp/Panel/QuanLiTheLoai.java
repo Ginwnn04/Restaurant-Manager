@@ -417,6 +417,8 @@ public class QuanLiTheLoai extends javax.swing.JPanel {
         else {
             JOptionPane.showMessageDialog(pnContainer, "Sửa thất bại");
         }
+        txtTenTheLoai.setEnabled(true);
+        btnThem.setEnabled(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -433,10 +435,14 @@ public class QuanLiTheLoai extends javax.swing.JPanel {
         else {
             JOptionPane.showMessageDialog(pnContainer, "Xoá thất bại");
         }
-        
+        txtTenTheLoai.setEnabled(true);
+        btnThem.setEnabled(true);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void tbTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTheLoaiMouseClicked
+        txtTenTheLoai.setEnabled(false);
+        btnThem.setEnabled(false);
+        
         int row = tbTheLoai.getSelectedRow();
         categoriesSelected = listCategories.get(row);
         txtTenTheLoai.setText(categoriesSelected.getName());

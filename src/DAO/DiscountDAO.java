@@ -120,7 +120,6 @@ public class DiscountDAO {
             pstm.setLong(1, id);
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
-                discountDTO = new DiscountDTO();
                 discountDTO.setId(rs.getLong("id"));
                 discountDTO.setName(rs.getString("name"));
                 discountDTO.setDes(rs.getString("description"));

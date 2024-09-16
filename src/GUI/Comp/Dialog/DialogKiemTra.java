@@ -132,10 +132,12 @@ public class DialogKiemTra extends javax.swing.JDialog {
         modelDiscount = (DefaultTableModel)tbDiscount.getModel();
         listDiscount = discountBUS.getAllData(true);
         System.out.println(listDiscount.size());
+        ArrayList<DiscountDTO> listTemp = new ArrayList<>();
         modelDiscount.setRowCount(0);
         for (DiscountDTO x : listDiscount) {   
             if (amount >= x.getMinimum()) {
                 double amountDiscount;
+                listTemp.add(x);
                 if (x.getType().equals("percent")) {
                     amountDiscount = (x.getValue() / 100.0) * amount;
                     modelDiscount.addRow(new Object[] {x.getName(), x.getValue(), x.getType(), Format.formatNumber.format(x.getMinimum()), Format.formatNumber.format(amountDiscount), Format.formatDate.format(x.getExpiredTime())});
@@ -145,7 +147,9 @@ public class DialogKiemTra extends javax.swing.JDialog {
                     modelDiscount.addRow(new Object[] {x.getName(), Format.formatNumber.format(x.getValue()), x.getType(), Format.formatNumber.format(x.getMinimum()), Format.formatNumber.format(amountDiscount), Format.formatDate.format(x.getExpiredTime())});
                 }
             }
+            
         }
+        listDiscount = listTemp;
         modelDiscount.fireTableDataChanged();
         tbDiscount.setModel(modelDiscount);  
     }
@@ -544,11 +548,12 @@ public class DialogKiemTra extends javax.swing.JDialog {
         if (detailOrderBUS.updateDetails(listOrderID, invoice.getId())) {
             if (tableBUS.cancelTable(listTableID)) {
                 DiscountDTO discountDTO = new DiscountDTO();
-   
                 discountDTO = discountBUS.getDataById(Long.parseLong(txtSaveDiscountID.getText()));
-                
-                
-                discountBUS.updateRemainingById(discountDTO.getId(), discountDTO.getRemaining() - 1);
+                String idText = txtSaveDiscountID.getText();
+                long idText1 = Long.parseLong(txtSaveDiscountID.getText());
+                long id = discountDTO.getId();
+                int remaining = discountDTO.getRemaining() - 1;
+                discountBUS.updateRemainingById(id, remaining);
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công !!!");
                 dispose();
             }
@@ -562,10 +567,10 @@ public class DialogKiemTra extends javax.swing.JDialog {
     
     
     private void tbDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDiscountMouseClicked
-        System.out.println("1");
-        int row = tbDiscount.getSelectedRow();
         
+        int row = tbDiscount.getSelectedRow();
         txtSaveDiscountID.setText(listDiscount.get(row).getId() + "");
+        System.out.println(txtSaveDiscountID);
         String strDiscountPrice = tbDiscount.getModel().getValueAt(row, 4).toString();
         discountPrice = Double.parseDouble(strDiscountPrice.replaceAll("\\.", ""));
         total = amount - discountPrice;

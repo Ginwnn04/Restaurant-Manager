@@ -454,6 +454,10 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
      tbStaff.addMouseListener(new MouseAdapter() {
     	    @Override
     	    public void mouseClicked(MouseEvent e) {
+                txtUsername.setEnabled(false);
+                txtUpperUsername.setEnabled(false);
+                btnThem.setEnabled(false);
+                
     	        int selectedRow = tbStaff.getSelectedRow();
     	        if (selectedRow != -1) {
     	            DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
@@ -562,6 +566,10 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
                 } else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần xóa.");
                 }
+                txtUsername.setEnabled(true);
+                txtUpperUsername.setEnabled(true);
+                btnThem.setEnabled(true);
+                
             }
         });
 
@@ -615,6 +623,9 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
                 } else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần cập nhật.");
                 }
+                txtUsername.setEnabled(true);
+                txtUpperUsername.setEnabled(true);
+                btnThem.setEnabled(true);
             }
         });
 

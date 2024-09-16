@@ -53,10 +53,11 @@ public class QuanLiDatMon extends javax.swing.JPanel {
             public void tableChanged(TableModelEvent e) {
                 if (e.getColumn() == 0) { // Check if the event is from the first column
 
+                    int row = tbDatMon.getSelectedRow();
                     int row1 = e.getFirstRow();
 
-                    listOrder.get(row1).setIsSelected((boolean)tbDatMon.getValueAt(row1, 0));
-                    cntOrderSelected += listOrder.get(row1).isIsSelected() ? 1 : -1;
+                    listOrder.get(row1).setIsSelected((boolean)tbDatMon.getValueAt(row, 0));
+                    cntOrderSelected += listOrder.get(row).isIsSelected() ? 1 : -1;
                     System.out.println(cntOrderSelected);
                     
                 }
