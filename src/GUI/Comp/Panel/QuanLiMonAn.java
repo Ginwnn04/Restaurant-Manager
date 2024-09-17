@@ -419,6 +419,10 @@ public class QuanLiMonAn extends javax.swing.JPanel {
         String listID = "";
         for (MenuItemDTO x : listItem) {
             if (x.isIsSelected()) {
+                if (x.getStatusID().equals("SANSANG")) {
+                    JOptionPane.showMessageDialog(pnContainer, "Không thể xoá vì món ăn đang bán");
+                    return;
+                }
                 listID += x.getId() + ", ";
             }
         }
@@ -459,6 +463,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
             x.isUpdate(true);
             x.setItem(itemSelected);
             x.setVisible(true);
+            System.out.println(itemSelected.getId());
         }
         render(false);
         cntRowSelected = 0;
@@ -466,6 +471,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         DialogMonAn x = new DialogMonAn(null, true);
+        x.isUpdate(false);
         x.setVisible(true);
         render(false);
 

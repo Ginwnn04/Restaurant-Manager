@@ -41,6 +41,33 @@ public class DetailImportBillDAO {
         }
         return detailImportBillList;
     }
+    
+    
+    public ArrayList<DetailImportBillDTO> getDetailImportBillByBillIdIngre(String listIngreId)  {
+        ArrayList<DetailImportBillDTO> detailImportBillList = new ArrayList<>();
+        String query = "SELECT * FROM tb_detail_import_bill WHERE isdeleted = false AND ingredientid IN";
+        query += "(" + listIngreId + ")";
+        try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+            
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                DetailImportBillDTO detailImportBill = new DetailImportBillDTO();
+                detailImportBill.setId(rs.getLong("id"));
+                detailImportBill.setQuantity(rs.getInt("quantity"));
+                detailImportBill.setPrice(rs.getLong("price"));
+                detailImportBill.setTotal(rs.getLong("total"));
+                detailImportBill.setBillid(rs.getLong("billid"));
+                detailImportBill.setIngredientid(rs.getLong("ingredientid"));
+                detailImportBillList.add(detailImportBill);
+            }
+        } 
+        catch (Exception e) {
+            e.printStackTrace(); 
+        }
+        return detailImportBillList;
+    }
+    
 
     // Phương thức để lấy thông tin chi tiết nhà cung cấp theo ID nhà cung cấp
     public SupplierDTO getSupplierById(long supplierId) {

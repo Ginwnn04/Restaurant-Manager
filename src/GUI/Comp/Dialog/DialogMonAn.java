@@ -5,11 +5,13 @@
 package GUI.Comp.Dialog;
 
 import BUS.CategoriesBUS;
+import BUS.DetailImportBillBUS;
 import BUS.DetailsReciptBUS;
 import BUS.IngredientsBUS;
 import BUS.MenuItemBUS;
 import BUS.MenuItemStatusBUS;
 import DTO.CategoriesDTO;
+import DTO.DetailImportBillDTO;
 import DTO.DetailsRecipeDTO;
 import DTO.IngredientsDTO;
 import DTO.MenuItemDTO;
@@ -46,8 +48,10 @@ public class DialogMonAn extends javax.swing.JDialog {
     private String pathSource = "";
     private boolean isUpdate = false;
     private boolean isDeleted = false;
-
     private boolean isValid = true;
+    
+    private double priceImport = 0;
+    private String listIngre = "";
     
     public DialogMonAn(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -60,18 +64,27 @@ public class DialogMonAn extends javax.swing.JDialog {
     }
 
     public void isUpdate(boolean isUpdate) {
+        this.isUpdate = isUpdate;
+        txtTenMon.setEnabled(false);
+        txtGiaBan.setEnabled(false);
+        cbxTheLoai.setEnabled(false);
+        txtLoiNhuan.setEnabled(false);
         if (isUpdate) {
-            txtTenMon.setEnabled(false);
-            txtGiaBan.setEnabled(false);
-            txtLoiNhuan.setEnabled(false);
-            cbxTheLoai.setEnabled(false);
-            btnAnh.setEnabled(false);
+            txtLoiNhuan.setEnabled(true);
         }
+        else {
+            txtTenMon.setEnabled(true);
+        }
+        
     }
     
     
     public void initCombobox() {
         listIngredients = new IngredientsBUS().getAllActiveIngredients();
+        for (IngredientsDTO x : listIngredients) {
+            listIngre += x.getId() + ", ";
+        }
+        listIngre = listIngre.substring(0, listIngre.lastIndexOf(", "));
         listCate = new CategoriesBUS().getAll();
         listMenuItemStatus = new MenuItemStatusBUS().getAll();
         for (IngredientsDTO x : listIngredients) {
@@ -87,7 +100,6 @@ public class DialogMonAn extends javax.swing.JDialog {
 
     public void setItem(MenuItemDTO item) {
         this.item = item;
-        isUpdate = true;
         loadData();
     }
     
@@ -101,6 +113,8 @@ public class DialogMonAn extends javax.swing.JDialog {
         btnAnh.setText(item.getImage());
         if (isUpdate) {
             listDetailsOfMenuItem = new DetailsReciptBUS().readByIDItem(item.getId());
+            
+            //
         }
         renderTable();
         
@@ -1526,12 +1540,6 @@ public class DialogMonAn extends javax.swing.JDialog {
         if (txtMoTa.getText().isEmpty()) {
             isValid = false;
         }
-        if (txtGiaBan.getText().isEmpty()) {
-            isValid = false;
-        }
-        if (txtLoiNhuan.getText().isEmpty()) {
-            isValid = false;
-        }
         if (txtTenMon.getText().isEmpty()) {
             isValid = false;
         }
@@ -1548,6 +1556,14 @@ public class DialogMonAn extends javax.swing.JDialog {
         
         boolean isSuccess = true;
         if (isUpdate) {
+            
+           
+            
+            
+            
+            
+            
+            
             item.setName(txtTenMon.getText());
             item.setDescription(txtMoTa.getText());
             item.setImage(btnAnh.getText());
@@ -1588,13 +1604,19 @@ public class DialogMonAn extends javax.swing.JDialog {
             
         }
         else {
+            
+           
+            
+            
             MenuItemDTO itemNew = new MenuItemDTO();
             itemNew.createID();
             itemNew.setName(txtTenMon.getText());
             itemNew.setDescription(txtMoTa.getText());
             itemNew.setImage(btnAnh.getText());
-            itemNew.setPrice(Long.parseLong(txtGiaBan.getText()));
-            itemNew.setProfit(Long.parseLong(txtGiaBan.getText()));
+            
+            
+            itemNew.setPrice(0);
+            itemNew.setProfit(0);
             itemNew.setIsDelete(false);
             itemNew.setStatusID(listMenuItemStatus.get(cbxTrangThai.getSelectedIndex()).getId());
             itemNew.setCategoryID(listCate.get(cbxTheLoai.getSelectedIndex()).getId());
@@ -1625,29 +1647,43 @@ public class DialogMonAn extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void txtGiaBanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaBanKeyReleased
-        if (txtGiaBan.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(pnContainer, "Giá bán không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            isValid = false;
-        }
-        else {
-            try {
-                long price = Long.parseLong(txtGiaBan.getText());
-            }
-            catch(NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(pnContainer, "Giá bán phải là kí tự số", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                isValid = false;
-            }
-        }
+//        if (txtGiaBan.getText().isEmpty()) {
+//            JOptionPane.showMessageDialog(pnContainer, "Giá bán không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            isValid = false;
+//        }
+//        else {
+//            try {
+//                long price = Long.parseLong(txtGiaBan.getText());
+//            }
+//            catch(NumberFormatException nfe) {
+//                JOptionPane.showMessageDialog(pnContainer, "Giá bán phải là kí tự số", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//                isValid = false;
+//            }
+//        }
     }//GEN-LAST:event_txtGiaBanKeyReleased
 
     private void txtLoiNhuanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoiNhuanKeyReleased
         if (txtLoiNhuan.getText().isEmpty()) {
             JOptionPane.showMessageDialog(pnContainer, "Lợi nhuận không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            isValid = false;
+            
         }
         else {
+            
             try {
-                long price = Long.parseLong(txtLoiNhuan.getText());
+                ArrayList<DetailImportBillDTO> listDetail = new ArrayList<>();
+                listDetail = new DetailImportBillBUS().getDetailImportBillByBillIdIngre(listIngre);
+                for (DetailImportBillDTO x : listDetail) {
+                    for (DetailsRecipeDTO y : listDetailsOfMenuItem) {
+                        if (y.getIngredientID() == x.getIngredientid()) {
+                            priceImport += x.getPrice() * y.getQuantity();
+                            break;
+                        }
+                    }
+                }
+                double price = Long.parseLong(txtLoiNhuan.getText());
+            
+                txtGiaBan.setText((long)(price + priceImport) + "");
+                priceImport = 0;
             }
             catch(NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(pnContainer, "Lợi nhuận phải là kí tự số", "Lỗi", JOptionPane.ERROR_MESSAGE);
