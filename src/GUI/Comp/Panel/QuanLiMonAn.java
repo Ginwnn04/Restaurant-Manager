@@ -4,7 +4,11 @@
  */
 package GUI.Comp.Panel;
 
+import BUS.DetailImportBillBUS;
+import BUS.DetailsReciptBUS;
 import BUS.MenuItemBUS;
+import DTO.DetailImportBillDTO;
+import DTO.DetailsRecipeDTO;
 import DTO.MenuItemDTO;
 import GUI.Comp.Dialog.DialogMonAn;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -30,6 +34,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
     int cntRowSelected = 0;
     private DefaultTableModel model;
     private boolean isSelectAll = false;
+    
     public QuanLiMonAn() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -39,7 +44,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
         DefaultTableCellRenderer  renderer = (DefaultTableCellRenderer) tbMonAn.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.LEFT);
         txtTimKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm món ăn");
-        render(isSelectAll);
+        render(isSelectAll, true);
         
         tbMonAn.getModel().addTableModelListener(new TableModelListener() {
             public void tableChanged(TableModelEvent e) {
@@ -57,7 +62,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
 
     }
 
-    public void render(boolean isSelectAll) {
+    public void render(boolean isSelectAll, boolean isUpdateProduct) {
         listItem = menuItemBUS.getAllData();
         model = (DefaultTableModel)tbMonAn.getModel();
         model.setRowCount(0);
@@ -66,7 +71,22 @@ public class QuanLiMonAn extends javax.swing.JPanel {
 //            CategoriesDTO cate = new CategoriesBUS().findCategoriByID(x.getCategoryID());
 //            MenuItemStatusDTO status = new MenuItemStatusBUS().findItemStatusByID(x.getStatusID());
             
+            if (isUpdateProduct) {
+                ArrayList<DetailsRecipeDTO> listDetails = new DetailsReciptBUS().readByIDItem(x.getId());
+//            System.out.println(listDetails.size() + " " + x.getName());
+                double price = 0;
+                for (DetailsRecipeDTO detail : listDetails) {
+                    DetailImportBillDTO detail_import = new DetailImportBillBUS().getDetailImportBillByBillIdIngre(detail.getIngredientID());
+                    price += detail_import.getPrice() *  detail.getQuantity();
+                }
+                price += x.getProfit();
+                x.setPrice((long)price);
+                menuItemBUS.updateData(x);
+            }
+            
+            
             model.addRow(new Object[] {x.isIsSelected(), x.getId(), x.getName(), Helper.Format.formatNumber.format(x.getPrice()), Helper.Format.formatNumber.format(x.getProfit()), x.getMenuItemStatusDTO().getName(), x.getCategoriesDTO().getName(),Helper.Format.formatDate.format(x.getUpdateTime()), Helper.Format.formatDate.format(x.getCreateTime())});
+            
         }
         model.fireTableDataChanged();
         tbMonAn.setModel(model);
@@ -407,7 +427,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
             cntRowSelected = 0;
 
         }
-        render(isSelectAll);
+        render(isSelectAll, false);
     }//GEN-LAST:event_chbSelectAllActionPerformed
 
 
@@ -442,7 +462,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(pnContainer, "Xóa thất bại");
             }
         }
-        render(false);
+        render(false, false);
         cntRowSelected = 0;
       
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -465,7 +485,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
             x.setVisible(true);
             System.out.println(itemSelected.getId());
         }
-        render(false);
+        render(false, false);
         cntRowSelected = 0;
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -473,7 +493,7 @@ public class QuanLiMonAn extends javax.swing.JPanel {
         DialogMonAn x = new DialogMonAn(null, true);
         x.isUpdate(false);
         x.setVisible(true);
-        render(false);
+        render(false, false);
 
     }//GEN-LAST:event_btnThemActionPerformed
 

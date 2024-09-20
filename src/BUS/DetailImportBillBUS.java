@@ -23,8 +23,8 @@ public class DetailImportBillBUS {
         return detailImportBillDAO.getDetailImportBillByBillId(billId);
     }
     
-    public ArrayList<DetailImportBillDTO> getDetailImportBillByBillIdIngre(String listIngreId) {
-        return detailImportBillDAO.getDetailImportBillByBillIdIngre(listIngreId);
+    public DetailImportBillDTO getDetailImportBillByBillIdIngre(long ingredientId) {
+        return detailImportBillDAO.getDetailImportBillByBillIdIngre(ingredientId);
     }
 
     // Phương thức để lấy thông tin chi tiết nhà cung cấp theo ID nhà cung cấp

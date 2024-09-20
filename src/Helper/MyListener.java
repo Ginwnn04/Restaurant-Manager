@@ -6,6 +6,9 @@ package Helper;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JButton;
 
 /**
  *
@@ -44,7 +47,9 @@ public class MyListener{
         propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
     
-
+    public void firePropertyChange(String propertyName, Map<String, List<JButton>> oldValue, int newValue) {
+        propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
+    }
     
     
     public static MyListener getInstance() {

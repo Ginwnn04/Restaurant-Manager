@@ -26,8 +26,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import javax.swing.UIManager;
@@ -78,61 +82,120 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("ItemMenu")) {
             System.out.println(evt.getOldValue() + " " + evt.getNewValue());
+            Map<String, List<JButton>> hashMap = (Map<String, List<JButton>>)evt.getOldValue();
             int index = (int) evt.getNewValue();
+            String role = hashMap.keySet().iterator().next();
+            
+            if (role.equals("admin")) {
+                System.out.println(role + " " + 1);
+                switch (index) {
+                    case 0:
+                        showForm(new PanelDashbroad());
+                        break;
+                    case 1:
+                        showForm(new QuanLiBan());
+                        break;
+                    case 2:
+                        showForm(new QuanLiDatMon());
+                        break;
+                    case 3:
+                        showForm(new QuanLiMonAn());
+                        break;
+                    case 4: 
+                        showForm(new QuanLiHoaDon());
+                        break;
 
-            switch (index) {
-                case 0:
-                    showForm(new PanelDashbroad());
-                    break;
-                case 1:
-                    showForm(new QuanLiBan());
-                    break;
-                case 2:
-                    showForm(new QuanLiDatMon());
-                    break;
-                case 3:
-                    showForm(new QuanLiMonAn());
-                    break;
-                case 4: {
-                    try {
+                    case 5: 
+                        showForm(new QuanLiGiamGia());
+                        break;
+                    case 6:
+                        showForm(new QuanLiTheLoai());
+                        break;
+                    case 7:
                         showForm(new QuanLiNguyenLieu());
-                    } catch (Exception ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                    break;
-
-                case 5: {
-                    try {
+                        break;
+                    case 8:
                         showForm(new QuanLiNhapKho());
-                    } catch (Exception ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        break;
+                    case 9:
+                        showForm(new PanelStatistic());
+                        break;
+                    case 10:
+                        showForm(new QuanLiSupplier());
+                        break;
+                    case 11:
+                        showForm(new QuanLi_Staff());
+                        break;
                 }
-                    break;
-
-                case 6:
-
-                    showForm(new QuanLiTheLoai());
-
-                    break;
-                case 7:
-                    showForm(new QuanLiGiamGia());
-                    break;
-                case 8:
-                    showForm(new QuanLiHoaDon());
-                    break;
-                case 9:
-                    showForm(new PanelStatistic());
-                    break;
-                case 10:
-                    showForm(new QuanLiSupplier());
-                    break;
-                case 11:
-                    showForm(new QuanLi_Staff());
-                    break;
-
             }
+            else if (role.equals("manager")) {
+                System.out.println(role + " " + 2);
+                switch (index) {
+                    case 0:
+                        showForm(new PanelDashbroad());
+                        break;
+                    case 1:
+                        showForm(new QuanLiBan());
+                        break;
+                    case 2:
+                        showForm(new QuanLiDatMon());
+                        break;
+                    case 3:
+                        showForm(new QuanLiMonAn());
+                        break;
+                    case 4: 
+                        showForm(new QuanLiHoaDon());
+                        break;
+
+                    case 5: 
+                        showForm(new QuanLiGiamGia());
+                        break;
+                    case 6:
+                        showForm(new QuanLiTheLoai());
+                        break;
+                    case 7:
+                        showForm(new QuanLiNguyenLieu());
+                        break;
+                    case 8:
+                        showForm(new QuanLiNhapKho());
+                        break;
+                    case 9:
+                        showForm(new PanelStatistic());
+                        break;
+                    case 10:
+                        showForm(new QuanLiSupplier());
+                        break;
+                }
+            }
+            else {
+                System.out.println(role + " " + 3);
+                switch (index) {
+                    case 0:
+                        showForm(new PanelDashbroad());
+                        break;
+                    case 1:
+                        showForm(new QuanLiBan());
+                        break;
+                    case 2:
+                        showForm(new QuanLiDatMon());
+                        break;
+                    case 3:
+                        showForm(new QuanLiMonAn());
+                        break;
+                    case 4: 
+                        showForm(new QuanLiHoaDon());
+                        break;
+
+                    case 5: 
+                        showForm(new QuanLiGiamGia());
+                        break;
+                    case 6:
+                        showForm(new QuanLiTheLoai());
+                        break;
+                    
+                }
+            }
+
         }
 
     }

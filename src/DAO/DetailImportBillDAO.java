@@ -43,15 +43,13 @@ public class DetailImportBillDAO {
     }
     
     
-    public ArrayList<DetailImportBillDTO> getDetailImportBillByBillIdIngre(String listIngreId)  {
-        ArrayList<DetailImportBillDTO> detailImportBillList = new ArrayList<>();
-        String query = "SELECT * FROM tb_detail_import_bill WHERE isdeleted = false AND ingredientid IN";
-        query += "(" + listIngreId + ")";
+    public DetailImportBillDTO getDetailImportBillByBillIdIngre(long ingredientId)  {
+        String query = "SELECT details.* FROM tb_detail_import_bill details JOIN tb_import_bill bill ON details.billid = bill.id WHERE details.ingredientid = ? ORDER BY import_date DESC LIMIT 1";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
-            
+            pstm.setLong(1, ingredientId);
             ResultSet rs = pstm.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 DetailImportBillDTO detailImportBill = new DetailImportBillDTO();
                 detailImportBill.setId(rs.getLong("id"));
                 detailImportBill.setQuantity(rs.getInt("quantity"));
@@ -59,13 +57,13 @@ public class DetailImportBillDAO {
                 detailImportBill.setTotal(rs.getLong("total"));
                 detailImportBill.setBillid(rs.getLong("billid"));
                 detailImportBill.setIngredientid(rs.getLong("ingredientid"));
-                detailImportBillList.add(detailImportBill);
+                return detailImportBill;
             }
         } 
         catch (Exception e) {
             e.printStackTrace(); 
         }
-        return detailImportBillList;
+        return null;
     }
     
 

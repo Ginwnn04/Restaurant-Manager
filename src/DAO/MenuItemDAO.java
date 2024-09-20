@@ -20,7 +20,7 @@ import java.util.Date;
 public class MenuItemDAO {
     
     public ArrayList<MenuItemDTO> readData() {
-        String query = "SELECT tb_menu_item.*, tb_menu_item_status.name AS status_name, tb_categories.name AS cate_name FROM tb_menu_item_status JOIN tb_menu_item ON tb_menu_item_status.id = tb_menu_item.statusid JOIN tb_categories ON tb_menu_item.categoryid = tb_categories.id WHERE tb_menu_item.isdeleted = ?";
+        String query = "SELECT tb_menu_item.*, tb_menu_item_status.name AS status_name, tb_categories.name AS cate_name FROM tb_menu_item_status JOIN tb_menu_item ON tb_menu_item_status.id = tb_menu_item.statusid JOIN tb_categories ON tb_menu_item.categoryid = tb_categories.id WHERE tb_menu_item.isdeleted = ? ORDER BY create_time ASC";
         try(PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query);) {
             pstm.setBoolean(1, false);
             ResultSet rs = pstm.executeQuery();

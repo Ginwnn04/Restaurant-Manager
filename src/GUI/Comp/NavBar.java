@@ -12,7 +12,9 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -34,6 +36,7 @@ public class NavBar extends javax.swing.JPanel {
     // Vị trí y của thanh panel trượt
     int yPanel = 184 + 15;
     List<JButton> listButton = new ArrayList<>();
+    private Map<String, List<JButton>> hashMap = new HashMap<String, List<JButton>>();
     
 
     public NavBar() {
@@ -43,8 +46,11 @@ public class NavBar extends javax.swing.JPanel {
         int op = (int) (255 * 0.8);
         jSeparator2.setForeground(new Color(204, 204, 204, op));
         btnDangXuat.setIconTextGap(10);
-        roles();
-
+//        roles();
+        
+//    
+//        System.out.println(listButton.size() + " 123 ");
+//        System.out.println(hashMap);
     }
     
     public void setInformation(String name, String role) {
@@ -71,30 +77,37 @@ public class NavBar extends javax.swing.JPanel {
     }
 
     public void initMenu() {
-//        panelBackground1.setBackground(new Color(255, 107, 39, 30));
         addMenuItem("Trang chủ", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/home.png")));
         addMenuItem("Bàn", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/lamp.png")));
         addMenuItem("Đặt món", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/room-service.png")));
         addMenuItem("Món ăn", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/restaurant.png")));
-        
-        // Tài
-        addMenuItem("Nguyên liệu", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/mortar.png")));
-        addMenuItem("Nhập kho", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/shopping-cart.png")));
-
-        
-        // Nhân
-        addMenuItem("Thể loại", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/category.png")));
-        addMenuItem("Giảm giá", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/offer.png")));
-
-        
-        
-        // Sinh
         addMenuItem("Hóa đơn", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/receipt.png")));
-        addMenuItem("Thống kê", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/chart-area.png")));
+        addMenuItem("Giảm giá", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/offer.png")));
+        addMenuItem("Thể loại", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/category.png")));
+        if (StaffDTO.staffLogging == null) {
+            return;
+        }
+        if (StaffDTO.staffLogging.getRoleId().equals("STAFF")) {
+            hashMap.put("staff", listButton);
+        }
+        else {
+            // Mặc định là Manager
+            
+            addMenuItem("Nguyên liệu", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/mortar.png")));
+            addMenuItem("Nhập kho", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/shopping-cart.png")));
+            addMenuItem("Thống kê", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/chart-area.png")));
+            addMenuItem("Nhà cung cấp", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/supplier.png")));
+            if (StaffDTO.staffLogging.getRoleId().equals("ADMIN")) {
+                addMenuItem("Nhân viên", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/employees.png")));
+                hashMap.put("admin", listButton);
+            }  
+            else {
+                hashMap.put("manager", listButton);
+            }
+         }
         
-        // Đức Anh
-        addMenuItem("Nhà cung cấp", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/supplier.png")));
-        addMenuItem("Nhân viên", new ImageIcon(getClass().getResource("/GUI/Comp/Icon/employees.png")));
+//        panelBackground1.setBackground(new Color(255, 107, 39, 30));
+         
         
         sliding.setBounds(xPanel, yPanel, 15, 20);
         pnContainer.add(sliding);
@@ -122,7 +135,8 @@ public class NavBar extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 indexSelected = Integer.parseInt(e.getActionCommand());
                 if (indexSelected != indexCurrent) {
-                    MyListener.getInstance().firePropertyChange("ItemMenu", indexCurrent, indexSelected);
+                    MyListener.getInstance().firePropertyChange("ItemMenu", hashMap, indexSelected);
+                    System.out.println(indexSelected);
                     clearSelected();
                     setSelectedMenu(indexSelected); 
                 }

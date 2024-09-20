@@ -51,7 +51,6 @@ public class DialogMonAn extends javax.swing.JDialog {
     private boolean isValid = true;
     
     private double priceImport = 0;
-    private String listIngre = "";
     
     public DialogMonAn(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -81,11 +80,11 @@ public class DialogMonAn extends javax.swing.JDialog {
     
     public void initCombobox() {
         listIngredients = new IngredientsBUS().getAllActiveIngredients();
-        for (IngredientsDTO x : listIngredients) {
-            listIngre += x.getId() + ", ";
-        }
-        listIngre = listIngre.substring(0, listIngre.lastIndexOf(", "));
-        System.out.println(listIngre);
+//        for (IngredientsDTO x : listIngredients) {
+//            listIngre += x.getId() + ", ";
+//        }
+//        listIngre = listIngre.substring(0, listIngre.lastIndexOf(", "));
+//        System.out.println(listIngre);
         listCate = new CategoriesBUS().getAll();
         listMenuItemStatus = new MenuItemStatusBUS().getAll();
         for (IngredientsDTO x : listIngredients) {
@@ -122,14 +121,19 @@ public class DialogMonAn extends javax.swing.JDialog {
     }
     
     public void renderTable() {
-        
+        priceImport = 0;
         model = (DefaultTableModel)tbIngre.getModel();
         model.setRowCount(0);
         for (DetailsRecipeDTO x : listDetailsOfMenuItem) {
             IngredientsDTO ingre = new IngredientsBUS().getIngredientById(x.getIngredientID());
             model.addRow(new Object[] {ingre.getName(), x.getUnit(), x.getQuantity()});  
+            
+            DetailImportBillDTO detail = new DetailImportBillBUS().getDetailImportBillByBillIdIngre(ingre.getId());
+            priceImport += detail.getPrice() * x.getQuantity();
+            
         }
-        System.out.println(listDetailsOfMenuItem.size());
+//        System.out.println(listDetailsOfMenuItem.size());
+        txtGiaBan.setText((long)priceImport + "");
         model.fireTableDataChanged();
         tbIngre.setModel(model);
         
@@ -1666,26 +1670,15 @@ public class DialogMonAn extends javax.swing.JDialog {
 
     private void txtLoiNhuanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoiNhuanKeyReleased
         if (txtLoiNhuan.getText().isEmpty()) {
+            txtGiaBan.setText((long)priceImport + "");
             JOptionPane.showMessageDialog(pnContainer, "Lợi nhuận không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
             
         }
         else {
             
             try {
-                ArrayList<DetailImportBillDTO> listDetail = new ArrayList<>();
-                listDetail = new DetailImportBillBUS().getDetailImportBillByBillIdIngre(listIngre);
-                for (DetailImportBillDTO x : listDetail) {
-                    for (DetailsRecipeDTO y : listDetailsOfMenuItem) {
-                        if (y.getIngredientID() == x.getIngredientid()) {
-                            priceImport += x.getPrice() * y.getQuantity();
-                            break;
-                        }
-                    }
-                }
-                double price = Long.parseLong(txtLoiNhuan.getText());
-            
-                txtGiaBan.setText((long)(price + priceImport) + "");
-                priceImport = 0;
+                priceImport += Double.parseDouble(txtLoiNhuan.getText());
+                txtGiaBan.setText((long)priceImport + "");
             }
             catch(NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(pnContainer, "Lợi nhuận phải là kí tự số", "Lỗi", JOptionPane.ERROR_MESSAGE);
