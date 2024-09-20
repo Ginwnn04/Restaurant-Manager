@@ -85,6 +85,7 @@ public class DialogMonAn extends javax.swing.JDialog {
             listIngre += x.getId() + ", ";
         }
         listIngre = listIngre.substring(0, listIngre.lastIndexOf(", "));
+        System.out.println(listIngre);
         listCate = new CategoriesBUS().getAll();
         listMenuItemStatus = new MenuItemStatusBUS().getAll();
         for (IngredientsDTO x : listIngredients) {
@@ -128,6 +129,7 @@ public class DialogMonAn extends javax.swing.JDialog {
             IngredientsDTO ingre = new IngredientsBUS().getIngredientById(x.getIngredientID());
             model.addRow(new Object[] {ingre.getName(), x.getUnit(), x.getQuantity()});  
         }
+        System.out.println(listDetailsOfMenuItem.size());
         model.fireTableDataChanged();
         tbIngre.setModel(model);
         

@@ -352,6 +352,9 @@ public class DialogDetailImport extends javax.swing.JPanel {
                 
                 for (DetailImportBillDTO x : detailImportBillList) {
                     detailImportBillBUS.addDetailImportBill(x);
+                    IngredientsDTO ingre = new IngredientsBUS().getIngredientById(x.getIngredientid());
+                    ingre.setQuantity(ingre.getQuantity() + x.getQuantity());
+                    new IngredientsBUS().updateIngredient(ingre);
                 }
                 
                 // Thêm dữ liệu vào cơ sở dữ liệu thông qua BUS
