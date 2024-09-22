@@ -1105,6 +1105,11 @@ public class DialogMonAn extends javax.swing.JDialog {
         panelBackground39.add(jLabel4, java.awt.BorderLayout.LINE_START);
 
         txtLoiNhuan.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtLoiNhuan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtLoiNhuanMouseExited(evt);
+            }
+        });
         txtLoiNhuan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtLoiNhuanKeyReleased(evt);
@@ -1621,7 +1626,7 @@ public class DialogMonAn extends javax.swing.JDialog {
             itemNew.setImage(btnAnh.getText());
             
             
-            itemNew.setPrice(0);
+            itemNew.setPrice((long)priceImport);
             itemNew.setProfit(0);
             itemNew.setIsDelete(false);
             itemNew.setStatusID(listMenuItemStatus.get(cbxTrangThai.getSelectedIndex()).getId());
@@ -1669,22 +1674,8 @@ public class DialogMonAn extends javax.swing.JDialog {
     }//GEN-LAST:event_txtGiaBanKeyReleased
 
     private void txtLoiNhuanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoiNhuanKeyReleased
-        if (txtLoiNhuan.getText().isEmpty()) {
-            txtGiaBan.setText((long)priceImport + "");
-            JOptionPane.showMessageDialog(pnContainer, "Lợi nhuận không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            
-        }
-        else {
-            
-            try {
-                priceImport += Double.parseDouble(txtLoiNhuan.getText());
-                txtGiaBan.setText((long)priceImport + "");
-            }
-            catch(NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(pnContainer, "Lợi nhuận phải là kí tự số", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                isValid = false;
-            }
-        }
+        
+        
     }//GEN-LAST:event_txtLoiNhuanKeyReleased
 
     private void txtSoLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyReleased
@@ -1702,6 +1693,25 @@ public class DialogMonAn extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_txtSoLuongKeyReleased
+
+    private void txtLoiNhuanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLoiNhuanMouseExited
+        if (txtLoiNhuan.getText().isEmpty()) {
+            txtGiaBan.setText((long)priceImport + "");
+            JOptionPane.showMessageDialog(pnContainer, "Lợi nhuận không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        else {
+            
+            try {
+                priceImport += Double.parseDouble(txtLoiNhuan.getText());
+                txtGiaBan.setText((long)priceImport + "");
+            }
+            catch(NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(pnContainer, "Lợi nhuận phải là kí tự số", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                isValid = false;
+            }
+        }
+    }//GEN-LAST:event_txtLoiNhuanMouseExited
 
     /**
      * @param args the command line arguments

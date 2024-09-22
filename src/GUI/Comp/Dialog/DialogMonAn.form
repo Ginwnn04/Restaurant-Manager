@@ -1705,6 +1705,7 @@
                             </Property>
                           </Properties>
                           <Events>
+                            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtLoiNhuanMouseExited"/>
                             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtLoiNhuanKeyReleased"/>
                           </Events>
                           <Constraints>

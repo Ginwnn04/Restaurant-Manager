@@ -7,6 +7,7 @@ package GUI.Comp.Panel;
 import BUS.OrderBUS;
 import BUS.TableBUS;
 import DTO.OrderDTO;
+import DTO.StaffDTO;
 import GUI.Comp.DateChooser.SelectedDate;
 import GUI.Comp.Dialog.DetailsOrder;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -63,7 +64,10 @@ public class QuanLiDatMon extends javax.swing.JPanel {
                 }
             }
         });
-
+        
+        if (!StaffDTO.staffLogging.getRoleId().equals("STAFF")) {
+            btnXoa.setEnabled(true);
+        }
     }
 
     public void render(boolean isSelectAll) {
@@ -349,6 +353,7 @@ public class QuanLiDatMon extends javax.swing.JPanel {
 
         btnXoa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnXoa.setText("Xoá");
+        btnXoa.setEnabled(false);
         btnXoa.setMaximumSize(new java.awt.Dimension(72, 35));
         btnXoa.setPreferredSize(new java.awt.Dimension(72, 30));
         btnXoa.addActionListener(new java.awt.event.ActionListener() {

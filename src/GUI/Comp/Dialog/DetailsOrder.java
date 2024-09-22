@@ -12,6 +12,7 @@ import DTO.DetailOrderDTO;
 import DTO.DetailsRecipeDTO;
 import DTO.IngredientsDTO;
 import DTO.OrderDTO;
+import DTO.StaffDTO;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,6 +41,13 @@ public class DetailsOrder extends javax.swing.JDialog {
         // header table nam ben trai
         DefaultTableCellRenderer  renderer = (DefaultTableCellRenderer) tbMonAn.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.LEFT);
+        
+        
+        if (!StaffDTO.staffLogging.getRoleId().equals("STAFF")) {
+            btnXoa.setEnabled(true);
+            btnCapNhat.setEnabled(true);
+            btnLuu.setEnabled(true);
+        }
     }
 
     // true => lấy data từ db lên
@@ -652,6 +660,7 @@ public class DetailsOrder extends javax.swing.JDialog {
 
         btnCapNhat.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnCapNhat.setText("Cập nhật");
+        btnCapNhat.setEnabled(false);
         btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCapNhatActionPerformed(evt);
@@ -661,6 +670,7 @@ public class DetailsOrder extends javax.swing.JDialog {
 
         btnXoa.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.setEnabled(false);
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaActionPerformed(evt);
@@ -751,6 +761,7 @@ public class DetailsOrder extends javax.swing.JDialog {
 
         btnLuu.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnLuu.setText("Lưu");
+        btnLuu.setEnabled(false);
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLuuActionPerformed(evt);

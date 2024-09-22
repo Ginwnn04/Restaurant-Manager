@@ -15,6 +15,7 @@ import DTO.StaffDTO;
 import DTO.SupplierDTO;
 import java.awt.Dialog;
 import java.awt.Window;
+import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -76,8 +77,8 @@ public class DialogDetailImport extends javax.swing.JPanel {
         txtPrice = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lbSoLuongTon = new javax.swing.JLabel();
+        lbGiaNhapHienTai = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
@@ -114,6 +115,11 @@ public class DialogDetailImport extends javax.swing.JPanel {
         cbxIngre.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         cbxIngre.setMaximumSize(new java.awt.Dimension(120, 30));
         cbxIngre.setPreferredSize(new java.awt.Dimension(120, 30));
+        cbxIngre.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxIngreItemStateChanged(evt);
+            }
+        });
         jPanel1.add(cbxIngre, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 23, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -139,16 +145,16 @@ public class DialogDetailImport extends javax.swing.JPanel {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 66, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
-        jLabel4.setText("Giá đang bán");
+        jLabel4.setText("Giá đang nhập");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(686, 66, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
-        jLabel7.setText("0");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 66, 96, -1));
+        lbSoLuongTon.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        lbSoLuongTon.setText("0");
+        jPanel1.add(lbSoLuongTon, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 66, 96, -1));
 
-        jLabel8.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
-        jLabel8.setText("0");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(784, 66, 120, -1));
+        lbGiaNhapHienTai.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        lbGiaNhapHienTai.setText("0");
+        jPanel1.add(lbGiaNhapHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(784, 66, 120, -1));
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -281,25 +287,53 @@ public class DialogDetailImport extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Số tiền phải lớn hơn 0.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 return; // Thoát khỏi phương thức nếu số lượng không hợp lệ
             }
-            // Tính tổng tiền
-            long total = quantity * price;
+            long ingredientId = ingredientsList.get(cbxIngre.getSelectedIndex()).getId();
+            boolean isFound = false;
+            if (detailImportBillList.size() == 0) {
+                isFound = true;
+                long total = quantity * price;
+                long id = System.currentTimeMillis();
+                DetailImportBillDTO detail = new DetailImportBillDTO();
+                detail.setId(id);
+                detail.setQuantity(quantity);
+                detail.setPrice(price);
+                detail.setTotal(total);
+                detail.setBillid(importBill.getId()); // Sử dụng mã Bill hiện tại
+                detail.setIngredientid(ingredientId);
+                detailImportBillList.add(detail);
+                JOptionPane.showMessageDialog(this, "Thêm thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                for (DetailImportBillDTO x : detailImportBillList) {
+                    if (x.getIngredientid() == ingredientId) {
+                        isFound = true;
+                        if (x.getPrice() != price) {
+                            JOptionPane.showMessageDialog(tbDetails, "Nguyên liệu đã tồn tại với giá bán khácN");
+                        }
+                        else {
+                            x.setQuantity(x.getQuantity() + quantity);
+                            x.setTotal(x.getQuantity() * x.getPrice());
+                        }
+                        break;
+                    }
+                }
+            }
+            if (!isFound) {
+                long total = quantity * price;
 
-            // Tạo ID mới sử dụng System.currentTimeMillis()
-            long id = System.currentTimeMillis();
-
-            // Tạo một đối tượng DetailImportBillDTO mới
-            DetailImportBillDTO detail = new DetailImportBillDTO();
-            detail.setId(id);
-            detail.setQuantity(quantity);
-            detail.setPrice(price);
-            detail.setTotal(total);
-            detail.setBillid(importBill.getId()); // Sử dụng mã Bill hiện tại
-            detail.setIngredientid(ingredientsList.get(cbxIngre.getSelectedIndex()).getId());
-            detailImportBillList.add(detail);
-
-
+                long id = System.currentTimeMillis();
+                DetailImportBillDTO detail = new DetailImportBillDTO();
+                detail.setId(id);
+                detail.setQuantity(quantity);
+                detail.setPrice(price);
+                detail.setTotal(total);
+                detail.setBillid(importBill.getId()); // Sử dụng mã Bill hiện tại
+                detail.setIngredientid(ingredientId);
+                detailImportBillList.add(detail);
+                JOptionPane.showMessageDialog(this, "Thêm thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
             // Thông báo thêm thành công
-            JOptionPane.showMessageDialog(this, "Thêm thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             render();
             // Reset các text field sau khi thêm thành công
             txtQuantity.setText("");
@@ -313,6 +347,7 @@ public class DialogDetailImport extends javax.swing.JPanel {
         } catch (Exception ex) {
             // Xử lý nếu có lỗi khi thêm dữ liệu
             JOptionPane.showMessageDialog(this, "Lỗi khi thêm dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_btnThemActionPerformed
     // nút xóa
@@ -372,6 +407,22 @@ public class DialogDetailImport extends javax.swing.JPanel {
      
     }//GEN-LAST:event_tbDetailsMouseClicked
 
+    private void cbxIngreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxIngreItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            IngredientsDTO ingre = ingredientsList.get(cbxIngre.getSelectedIndex());
+            lbSoLuongTon.setText(ingre.getQuantity() + "");
+            long price = new DetailImportBillBUS().getDetailImportBillByBillIdIngre(ingre.getId()).getPrice();
+            lbGiaNhapHienTai.setText(price + "");
+            if (ingre.getQuantity() > 0) {
+                txtPrice.setEnabled(false);
+                txtPrice.setText(price + "");
+            }
+            else {
+                txtPrice.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_cbxIngreItemStateChanged
+
     // Thêm phương thức dispose vào JDialog
     private void dispose() {
         Window window = SwingUtilities.getWindowAncestor(this);
@@ -393,8 +444,6 @@ public class DialogDetailImport extends javax.swing.JPanel {
     public javax.swing.JLabel jLabel4;
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel6;
-    public javax.swing.JLabel jLabel7;
-    public javax.swing.JLabel jLabel8;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel13;
     public javax.swing.JPanel jPanel2;
@@ -403,6 +452,8 @@ public class DialogDetailImport extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel5;
     public javax.swing.JPanel jPanel6;
     public javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JLabel lbGiaNhapHienTai;
+    public javax.swing.JLabel lbSoLuongTon;
     public javax.swing.JTable tbDetails;
     public javax.swing.JTextField txtPrice;
     public javax.swing.JTextField txtQuantity;

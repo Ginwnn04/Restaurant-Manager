@@ -9,6 +9,7 @@ import BUS.TableBUS;
 import DTO.OrderDTO;
 import BUS.InvoicesBUS;
 import DTO.InvoicesDTO;
+import DTO.StaffDTO;
 import DTO.TableDTO;
 import GUI.Comp.DateChooser.SelectedDate;
 import GUI.Comp.Dialog.DialogChiTietHoaDon;
@@ -77,6 +78,11 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
                 }
             }
         });
+        
+        if (!StaffDTO.staffLogging.getRoleId().equals("STAFF")) {
+            btnXoa.setEnabled(true);
+            
+        }
 
     }
 
@@ -364,6 +370,7 @@ public class QuanLiHoaDon extends javax.swing.JPanel {
 
         btnXoa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnXoa.setText("Xoá");
+        btnXoa.setEnabled(false);
         btnXoa.setMaximumSize(new java.awt.Dimension(72, 35));
         btnXoa.setPreferredSize(new java.awt.Dimension(72, 30));
         btnXoa.addActionListener(new java.awt.event.ActionListener() {

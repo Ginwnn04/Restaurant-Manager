@@ -416,7 +416,7 @@ public class DialogChiTietHoaDon extends javax.swing.JDialog {
         invoice.setCreateTime(new Date());
         invoice.setIsDelete(false);
         if (txtSaveDiscountID.getText().equals("0")) {
-            invoice.addDiscount(null, 0);
+            invoice.setDiscount(0);
         }
         else {
             invoice.addDiscount(Long.parseLong(txtSaveDiscountID.getText()), discountPrice);

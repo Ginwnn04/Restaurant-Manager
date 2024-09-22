@@ -112,8 +112,8 @@ public class DetailOrderDAO {
     public ArrayList<DetailOrderDTO> mergeDetais(String listOrderId) {
         ArrayList<DetailOrderDTO> list = new ArrayList<>();
         String query = "SELECT itemid ,name,tb_detail_order.price, SUM(quantity) AS quantity, SUM(total) AS total FROM tb_detail_order JOIN tb_menu_item ON itemid = tb_menu_item.id WHERE orderid IN ";
-        query += "(" + listOrderId + ")  GROUP BY itemid, name, tb_detail_order.price";
-        
+        query += "(" + listOrderId + ") AND tb_detail_order.isdeleted = false GROUP BY itemid, name, tb_detail_order.price";
+//        System.out.println(query);
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {

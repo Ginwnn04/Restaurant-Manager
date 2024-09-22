@@ -14,6 +14,7 @@ import java.time.temporal.IsoFields;
 import java.util.List;
 import java.util.Random;
 
+
 public class InvoicesDAO {
 
     public boolean insertData(InvoicesDTO invoices) {
@@ -26,7 +27,7 @@ public class InvoicesDAO {
             pstm.setBoolean(5, invoices.isIsDelete());
             Timestamp dateSQL = new Timestamp(invoices.getCreateTime().getTime());
             pstm.setTimestamp(6, dateSQL);
-            pstm.setLong(7, invoices.getDiscountID());
+            pstm.setObject(7,invoices.getDiscountID());
             return pstm.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

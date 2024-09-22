@@ -542,18 +542,21 @@ public class DialogKiemTra extends javax.swing.JDialog {
         listOrderID = listOrderID.substring(0, listOrderID.length() - 2);
         listTableID = listTableID.substring(0, listTableID.length() - 2);
 //        
-
+       
         invoicesBUS.insertInvoices(invoice);
 //        // Update id invoice cho các details order
         if (detailOrderBUS.updateDetails(listOrderID, invoice.getId())) {
             if (tableBUS.cancelTable(listTableID)) {
-                DiscountDTO discountDTO = new DiscountDTO();
-                discountDTO = discountBUS.getDataById(Long.parseLong(txtSaveDiscountID.getText()));
-                String idText = txtSaveDiscountID.getText();
-                long idText1 = Long.parseLong(txtSaveDiscountID.getText());
-                long id = discountDTO.getId();
-                int remaining = discountDTO.getRemaining() - 1;
-                discountBUS.updateRemainingById(id, remaining);
+                if (!(txtSaveDiscountID.getText().equals("0"))) {
+                    DiscountDTO discountDTO = new DiscountDTO();
+                    discountDTO = discountBUS.getDataById(Long.parseLong(txtSaveDiscountID.getText()));
+                    String idText = txtSaveDiscountID.getText();
+                    long idText1 = Long.parseLong(txtSaveDiscountID.getText());
+                    long id = discountDTO.getId();
+                    int remaining = discountDTO.getRemaining() - 1;
+                    discountBUS.updateRemainingById(id, remaining);  
+                }
+               
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công !!!");
                 dispose();
             }

@@ -85,7 +85,13 @@ public class QuanLi_Staff extends javax.swing.JPanel {
             }
         });
         tbStaff.getColumnModel().removeColumn(tbStaff.getColumnModel().getColumn(0));
+        
+        
     }
+    
+    
+  
+    
     
     public void renderStaff(boolean isSelectAll) {
         listStaff = new StaffBUS().getAllData();
@@ -302,11 +308,13 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
         jScrollPane2.setPreferredSize(new Dimension(1250, 450));
         //Btn panel
         JButton btnThem = new JButton("Thêm");
-        btnThem.setBackground(new Color(146, 227, 118));
+//        btnThem.setBackground(new Color(146, 227, 118));
         JButton btnSua = new JButton("Sửa");
-        btnSua.setBackground(new Color(112, 179, 230));
+//        btnSua.setBackground(new Color(112, 179, 230));
         JButton btnXoa = new JButton("Xóa");
-        btnXoa.setBackground(new Color(235, 82, 82));
+//        btnXoa.setBackground(new Color(235, 82, 82));
+
+        
         
         btnThem.setForeground(Color.white);
         btnSua.setForeground(Color.white);

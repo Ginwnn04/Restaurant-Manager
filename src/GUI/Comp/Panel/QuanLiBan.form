@@ -322,6 +322,7 @@
                           <Font name="Roboto" size="14" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[72, 35]"/>
                         </Property>
@@ -339,6 +340,7 @@
                           <Font name="Roboto" size="14" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[72, 35]"/>
                         </Property>
@@ -356,6 +358,7 @@
                           <Font name="Roboto" size="14" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Xo&#xe1;"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                           <Dimension value="[72, 35]"/>
                         </Property>

@@ -5,6 +5,7 @@
 package GUI.Comp.Panel;
 
 import BUS.TableBUS;
+import DTO.StaffDTO;
 
 import DTO.TableDTO;
 import GUI.Comp.Dialog.DialogActionTable;
@@ -57,6 +58,12 @@ public class QuanLiBan extends javax.swing.JPanel {
                 }
             }
         });
+        
+        if (!StaffDTO.staffLogging.getRoleId().equals("STAFF")) {
+            btnThem.setEnabled(true);
+            btnSua.setEnabled(true);
+            btnXoa.setEnabled(true);
+        }
 
     }
 
@@ -251,6 +258,7 @@ public class QuanLiBan extends javax.swing.JPanel {
 
         btnThem.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.setEnabled(false);
         btnThem.setMaximumSize(new java.awt.Dimension(72, 35));
         btnThem.setPreferredSize(new java.awt.Dimension(72, 35));
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +270,7 @@ public class QuanLiBan extends javax.swing.JPanel {
 
         btnSua.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.setEnabled(false);
         btnSua.setMaximumSize(new java.awt.Dimension(72, 35));
         btnSua.setPreferredSize(new java.awt.Dimension(72, 30));
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +282,7 @@ public class QuanLiBan extends javax.swing.JPanel {
 
         btnXoa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnXoa.setText("Xoá");
+        btnXoa.setEnabled(false);
         btnXoa.setMaximumSize(new java.awt.Dimension(72, 35));
         btnXoa.setPreferredSize(new java.awt.Dimension(72, 30));
         btnXoa.addActionListener(new java.awt.event.ActionListener() {

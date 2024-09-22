@@ -6,6 +6,7 @@ package GUI.Comp.Panel;
 
 import BUS.CategoriesBUS;
 import DTO.CategoriesDTO;
+import DTO.StaffDTO;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -33,6 +34,12 @@ public class QuanLiTheLoai extends javax.swing.JPanel {
         DefaultTableCellRenderer  renderer = (DefaultTableCellRenderer) tbTheLoai.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.LEFT);
         render();
+        
+        if (!StaffDTO.staffLogging.getRoleId().equals("STAFF")) {
+            btnThem.setEnabled(true);
+            btnSua.setEnabled(true);
+            btnXoa.setEnabled(true);
+        }
 
     }
 
@@ -267,6 +274,7 @@ public class QuanLiTheLoai extends javax.swing.JPanel {
 
         btnThem.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.setEnabled(false);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -276,6 +284,7 @@ public class QuanLiTheLoai extends javax.swing.JPanel {
 
         btnSua.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.setEnabled(false);
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -285,6 +294,7 @@ public class QuanLiTheLoai extends javax.swing.JPanel {
 
         btnXoa.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnXoa.setText("Xoá");
+        btnXoa.setEnabled(false);
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaActionPerformed(evt);

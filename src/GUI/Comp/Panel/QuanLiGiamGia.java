@@ -6,6 +6,7 @@ package GUI.Comp.Panel;
 
 import BUS.DiscountBUS;
 import DTO.DiscountDTO;
+import DTO.StaffDTO;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,7 +41,11 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         renderer.setHorizontalAlignment(JLabel.LEFT);
         render();
         
-
+        if (!StaffDTO.staffLogging.getRoleId().equals("STAFF")) {
+            btnThem.setEnabled(true);
+            btnSua.setEnabled(true);
+            btnXoa.setEnabled(true);
+        }
 
     }
 
@@ -187,6 +192,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
 
         btnThem.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.setEnabled(false);
         btnThem.setMaximumSize(new java.awt.Dimension(72, 35));
         btnThem.setPreferredSize(new java.awt.Dimension(72, 35));
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -198,6 +204,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
 
         btnSua.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.setEnabled(false);
         btnSua.setMaximumSize(new java.awt.Dimension(72, 35));
         btnSua.setPreferredSize(new java.awt.Dimension(72, 30));
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +216,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
 
         btnXoa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnXoa.setText("Xoá");
+        btnXoa.setEnabled(false);
         btnXoa.setMaximumSize(new java.awt.Dimension(72, 35));
         btnXoa.setPreferredSize(new java.awt.Dimension(72, 30));
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -706,7 +714,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 1141, Short.MAX_VALUE)
+            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -927,6 +935,7 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tbDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDiscountMouseClicked
+        
         txtTenChuongTrinh.setEnabled(false);
         txtSoLuong.setEnabled(false);
         cbxLoaiGiam.setEnabled(false);

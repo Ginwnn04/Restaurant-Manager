@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.raven.swing.PanelBackground;
 import BUS.SupplierBUS;
+import DTO.StaffDTO;
 import DTO.SupplierDTO;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
@@ -79,7 +80,10 @@ public class QuanLiSupplier extends javax.swing.JPanel {
                 }
             }
         });
+        
     }
+    
+ 
     
     public void renderSupplier(boolean isSelectAll) {
         listSupplier = new SupplierBUS().getAllData(); // Giả sử bạn có một lớp BUS để lấy dữ liệu nhà cung cấp
@@ -267,11 +271,12 @@ public class QuanLiSupplier extends javax.swing.JPanel {
         jScrollPane2.setPreferredSize(new Dimension(1250, 450));
         //Btn panel
         JButton btnThem = new JButton("Thêm");
-        btnThem.setBackground(new Color(146, 227, 118));
+//        btnThem.setBackground(new Color(146, 227, 118));
         JButton btnSua = new JButton("Sửa");
-        btnSua.setBackground(new Color(112, 179, 230));
+//        btnSua.setBackground(new Color(112, 179, 230));
         JButton btnXoa = new JButton("Xóa");
-        btnXoa.setBackground(new Color(235, 82, 82));
+//        btnXoa.setBackground(new Color(235, 82, 82));
+
 
         btnThem.setForeground(Color.white);
         btnSua.setForeground(Color.white);
