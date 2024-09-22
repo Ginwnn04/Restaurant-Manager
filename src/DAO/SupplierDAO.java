@@ -60,11 +60,6 @@ public class SupplierDAO {
         
     
 	public boolean insertSupplierData(SupplierDTO supplier) throws HeadlessException, Exception {
-	    // Kiểm tra xem số điện thoại đã tồn tại chưa
-	    if (isPhoneExists(supplier.getPhone())) {
-	        JOptionPane.showMessageDialog(null, "Số điện thoại đã tồn tại. Vui lòng chọn số điện thoại khác.");
-	        return false;
-	    }
 	    String query = "INSERT INTO tb_supplier (id, name, address, phone, isdeleted) VALUES (?, ?, ?, ?, ?)";
 	    try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
 	        pstm.setLong(1, supplier.createId());
@@ -98,12 +93,7 @@ public class SupplierDAO {
     }
     
     public boolean updateSupplierData(SupplierDTO supplier) {
-        // Kiểm tra trùng lặp tên nhà cung cấp trước khi cập nhật
-        if (isSupplierPhoneExistsForUpdate(supplier.getPhone(), supplier.getId())) {
-            JOptionPane.showMessageDialog(null, "SDT nhà cung cấp đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
+       
         String query = "UPDATE tb_supplier SET name = ?, address = ?, phone = ?, isdeleted = ? WHERE id = ?";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
             pstm.setString(1, supplier.getName());

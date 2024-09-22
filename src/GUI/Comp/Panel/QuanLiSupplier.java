@@ -76,7 +76,7 @@ public class QuanLiSupplier extends javax.swing.JPanel {
                     int initialRow = e.getFirstRow();
                     listSupplier.get(initialRow).setIsdeleted(!listSupplier.get(initialRow).getIsdeleted());
                     cntTableSelected += !listSupplier.get(initialRow).getIsdeleted() ? -1 : 1;
-                    btnSua.setEnabled(cntTableSelected == 1);
+                    
                 }
             }
         });
@@ -86,6 +86,9 @@ public class QuanLiSupplier extends javax.swing.JPanel {
  
     
     public void renderSupplier(boolean isSelectAll) {
+        txtAddress.setText("");
+        txtName.setText("");
+        txtSDT.setText("");
         listSupplier = new SupplierBUS().getAllData(); // Giả sử bạn có một lớp BUS để lấy dữ liệu nhà cung cấp
         DefaultTableModel model = (DefaultTableModel) tbSupplier.getModel();
         model.setRowCount(0); // Xóa tất cả các dòng cũ trong bảng
@@ -270,11 +273,11 @@ public class QuanLiSupplier extends javax.swing.JPanel {
 
         jScrollPane2.setPreferredSize(new Dimension(1250, 450));
         //Btn panel
-        JButton btnThem = new JButton("Thêm");
+            btnThem = new JButton("Thêm");
 //        btnThem.setBackground(new Color(146, 227, 118));
-        JButton btnSua = new JButton("Sửa");
+            btnSua = new JButton("Sửa");
 //        btnSua.setBackground(new Color(112, 179, 230));
-        JButton btnXoa = new JButton("Xóa");
+            btnXoa = new JButton("Xóa");
 //        btnXoa.setBackground(new Color(235, 82, 82));
 
 
@@ -312,18 +315,18 @@ public class QuanLiSupplier extends javax.swing.JPanel {
 
         JLabel lblUsername = new JLabel("Tên:");
         lblUsername.setForeground(Color.white);
-        JTextField txtUsername = new JTextField();
+        txtName = new JTextField();
 
         JLabel lblAddress = new JLabel("Địa chỉ:");
         lblAddress.setForeground(Color.white);
-        JTextField txtAddress = new JTextField();
+        txtAddress = new JTextField();
 
         JLabel lblSDT = new JLabel("SDT:");
         lblSDT.setForeground(Color.white);
-        JTextField txtSDT = new JTextField();
+        txtSDT = new JTextField();
 
         Dimension textFieldSize = new Dimension(200, 30);
-        txtUsername.setPreferredSize(textFieldSize);
+        txtName.setPreferredSize(textFieldSize);
         txtAddress.setPreferredSize(textFieldSize);
         txtSDT.setPreferredSize(textFieldSize);
 
@@ -339,7 +342,7 @@ public class QuanLiSupplier extends javax.swing.JPanel {
         gbcLeft.gridy++;
         staffInfo_panel_left.add(lblUsername, gbcLeft);
         gbcLeft.gridx = 1;
-        staffInfo_panel_left.add(txtUsername, gbcLeft);
+        staffInfo_panel_left.add(txtName, gbcLeft);
 
         gbcLeft.gridx = 0;
         gbcLeft.gridy++;
@@ -356,7 +359,7 @@ public class QuanLiSupplier extends javax.swing.JPanel {
         Dimension textFieldSize1 = new Dimension(200, 30);
 
      // Áp dụng cho các JTextField trong panel_left
-     txtUsername.setPreferredSize(textFieldSize1);
+     txtName.setPreferredSize(textFieldSize1);
      txtSDT.setPreferredSize(textFieldSize1);
      txtAddress.setPreferredSize(textFieldSize1);
      searchField.setPreferredSize(textFieldSize1);
@@ -367,6 +370,7 @@ public class QuanLiSupplier extends javax.swing.JPanel {
                 txtName.setEnabled(false);
                 btnThem.setEnabled(false);
                 
+              
                 
     	        int selectedRow = tbSupplier.getSelectedRow();
     	        if (selectedRow != -1) {
@@ -376,7 +380,7 @@ public class QuanLiSupplier extends javax.swing.JPanel {
     	            String sdt = model.getValueAt(selectedRow, 3).toString();
     	            
     	            // Hiển thị thông tin nhà cung cấp lên các textfield
-    	            txtUsername.setText(ten);
+    	            txtName.setText(ten);
     	            txtAddress.setText(diaChi);
     	            txtSDT.setText(sdt);
     	        }
@@ -413,14 +417,14 @@ public class QuanLiSupplier extends javax.swing.JPanel {
      
      btnThem.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent e) {
-    	        if (txtUsername.getText().isEmpty() || txtAddress.getText().isEmpty() || txtSDT.getText().isEmpty()) {                    
+    	        if (txtName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtSDT.getText().isEmpty()) {                    
     	            JOptionPane.showMessageDialog(pnContainer, "Vui lòng điền đầy đủ thông tin.");
     	        } else {
     	            int choice = JOptionPane.showConfirmDialog(pnContainer, "Bạn có chắc chắn thêm không ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
     	            if (choice == 0) {
     	                String phonePattern = "^[0-9]{10}$";
     	                
-    	                String name = txtUsername.getText();
+    	                String name = txtName.getText();
     	                String address = txtAddress.getText();
     	                String phone = txtSDT.getText();
     	                
@@ -476,14 +480,14 @@ public class QuanLiSupplier extends javax.swing.JPanel {
     	    public void actionPerformed(ActionEvent e) {
     	        int selectedRow = tbSupplier.getSelectedRow();
     	        if (selectedRow != -1) {
-    	            if (txtUsername.getText().isEmpty() || txtAddress.getText().isEmpty() || txtSDT.getText().isEmpty()) {
+    	            if (txtName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtSDT.getText().isEmpty()) {
     	                JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
     	                return;
     	            }
     	            String phonePattern = "^[0-9]{10}$";
     	            SupplierDTO supplierSelected = listSupplier.get(selectedRow);
 
-    	            supplierSelected.setName(txtUsername.getText());
+    	            supplierSelected.setName(txtName.getText());
     	            supplierSelected.setAddress(txtAddress.getText());
     	            supplierSelected.setPhone(txtSDT.getText());
     	            
