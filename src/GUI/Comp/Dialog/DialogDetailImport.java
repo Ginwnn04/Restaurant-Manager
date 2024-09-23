@@ -411,14 +411,21 @@ public class DialogDetailImport extends javax.swing.JPanel {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             IngredientsDTO ingre = ingredientsList.get(cbxIngre.getSelectedIndex());
             lbSoLuongTon.setText(ingre.getQuantity() + "");
-            long price = new DetailImportBillBUS().getDetailImportBillByBillIdIngre(ingre.getId()).getPrice();
-            lbGiaNhapHienTai.setText(price + "");
-            if (ingre.getQuantity() > 0) {
-                txtPrice.setEnabled(false);
-                txtPrice.setText(price + "");
+            DetailImportBillDTO x = new DetailImportBillBUS().getDetailImportBillByBillIdIngre(ingre.getId());
+            if (x == null) {
+                lbGiaNhapHienTai.setText(0 + "");
+                lbSoLuongTon.setText(0 + "");
             }
             else {
-                txtPrice.setEnabled(true);
+                long price = x.getPrice();
+                lbGiaNhapHienTai.setText(price + "");
+                if (ingre.getQuantity() > 0) {
+                    txtPrice.setEnabled(false);
+                    txtPrice.setText(price + "");
+                }
+                else {
+                    txtPrice.setEnabled(true);
+                }
             }
         }
     }//GEN-LAST:event_cbxIngreItemStateChanged
