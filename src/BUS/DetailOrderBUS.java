@@ -38,7 +38,9 @@ public class DetailOrderBUS {
         return detailOrderDAO.mergeDetaisByIDInvoice(listInvoiceID);
     }
     
-    
+    public boolean isPaid(String listOrderId) {
+        return detailOrderDAO.isPaid(listOrderId);
+    }
     
     public boolean updateDetails(String listOrderID, long invoiceid) {
         return detailOrderDAO.updateDetails(listOrderID, invoiceid);

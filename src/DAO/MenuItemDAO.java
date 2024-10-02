@@ -116,4 +116,20 @@ public class MenuItemDAO {
         return false;
     }
     
+    public boolean isNameExist(String name) {
+        String query = "SELECT * FROM tb_menu_item WHERE name = ? AND isdeleted = ?";
+         try(PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query);) {
+            pstm.setString(1, name);
+            pstm.setBoolean(2, false);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 }

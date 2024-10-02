@@ -54,6 +54,7 @@ public class QuanLi_Staff extends javax.swing.JPanel {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnXoa;
     private javax.swing.JTextField searchField;
+    private javax.swing.JTextField txtUpperUsername;
     private javax.swing.JTextField txtUsername;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtEmail;
@@ -98,7 +99,7 @@ public class QuanLi_Staff extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tbStaff.getModel();
         model.setRowCount(0); 
         for (StaffDTO staff : listStaff) {
-            String fullName = staff.getLast_name() + " " + staff.getFirst_name();
+            String fullName = staff.getFull_name();
             model.addRow(new Object[]{
                 isSelectAll, 
                 staff.getId(),
@@ -126,7 +127,7 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
     model.setRowCount(0);
 
     for (StaffDTO staff : filteredList) {
-    	String fullName = staff.getLast_name() + " " + staff.getFirst_name();
+    	String fullName = staff.getFull_name();
         model.addRow(new Object[]{
             isSelectAll,
             staff.getId(),
@@ -145,6 +146,17 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
     model.fireTableDataChanged();
     tbStaff.setModel(model);
 }
+
+    public void reset() {
+        txtUsername.setText("");
+        txtPassword.setText("");
+        txtAddress.setText("");
+        txtEmail.setText("");
+        txtSDT.setText("");
+        searchField.setText("");
+        txtUpperUsername.setText("");
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -350,7 +362,7 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
 
         JLabel lblUpperUsername = new JLabel("Tên nhân viên:");
         lblUpperUsername.setForeground(Color.white);
-        JTextField txtUpperUsername = new JTextField();
+        txtUpperUsername = new JTextField();
 
         // Thiết lập kích thước cho TextField
         Dimension textFieldSizeUpper = new Dimension(200, 30);
@@ -375,8 +387,8 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
         lblPassword.setForeground(Color.white);
         
         // textfields
-        JTextField txtUsername = new JTextField();
-        JTextField txtPassword = new JTextField();
+        txtUsername = new JTextField();
+        txtPassword = new JTextField();
 
         Dimension textFieldSize = new Dimension(200, 30);
         txtUsername.setPreferredSize(textFieldSize);
@@ -417,7 +429,7 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
         Email_lbl.setForeground(Color.white);
         staffInfo_panel_center.add(Email_lbl, gbcCenter);
         gbcCenter.gridx = 1;
-        JTextField txtEmail = new JTextField(20); 
+        txtEmail = new JTextField(20); 
         staffInfo_panel_center.add(txtEmail, gbcCenter);
         // Label và Textfield cho SĐT
         gbcCenter.gridx = 0; 
@@ -426,7 +438,7 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
         SDT_lbl.setForeground(Color.white);
         staffInfo_panel_center.add(SDT_lbl, gbcCenter);
         gbcCenter.gridx = 1;
-        JTextField txtSDT = new JTextField(20); 
+        txtSDT = new JTextField(20); 
         staffInfo_panel_center.add(txtSDT, gbcCenter);
 
         gbcCenter.gridx = 0; 
@@ -435,7 +447,7 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
         DiaChi_lbl.setForeground(Color.white);
         staffInfo_panel_center.add(DiaChi_lbl, gbcCenter);
         gbcCenter.gridx = 1; 
-        JTextField txtAddress = new JTextField(20); 
+        txtAddress = new JTextField(20); 
         staffInfo_panel_center.add(txtAddress, gbcCenter);
 
         // Label và JComboBox cho RoleID
@@ -463,7 +475,6 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
     	    @Override
     	    public void mouseClicked(MouseEvent e) {
                 txtUsername.setEnabled(false);
-                txtUpperUsername.setEnabled(false);
                 btnThem.setEnabled(false);
                 
     	        int selectedRow = tbStaff.getSelectedRow();
@@ -494,20 +505,19 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
         
      btnThem.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent e) {
-    	        if (txtUpperUsername.getText().isEmpty() || txtUsername.getText().isEmpty() || txtPassword.getText().isEmpty() || 
+                
+                String name = txtUpperUsername.getText().trim(); 
+
+    	        if (name.isEmpty() || txtUsername.getText().isEmpty() || txtPassword.getText().isEmpty() || 
     	            txtEmail.getText().isEmpty() || txtSDT.getText().isEmpty() || txtAddress.getText().isEmpty() || cmbRoleID.getSelectedItem() == null) {                    
     	            JOptionPane.showMessageDialog(pnContainer, "Vui lòng điền đầy đủ thông tin.");
     	        } else {
     	            int choice = JOptionPane.showConfirmDialog(pnContainer, "Bạn có chắc chắn thêm không ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
     	            if (choice == 0) {
     	                String emailPattern = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
-    	                String phonePattern = "^[0-9]{10}$";
-    	                
-    	                String upperUsername = txtUpperUsername.getText(); 
-    	                String[] nameParts = upperUsername.split("\\s+(?=[^\\s]+$)"); 
-    	                    	                
-    	                String lastName = nameParts[0];
-    	                String firstName = nameParts.length > 1 ? nameParts[1] : "";
+    	                String phonePattern = "^0\\d{9}$";
+    	                String namePattern = "^[a-zA-Z\\s]+$";
+    	          
     	                
     	                String username = txtUsername.getText();
     	                String password = txtPassword.getText();
@@ -522,14 +532,20 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
     	                    return;
     	                }
     	                if (!phone.matches(phonePattern)) {
-    	                    JOptionPane.showMessageDialog(pnContainer, "Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại gồm 10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    	                    JOptionPane.showMessageDialog(pnContainer, "Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại gồm 10 chữ số bắt đầu bằng 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
     	                    return;
     	                }
+                        
+                        if (!name.matches(namePattern)) {
+    	                    JOptionPane.showMessageDialog(pnContainer, "Tên không hợp lệ. Vui lòng nhập lại tên.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    	                    return;
+    	                }
+                        
 
     	                StaffDTO newStaff = new StaffDTO();
     	                newStaff.createId();
-    	                newStaff.setFirst_name(firstName);
-    	                newStaff.setLast_name(lastName);
+    	                newStaff.setFull_name(name);
+    	               
     	                
     	                newStaff.setUsername(username);
     	                newStaff.setPassword(password);
@@ -545,17 +561,20 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
     	                if (isInserted) {
     	                    JOptionPane.showMessageDialog(null, "Thêm nhân viên mới thành công!");
     	                    renderStaff(isSelectAll);
-    	                } else {
+    	                } 
+                        else {
     	                    JOptionPane.showMessageDialog(null, "Không thể thêm mới nhân viên.");
     	                }
+                      
     	            }
     	        }
+            reset();
     	    }
     	});
 
 
         
-        btnXoa.addActionListener(new ActionListener() {
+     btnXoa.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = tbStaff.getSelectedRow();
                 if (selectedRow != -1) {
@@ -567,9 +586,11 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
                         if (isUpdated) {
                             JOptionPane.showMessageDialog(null, "Xóa nhân viên thành công!");
                             renderStaff(isSelectAll);
+                            
                         } else {
                             JOptionPane.showMessageDialog(null, "Không thể xóa nhân viên.");
                         }
+                        
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần xóa.");
@@ -577,49 +598,52 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
                 txtUsername.setEnabled(true);
                 txtUpperUsername.setEnabled(true);
                 btnThem.setEnabled(true);
-                
+                reset();
             }
         });
 
         
-        btnSua.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = tbStaff.getSelectedRow();
-                if (selectedRow != -1) {
-                    if (txtUpperUsername.getText().isEmpty() || txtUsername.getText().isEmpty() || txtPassword.getText().isEmpty() || 
+    btnSua.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            int selectedRow = tbStaff.getSelectedRow();
+            if (selectedRow != -1) {
+                int choice = JOptionPane.showConfirmDialog(pnContainer, "Bạn có chắc chắn cập nhật không ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    String name = txtUpperUsername.getText().trim(); 
+                    if (name.isEmpty() || txtUsername.getText().isEmpty() || txtPassword.getText().isEmpty() || 
                         txtEmail.getText().isEmpty() || txtSDT.getText().isEmpty() || txtAddress.getText().isEmpty() || cmbRoleID.getSelectedItem() == null) {
                         JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
                         return;
                     }
                     String emailPattern = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
-                    String phonePattern = "^[0-9]{10}$";
+                    String phonePattern = "^0\\d{9}$";
+                    String namePattern = "^[a-zA-Z\\s]+$";
                     StaffDTO staffSelected = listStaff.get(selectedRow);
-                    
-                    String upperUsername = txtUpperUsername.getText();
-                    String[] nameParts = upperUsername.split("\\s+(?=[^\\s]+$)"); 
-                    
-                    String firstName = nameParts[0];
-                    String lastName = nameParts.length > 1 ? nameParts[1] : "";
-                    
-                    
-                    
-                    staffSelected.setFirst_name(firstName);
-                    staffSelected.setLast_name(lastName);
-                    
+
+
+
+
+                    staffSelected.setFull_name(name);
+
                     staffSelected.setUsername(txtUsername.getText());
                     staffSelected.setPassword(txtPassword.getText());
                     staffSelected.setEmail(txtEmail.getText());
                     staffSelected.setPhone(txtSDT.getText());
                     staffSelected.setAddress(txtAddress.getText());
                     staffSelected.setRoleId(cmbRoleID.getSelectedItem().toString());
+
                     if (!txtEmail.getText().matches(emailPattern)) {
-	                    JOptionPane.showMessageDialog(pnContainer, "Email không hợp lệ. Vui lòng nhập email có định dạng @gmail.com.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-	                    return;
-	                }
-	                if (!txtSDT.getText().matches(phonePattern)) {
-	                    JOptionPane.showMessageDialog(pnContainer, "Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại gồm 10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-	                    return;
-	                }
+                            JOptionPane.showMessageDialog(pnContainer, "Email không hợp lệ. Vui lòng nhập email có định dạng @gmail.com.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    if (!txtSDT.getText().matches(phonePattern)) {
+                        JOptionPane.showMessageDialog(pnContainer, "Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại gồm 10 chữ số bắt đầu bằng 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (!name.matches(namePattern)) {
+                        JOptionPane.showMessageDialog(pnContainer, "Tên không hợp lệ. Vui lòng nhập lại tên.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
 
                     boolean isUpdated = staffBUS.updateStaff(staffSelected);
                     if (isUpdated) {
@@ -628,48 +652,50 @@ private void renderFilteredStaff(ArrayList<StaffDTO> filteredList) {
                     } else {
                         JOptionPane.showMessageDialog(null, "Không thể cập nhật thông tin nhân viên.");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần cập nhật.");
+                    
                 }
-                txtUsername.setEnabled(true);
-                txtUpperUsername.setEnabled(true);
-                btnThem.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần cập nhật.");
             }
-        });
+            txtUsername.setEnabled(true);
+            txtUpperUsername.setEnabled(true);
+            btnThem.setEnabled(true);
+            reset();
+        }
+    });
 
 
-        
+    
 
+    searchField.getDocument().addDocumentListener(new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            search();
+        }
 
-        searchField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            search();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            search();
+        }
+
+        private void search() {
+            searchField.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+            TableRowSorter tableRowSorter = new TableRowSorter(tbStaff.getModel());
+            String find = searchField.getText().trim();
+            if (!find.isEmpty()) {
+    //          Indices 2 => Sort theo cột 2 (Name)
+                tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + find, 2));
             }
+            tbStaff.setRowSorter(tableRowSorter);
+        }
+    });
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                search();
-            }
-
-            private void search() {
-                searchField.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-                TableRowSorter tableRowSorter = new TableRowSorter(tbStaff.getModel());
-                String find = searchField.getText().trim();
-                if (!find.isEmpty()) {
-        //          Indices 2 => Sort theo cột 2 (Name)
-                    tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + find, 2));
-                }
-                tbStaff.setRowSorter(tableRowSorter);
-            }
-        });
-
-
+    
         
     }// </editor-fold>//GEN-END:initComponents
 

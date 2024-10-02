@@ -30,4 +30,8 @@ public class MenuItemBUS {
     public boolean deleteData(String listID) {
         return menuItemDAO.delete(listID);
     }
+    
+    public boolean isNameExist(String name) {
+        return menuItemDAO.isNameExist(name);
+    }
 }

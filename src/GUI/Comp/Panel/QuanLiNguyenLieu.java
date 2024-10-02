@@ -324,6 +324,9 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        
+        
+        
         DefaultTableModel model = (DefaultTableModel) tbIngredients.getModel();
         int rowCount = model.getRowCount();
         boolean isSelected = false; // Biến này để kiểm tra xem có ít nhất một dòng được chọn hay không
@@ -344,7 +347,10 @@ public class QuanLiNguyenLieu extends javax.swing.JPanel {
                     }
                     showMessage = false; // Đánh dấu rằng thông báo đã được hiển thị
                 }
-
+                if (ingredientsBUS.isUsed(id)) {
+                    JOptionPane.showMessageDialog(null, "Không thể xoá vì đang sử dụng cho công thức");
+                    return;
+                }
                 // Gọi phương thức deleteIngredient() từ IngredientsBUS để set cột isDeleted thành True
                 IngredientsBUS ingredientsBUS = new IngredientsBUS();
                 boolean success = false;

@@ -28,8 +28,7 @@ public class StaffDAO {
                 staff.setRoleId(rs.getString("roleid"));
                 staff.setCreateTime(rs.getDate("create_time"));
                 staff.setUpdateTime(rs.getDate("update_time"));
-                staff.setFirst_name(rs.getString("first_name"));
-                staff.setLast_name(rs.getString("last_name"));
+                staff.setFull_name(rs.getString("full_name"));
                 list.add(staff);
             }
         } catch(SQLException e) {
@@ -55,8 +54,7 @@ public class StaffDAO {
                 staff.setRoleId(rs.getString("roleid"));
                 staff.setCreateTime(rs.getDate("create_time"));
                 staff.setUpdateTime(rs.getDate("update_time"));
-                staff.setFirst_name(rs.getString("first_name"));
-                staff.setLast_name(rs.getString("last_name"));
+                staff.setFull_name(rs.getString("full_name"));
               
             }
         } catch(SQLException e) {
@@ -99,7 +97,7 @@ public class StaffDAO {
         }
 
         // Nếu không có trùng lặp, thực hiện thêm nhân viên vào cơ sở dữ liệu
-        String query = "INSERT INTO tb_staff (id, username, password, email, phone, address, isdeleted, roleid, create_time, update_time, first_name, last_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO tb_staff (id, username, password, email, phone, address, isdeleted, roleid, create_time, update_time, full_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
             pstm.setLong(1, staff.createId());
             pstm.setString(2, staff.getUsername());
@@ -115,8 +113,8 @@ public class StaffDAO {
 
             pstm.setTimestamp(9, sqlDateUpdate);
             pstm.setTimestamp(10, sqlDateCreate);
-            pstm.setString(11, staff.getFirst_name());
-            pstm.setString(12, staff.getLast_name());
+            pstm.setString(11, staff.getFull_name());
+ 
 
             return pstm.executeUpdate() > 0;
         } catch(SQLException e) {
@@ -189,7 +187,7 @@ public class StaffDAO {
             return false;
         }
 
-        String query = "UPDATE tb_staff SET username = ?, password = ?, email = ?, phone = ?, address = ?, isdeleted = ?, roleid = ?, update_time = ?, first_name = ?, last_name = ? WHERE id = ?";
+        String query = "UPDATE tb_staff SET username = ?, password = ?, email = ?, phone = ?, address = ?, isdeleted = ?, roleid = ?, update_time = ?, full_name = ? WHERE id = ?";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
             pstm.setString(1, staff.getUsername());
             pstm.setString(2, staff.getPassword());
@@ -200,9 +198,8 @@ public class StaffDAO {
             pstm.setString(7, staff.getRoleId());
             Timestamp sqlDateUpdate = new Timestamp(staff.getUpdateTime().getTime());
             pstm.setTimestamp(8, sqlDateUpdate);
-            pstm.setString(9, staff.getFirst_name());
-            pstm.setString(10, staff.getLast_name());
-            pstm.setLong(11, staff.getId());
+            pstm.setString(9, staff.getFull_name());
+            pstm.setLong(10, staff.getId());
 
             return pstm.executeUpdate() > 0;
         } catch(SQLException e) {
@@ -285,8 +282,7 @@ public class StaffDAO {
                 staff.setRoleId(rs.getString("roleid"));
                 staff.setCreateTime(rs.getDate("create_time"));
                 staff.setUpdateTime(rs.getDate("update_time"));
-                staff.setFirst_name(rs.getString("first_name"));
-                staff.setLast_name(rs.getString("last_name"));
+                staff.setFull_name(rs.getString("full_name"));
                 return staff;
             }
             

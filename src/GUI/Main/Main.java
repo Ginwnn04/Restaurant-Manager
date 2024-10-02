@@ -47,7 +47,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         setLocationRelativeTo(null);
 
         // Qua bên zalo coi cái ảnh á
-        String fullName = StaffDTO.staffLogging.getLast_name() + " " + StaffDTO.staffLogging.getFirst_name();
+        String fullName = StaffDTO.staffLogging.getFull_name();
         String role = new RoleBUS().getRoleByID(StaffDTO.staffLogging.getRoleId()).getName();
         navBar.setInformation(fullName, role);
         MyListener.getInstance().addPropertyChangeListener(this);

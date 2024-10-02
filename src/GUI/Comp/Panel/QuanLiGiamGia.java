@@ -741,6 +741,13 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         if (choice != 0) {
             return;
         }
+        
+        if (discountBUS.isUsed(discountSelected.getId())) {
+            JOptionPane.showMessageDialog(null, "Không thể xoá mã giảm giá vì đang được sử dụng");
+            return;
+        }
+       
+        
         boolean isValid = true;
         if (txtTenChuongTrinh.getText().isEmpty()) {
             isValid = false;
@@ -876,6 +883,12 @@ public class QuanLiGiamGia extends javax.swing.JPanel {
         }
         if (txtDate.getText().isEmpty()) {
             isValid = false;
+        }
+        
+        String name = txtTenChuongTrinh.getText().trim();
+        if (discountBUS.isNameExist(name)) {
+            JOptionPane.showMessageDialog(null, "Không được trùng tên chương trình giảm giá");
+            return;
         }
         
         try {

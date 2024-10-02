@@ -374,6 +374,10 @@ public class DialogDetailImport extends javax.swing.JPanel {
         int confirmation = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm dữ liệu?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (confirmation == JOptionPane.YES_OPTION) {
             try {
+                if (detailImportBillList.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Danh sách nguyên liệu trống");
+                    return;
+                }
                 importBill.setQuantity(detailImportBillList.size());
                 importBill.setTotal(totalPrice);
                 importBill.setImport_date(new Date());

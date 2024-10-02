@@ -20,6 +20,10 @@ public class SupplierBUS {
         }
     }
     
+    public boolean isNameExist(String name) {
+        return supplierDAO.isNameExist(name);
+    }
+    
     public SupplierDTO getSupplierById(long id) {
         return supplierDAO.getSupplierById(id);
     }

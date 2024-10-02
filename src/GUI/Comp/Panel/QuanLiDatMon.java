@@ -4,6 +4,7 @@
  */
 package GUI.Comp.Panel;
 
+import BUS.DetailOrderBUS;
 import BUS.OrderBUS;
 import BUS.TableBUS;
 import DTO.OrderDTO;
@@ -513,9 +514,16 @@ public class QuanLiDatMon extends javax.swing.JPanel {
         if (!listOrderIDSelected.isEmpty()) {
             int choice = JOptionPane.showConfirmDialog(pnContainer, "Bạn có chắc chắn xóa không ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (choice == 0) {
-                boolean isDeleted = orderBUS.deleteOrder(listOrderIDSelected);
-                if (isDeleted) {
-                    JOptionPane.showMessageDialog(pnContainer, "Xóa thành công");
+                boolean checked = new DetailOrderBUS().isPaid(listOrderIDSelected);
+                if (checked) {
+                    boolean isDeleted = orderBUS.deleteOrder(listOrderIDSelected);
+                    if (isDeleted) {
+                        JOptionPane.showMessageDialog(pnContainer, "Xóa thành công");
+                    }   
+                }
+                else {
+                    JOptionPane.showMessageDialog(pnContainer, "Không thể xoá đơn món chưa thanh toán");
+
                 }
             }
             else {

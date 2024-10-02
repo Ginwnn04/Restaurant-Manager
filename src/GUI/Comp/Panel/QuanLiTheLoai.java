@@ -397,10 +397,17 @@ public class QuanLiTheLoai extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtTenTheLoai.getText().isEmpty() || txtMoTa.getText().isEmpty()) {
+        String name = txtTenTheLoai.getText().trim();
+        if (name.isEmpty() || txtMoTa.getText().isEmpty()) {
             JOptionPane.showMessageDialog(pnContainer, "Vui lòng nhập thông tin đầy đủ", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
+        if (categoriesBUS.isExist(name)) {
+            JOptionPane.showMessageDialog(pnContainer, "Tên thể loại trùng");
+            return;
+        }
+        
         CategoriesDTO categoriesDTO = new CategoriesDTO();
         categoriesDTO.createID();
         categoriesDTO.setName(txtTenTheLoai.getText());

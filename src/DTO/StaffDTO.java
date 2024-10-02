@@ -15,15 +15,15 @@ public class StaffDTO {
     private String roleId;
     private Date createTime;
     private Date updateTime;
-    private String first_name;
-    private String last_name;
+    private String full_name;
+
     
     public static StaffDTO staffLogging;
 
     public StaffDTO() {
     }
 
-    public StaffDTO(long id, String username, String password, String email, String phone, String address, boolean isDeleted, String roleId, Date createTime, Date updateTime, String first_name, String last_name) {
+    public StaffDTO(long id, String username, String password, String email, String phone, String address, boolean isDeleted, String roleId, Date createTime, Date updateTime, String full_name) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -34,25 +34,26 @@ public class StaffDTO {
         this.roleId = roleId;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.full_name = full_name;
     }
 
-    public String getFirst_name() {
-		return first_name;
-	}
-
-    public void setFirst_name(String first_name) {
-            this.first_name = first_name;
+    public boolean isIsDeleted() {
+        return isDeleted;
     }
 
-    public String getLast_name() {
-            return last_name;
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
-    public void setLast_name(String last_name) {
-            this.last_name = last_name;
+    public String getFull_name() {
+        return full_name;
     }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
+    }
+
+    
 
 	// Getter và setter cho id
     public long getId() {

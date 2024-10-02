@@ -40,6 +40,16 @@ public class IngredientsBUS {
     public boolean checkIngredientExistence(long ingredientId){
         return ingredientsDAO.checkIngredientExistence(ingredientId);
     }
+    
+    public boolean isNameExist(String name){
+        return ingredientsDAO.isNameExist(name);
+    }
+    
+    public boolean isUsed(long ingreId){
+        return ingredientsDAO.isUsed(ingreId);
+    }
+    
+    
 
     public int getIngredientQuantity(long ingredientId){
         return ingredientsDAO.getIngredientQuantity(ingredientId);

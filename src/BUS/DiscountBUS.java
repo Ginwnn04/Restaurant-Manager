@@ -19,6 +19,14 @@ public class DiscountBUS {
         return discountDAO.read(isValid);
     }
     
+    public boolean isNameExist(String name) {
+        return discountDAO.isNameExist(name);
+    }
+    
+    public boolean isUsed(long discountId) {
+        return discountDAO.isUsed(discountId);
+    }
+    
     public DiscountDTO getDataById(long id) {
         return discountDAO.getDataById(id);
     }

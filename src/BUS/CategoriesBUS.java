@@ -23,6 +23,10 @@ public class CategoriesBUS {
         return categoriesDAO.findByID(id);
     }
     
+    public boolean isExist(String name) {
+        return categoriesDAO.isExist(name);
+    }
+    
     public boolean insertCategories(CategoriesDTO categories) {
         return categoriesDAO.insert(categories);
     }

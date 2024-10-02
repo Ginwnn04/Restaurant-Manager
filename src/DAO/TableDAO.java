@@ -27,6 +27,7 @@ public class TableDAO {
             return list;
         }
         query += " WHERE " + criteria.createClause(false) + " ORDER BY tb_tables.name";
+//        System.out.println(query);
 
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)){
             int i = 1;

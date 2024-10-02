@@ -88,6 +88,6 @@ public class OrderBUS {
     public boolean deleteOrder(String listOrderID) {
         OrderCriteria criteria = new OrderCriteria();
         criteria.setIsDelete(true);
-        return orderDAO.update(criteria, "");
+        return orderDAO.update(criteria, listOrderID);
     }
 }

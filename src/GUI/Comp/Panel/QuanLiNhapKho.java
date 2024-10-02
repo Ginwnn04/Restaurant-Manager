@@ -13,6 +13,7 @@ import BUS.SupplierBUS;
 import DTO.DetailImportBillDTO;
 import DTO.ImportBillDTO;
 import DTO.SupplierDTO;
+import GUI.Comp.DateChooser.SelectedDate;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,10 +56,11 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     public QuanLiNhapKho() {
         initComponents();
         loadImportBills();
-        jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "dd/MM/YYYY");
         tbImportBill.setRowHeight(35);
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tbImportBill.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.LEFT);
+        txtDate.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +71,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateChooser = new GUI.Comp.DateChooser.DateChooser();
         jPanel1 = new javax.swing.JPanel();
         panelBackground1 = new GUI.Comp.Swing.PanelBackground();
         panelBackground2 = new GUI.Comp.Swing.PanelBackground();
@@ -77,19 +80,20 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         panelBackground5 = new GUI.Comp.Swing.PanelBackground();
         panelBackground6 = new GUI.Comp.Swing.PanelBackground();
         panelBackground7 = new GUI.Comp.Swing.PanelBackground();
+        jLabel1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
+        txtDate = new javax.swing.JTextField();
+        jPanel9 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnChiTiet = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
         panelBackground8 = new GUI.Comp.Swing.PanelBackground();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbImportBill = new javax.swing.JTable();
+
+        dateChooser.setTextRefernce(txtDate);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -124,9 +128,27 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         panelBackground7.setPreferredSize(new java.awt.Dimension(100, 75));
         panelBackground7.setLayout(new javax.swing.BoxLayout(panelBackground7, javax.swing.BoxLayout.LINE_AXIS));
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Tìm kiếm");
+        panelBackground7.add(jLabel1);
+
         jPanel8.setBackground(new java.awt.Color(35, 35, 35));
         jPanel8.setMaximumSize(new java.awt.Dimension(20, 23));
         panelBackground7.add(jPanel8);
+
+        txtDate.setMaximumSize(new java.awt.Dimension(175, 30));
+        txtDate.setPreferredSize(new java.awt.Dimension(175, 40));
+        txtDate.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtDateCaretUpdate(evt);
+            }
+        });
+        panelBackground7.add(txtDate);
+
+        jPanel9.setBackground(new java.awt.Color(35, 35, 35));
+        jPanel9.setMaximumSize(new java.awt.Dimension(20, 23));
+        panelBackground7.add(jPanel9);
 
         btnThem.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnThem.setText("Thêm");
@@ -156,48 +178,9 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         jPanel11.setMaximumSize(new java.awt.Dimension(20, 23));
         panelBackground7.add(jPanel11);
 
-        jButton6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton6.setText("Xuất Excel");
-        jButton6.setMaximumSize(new java.awt.Dimension(84, 40));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        panelBackground7.add(jButton6);
-
-        jPanel9.setBackground(new java.awt.Color(35, 35, 35));
-        jPanel9.setMaximumSize(new java.awt.Dimension(20, 23));
-        panelBackground7.add(jPanel9);
-
-        jButton2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jButton2.setText("Nhập  Excel");
-        jButton2.setMaximumSize(new java.awt.Dimension(140, 40));
-        jButton2.setPreferredSize(new java.awt.Dimension(140, 40));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        panelBackground7.add(jButton2);
-
         jPanel3.setBackground(new java.awt.Color(35, 35, 35));
         jPanel3.setMaximumSize(new java.awt.Dimension(20, 23));
         panelBackground7.add(jPanel3);
-
-        jTextField1.setMaximumSize(new java.awt.Dimension(175, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(175, 40));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
-            }
-        });
-        panelBackground7.add(jTextField1);
 
         panelBackground6.add(panelBackground7, java.awt.BorderLayout.PAGE_START);
 
@@ -252,7 +235,7 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         model.setRowCount(0);
         for (ImportBillDTO x : importBillList) {
             String nameSupplier = supplierBUS.getSupplierById(x.getSupplierID()).getName();
-            String nameStaff =  staffBUS.getStaffById(x.getUserId()).getLast_name() + " " + staffBUS.getStaffById(x.getUserId()).getFirst_name();
+            String nameStaff =  staffBUS.getStaffById(x.getUserId()).getFull_name();
             model.addRow(new Object[] {x.getId(), x.getQuantity(), Format.formatNumber.format(x.getTotal()), Format.formatDate.format(x.getImport_date()), nameStaff, nameSupplier});
         }
         model.fireTableDataChanged();
@@ -263,77 +246,6 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
 
     
     
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // Lấy ngày được nhập vào từ text field
-        String inputDate = jTextField1.getText().trim();
-
-        // Khởi tạo TableRowSorter để lọc dữ liệu trong bảng jTable
-        DefaultTableModel model = (DefaultTableModel) tbImportBill.getModel();
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-        tbImportBill.setRowSorter(sorter);
-
-        // Nếu ngày nhập vào có ít nhất 1 ký tự và đúng định dạng dd/MM/YYYY
-        if (inputDate.length() > 0 && inputDate.matches("\\d{2}/\\d{2}/\\d{4}")) {
-            // Tạo một RowFilter để lọc dữ liệu dựa trên ngày nhập vào
-            RowFilter<DefaultTableModel, Object> filter = new RowFilter<DefaultTableModel, Object>() {
-                @Override
-                public boolean include(Entry<? extends DefaultTableModel, ? extends Object> entry) {
-                    String dateInTable = entry.getStringValue(3); // Cột thứ 4 là cột import_date
-                    return dateInTable.equals(inputDate);
-                }
-            };
-
-            // Áp dụng RowFilter để lọc dữ liệu
-            sorter.setRowFilter(filter);
-        } else {
-            // Nếu ngày nhập vào không hợp lệ, hiển thị toàn bộ dữ liệu trong bảng
-            sorter.setRowFilter(null);
-        }
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        // Thiết lập chỉ cho phép người dùng chọn file Excel
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xls", "xlsx");
-        fileChooser.setFileFilter(filter);
-
-        int returnValue = fileChooser.showOpenDialog(null);
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            // Xử lý file Excel được chọn ở đây
-            // Ví dụ: Gọi một phương thức để xử lý dữ liệu từ file Excel
-            processDataFromExcel(selectedFile);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-    // Lấy ngày được nhập vào từ text field
-    String inputDate = jTextField1.getText().trim();
-
-    // Khởi tạo TableRowSorter để lọc dữ liệu trong bảng jTable
-    DefaultTableModel model = (DefaultTableModel) tbImportBill.getModel();
-    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-    tbImportBill.setRowSorter(sorter);
-
-    // Nếu ngày nhập vào có ít nhất 1 ký tự và đúng định dạng dd/MM/YYYY
-    if (inputDate.length() > 0 && inputDate.matches("\\d{2}/\\d{2}/\\d{4}")) {
-        // Tạo một RowFilter để lọc dữ liệu dựa trên ngày nhập vào
-        RowFilter<DefaultTableModel, Object> filter = new RowFilter<DefaultTableModel, Object>() {
-            @Override
-            public boolean include(Entry<? extends DefaultTableModel, ? extends Object> entry) {
-                String dateInTable = (String) entry.getValue(3); // Cột thứ 4 là cột import_date
-                return dateInTable.equals(inputDate);
-            }
-        };
-
-        // Áp dụng RowFilter để lọc dữ liệu
-        sorter.setRowFilter(filter);
-    } else {
-        // Nếu ngày nhập vào không hợp lệ, hiển thị toàn bộ dữ liệu trong bảng
-        sorter.setRowFilter(null);
-    }
-    }//GEN-LAST:event_jTextField1KeyReleased
-
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         try {
             // Tạo một JDialog mới
@@ -377,108 +289,24 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnChiTietActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int selectedRow = tbImportBill.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xuất file Excel.");
-            return;
-        }
-
-        try {
-            // Tạo hộp thoại để người dùng chọn thư mục lưu file Excel
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Chọn nơi lưu file Excel");
-            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-            // Hiển thị hộp thoại và lấy kết quả từ người dùng
-            int userSelection = fileChooser.showSaveDialog(this);
-
-            // Nếu người dùng chọn một thư mục và nhấn OK
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                // Lấy thư mục được chọn bởi người dùng
-                File selectedDirectory = fileChooser.getSelectedFile();
-
-                // Tạo đường dẫn đầy đủ cho file Excel
-                String filePath = selectedDirectory.getAbsolutePath() + "/ChiTietHoaDon_" + tbImportBill.getValueAt(selectedRow, 0) + ".xlsx";
-
-                // Tạo workbook mới
-                Workbook workbook = new XSSFWorkbook();
-                Sheet sheet = workbook.createSheet("Chi tiết hóa đơn");
-
-                // Code xuất file Excel
-                // Tạo header cho thông tin chi tiết
-                Row detailHeaderRow = sheet.createRow(0);
-                String[] detailHeaders = {"ID hóa đơn", "ID chi tiết", "Số lượng", "Giá tiền mỗi kg/lít", "Tổng tiền", "ID nguyên liệu", "Tên nguyên liệu"};
-                for (int i = 0; i < detailHeaders.length; i++) {
-                    Cell cell = detailHeaderRow.createCell(i);
-                    cell.setCellValue(detailHeaders[i]);
-                }
-
-                // Lấy thông tin chi tiết từ JTable
-                long selectedBillId = (long) tbImportBill.getValueAt(selectedRow, 0);
-                int rowIndex = 1;
-
-                // Tạo một thể hiện của lớp DetailImportBillBUS
-                DetailImportBillBUS detailImportBillBUS = new DetailImportBillBUS();
-
-                // Gọi phương thức từ thể hiện đã tạo
-                ArrayList<DetailImportBillDTO> detailImportBillList = detailImportBillBUS.getDetailImportBillByBillId(selectedBillId);
-                SupplierDTO supplier = detailImportBillBUS.getSupplierById((long) tbImportBill.getValueAt(selectedRow, 5));
-
-                for (DetailImportBillDTO detailImportBill : detailImportBillList) {
-                    Row row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue(detailImportBill.getBillid()); // Bổ sung cột billid
-                    row.createCell(1).setCellValue(detailImportBill.getId());
-                    row.createCell(2).setCellValue(detailImportBill.getQuantity());
-                    row.createCell(3).setCellValue(detailImportBill.getPrice());
-                    row.createCell(4).setCellValue(detailImportBill.getTotal());
-                    row.createCell(5).setCellValue(detailImportBill.getIngredientid());
-                    long ingredientId = detailImportBill.getIngredientid();
-                    //row.createCell(6).setCellValue(ingredientId); // Lưu ID nguyên liệu vào cột
-                    // Lấy tên nguyên liệu từ bảng tb_ingredients
-                    String ingredientName = detailImportBillBUS.getIngredientNameById(ingredientId);
-                    if (ingredientName != null) {
-                        row.createCell(6).setCellValue(ingredientName); // Lưu tên nguyên liệu vào cột
-                    }
-                }
-
-                // Lấy thông tin nhà cung cấp từ BUS
-                Row supplierHeaderRow = sheet.createRow(rowIndex++);
-                supplierHeaderRow.createCell(0).setCellValue("Thông tin nhà cung cấp");
-                rowIndex++;
-                if (supplier != null) {
-                    Row row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue("ID");
-                    row.createCell(1).setCellValue(supplier.getId());
-                    row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue("Tên");
-                    row.createCell(1).setCellValue(supplier.getName());
-                    row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue("Địa chỉ");
-                    row.createCell(1).setCellValue(supplier.getAddress());
-                    row = sheet.createRow(rowIndex++);
-                    row.createCell(0).setCellValue("Số điện thoại");
-                    row.createCell(1).setCellValue(supplier.getPhone());
-                }
-
-                // Lưu file Excel vào đường dẫn đã chọn
-                FileOutputStream fileOut = new FileOutputStream(filePath);
-                workbook.write(fileOut);
-                fileOut.close();
-
-                // Hiển thị thông báo khi xuất file Excel thành công
-                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi xuất file Excel.");
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void tbImportBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbImportBillMouseClicked
         selectedRow = tbImportBill.getSelectedRow();
         
     }//GEN-LAST:event_tbImportBillMouseClicked
+
+    private void txtDateCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDateCaretUpdate
+        TableRowSorter tableRowSorter = new TableRowSorter(tbImportBill.getModel());
+        SelectedDate selectedDate = dateChooser.getSelectedDate();
+        int day = selectedDate.getDay();
+        int month = selectedDate.getMonth();
+        int year = selectedDate.getYear();
+        String dateString = String.format("%02d/%02d/%d", day, month, year);
+        if (!txtDate.getText().isEmpty()) {
+            tableRowSorter.setRowFilter(RowFilter.regexFilter(dateString, 3));
+
+        }
+        tbImportBill.setRowSorter(tableRowSorter);
+    }//GEN-LAST:event_txtDateCaretUpdate
 
     private void processDataFromExcel(File file) {
         Connection con = null;
@@ -565,8 +393,8 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnChiTiet;
     public javax.swing.JButton btnThem;
-    public javax.swing.JButton jButton2;
-    public javax.swing.JButton jButton6;
+    public GUI.Comp.DateChooser.DateChooser dateChooser;
+    public javax.swing.JLabel jLabel1;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel11;
     public javax.swing.JPanel jPanel2;
@@ -574,7 +402,6 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel8;
     public javax.swing.JPanel jPanel9;
     public javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTextField jTextField1;
     public GUI.Comp.Swing.PanelBackground panelBackground1;
     public GUI.Comp.Swing.PanelBackground panelBackground2;
     public GUI.Comp.Swing.PanelBackground panelBackground3;
@@ -584,5 +411,6 @@ public class QuanLiNhapKho extends javax.swing.JPanel {
     public GUI.Comp.Swing.PanelBackground panelBackground7;
     public GUI.Comp.Swing.PanelBackground panelBackground8;
     public javax.swing.JTable tbImportBill;
+    public javax.swing.JTextField txtDate;
     // End of variables declaration//GEN-END:variables
 }

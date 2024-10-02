@@ -54,21 +54,30 @@ public class DiscountDAO {
         return list;
     }
     
-    public boolean insert(DiscountDTO discount) {
-        String query = "INSERT INTO tb_discounts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public boolean isNameExist(String name) {
+        String query = "SELECT * FROM tb_discounts WHERE isdeleted = FALSE AND name = ?";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
-            pstm.setLong(1, discount.getId());
-            pstm.setString(2, discount.getName());
-            pstm.setString(3, discount.getDes());
-            pstm.setLong(4, discount.getMinimum());
-            pstm.setInt(5, discount.getRemaining());
-            pstm.setLong(6, discount.getValue());
-            pstm.setString(7, discount.getType());
-            pstm.setTimestamp(8, new Timestamp(discount.getExpiredTime().getTime()));
-            pstm.setBoolean(9, discount.isIsDelete());
-            pstm.setTimestamp(10, new Timestamp(discount.getCreateTime().getTime()));
-            pstm.setTimestamp(11, new Timestamp(discount.getUpdateTime().getTime()));
-            return pstm.executeUpdate() > 0;
+            pstm.setString(1, name);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        } 
+        return false;
+    }
+    
+    
+    public boolean isUsed(long discountId) {
+        String query = "SELECT * FROM tb_invoices WHERE isdeleted = FALSE AND discountid = ?";
+        try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+            pstm.setLong(1, discountId);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -104,6 +113,28 @@ public class DiscountDAO {
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
             pstm.setInt(1, remaining);
             pstm.setLong(2, id);
+            return pstm.executeUpdate() > 0;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        } 
+        return false;
+    }
+    
+    public boolean insert(DiscountDTO discount) {
+        String query = "INSERT INTO tb_discounts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+            pstm.setLong(1, discount.getId());
+            pstm.setString(2, discount.getName());
+            pstm.setString(3, discount.getDes());
+            pstm.setLong(4, discount.getMinimum());
+            pstm.setInt(5, discount.getRemaining());
+            pstm.setLong(6, discount.getValue());
+            pstm.setString(7, discount.getType());
+            pstm.setTimestamp(8, new Timestamp(discount.getExpiredTime().getTime()));
+            pstm.setBoolean(9, discount.isIsDelete());
+            pstm.setTimestamp(10, new Timestamp(discount.getCreateTime().getTime()));
+            pstm.setTimestamp(11, new Timestamp(discount.getUpdateTime().getTime()));
             return pstm.executeUpdate() > 0;
         }
         catch(Exception e) {

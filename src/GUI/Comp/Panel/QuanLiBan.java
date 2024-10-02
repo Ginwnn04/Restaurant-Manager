@@ -450,11 +450,12 @@ public class QuanLiBan extends javax.swing.JPanel {
             String listIDDelete = "";
             for (TableDTO table : listTable) {
                 if (table.isIsSelected()) {
-                    if (!table.getTableStatusDTO().equals("DANGSUACHUA")) {
+                    if (!(table.getStatusID().equals("DANGSUDUNG")) && !(table.getStatusID().equals("DADATTRUOC"))) {
                         listIDDelete += table.getId() + ", ";
                     }
                     else {
                         JOptionPane.showMessageDialog(pnContainer, "Không thể xoá bàn ");
+                        return;
                     }
                 }
             }

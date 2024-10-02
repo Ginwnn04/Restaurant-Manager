@@ -19,6 +19,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -569,14 +571,65 @@ public class DialogOrder extends javax.swing.JDialog implements PropertyChangeLi
 //        pnCheckout.repaint();
     }//GEN-LAST:event_formMouseEntered
 
+    
+    public boolean checkQuantity() {
+        ArrayList<DetailsRecipeDTO> listDetailRecipe = new ArrayList<>();
+        HashMap<Long, Integer> map = new HashMap<>();
+        int size = listTableSelected.size();
+        boolean isValid = true;
+        
+        for (DetailOrderDTO x : listDetailOrder) {
+            listDetailRecipe = new DetailsReciptBUS().readByIDItem(x.getItemID());
+            for (DetailsRecipeDTO detailRecipe : listDetailRecipe) {
+                IngredientsDTO ingredientsDTO = new IngredientsBUS().getIngredientById(detailRecipe.getIngredientID());
+                int newQuantity = ingredientsDTO.getQuantity() - (detailRecipe.getQuantity() * size * x.getQuantity());
+                if (newQuantity <= 0) {
+                    if (!map.containsKey(ingredientsDTO.getId())) {
+                        map.put(ingredientsDTO.getId(), 1);
+                    }  
+                    else {
+                        map.replace(ingredientsDTO.getId(), map.get(ingredientsDTO.getId()) + 1);
+                    }
+                }
+                else {
+                    
+                    if (map.containsKey(ingredientsDTO.getId())) {
+                        map.replace(ingredientsDTO.getId(), map.get(ingredientsDTO.getId()) + 1);
+                    }
+
+                }
+            }
+        }
+        
+        
+
+        for (long key : map.keySet()) {
+            if (map.get(key) >= 2) {
+                isValid = false;
+                break;
+            }
+        }
+
+//        for (long key : map.keySet()) {
+//            System.out.println(key + " " + map.get(key));
+//        }
+        return isValid;
+        
+    }
+    
+    
+    
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         if (listTableSelected.size() == 0 || listDetailOrder.size() == 0) {
             JOptionPane.showMessageDialog(pnContainerTable, "Bạn chưa chọn Món Ăn hoặc Bàn");
             return;
         }
 
-        //        System.out.println("---------------");
-
+        if(!checkQuantity()) {
+            JOptionPane.showMessageDialog(rootPane, "Khong du so luong mon an");
+            return;
+        }
+        
         ArrayList<DetailsRecipeDTO> listDetailRecipe = new ArrayList<>();
 
         int size = listTableSelected.size();

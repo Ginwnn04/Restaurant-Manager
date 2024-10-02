@@ -575,7 +575,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
         txtSaveDiscountID.setText(listDiscount.get(row).getId() + "");
         System.out.println(txtSaveDiscountID);
         String strDiscountPrice = tbDiscount.getModel().getValueAt(row, 4).toString();
-        discountPrice = Double.parseDouble(strDiscountPrice.replaceAll("\\.", ""));
+        discountPrice = Double.parseDouble(strDiscountPrice.replaceAll("\\,", ""));
         total = amount - discountPrice;
         
         
@@ -665,7 +665,7 @@ public class DialogKiemTra extends javax.swing.JDialog {
             tbInformation.addCell(new Paragraph("Date:"));
             tbInformation.addCell(new Paragraph(Helper.Format.formatDate.format(new Date()) + ""));
             tbInformation.addCell(new Paragraph("Employee:"));
-            String nameStaff = StaffDTO.staffLogging.getLast_name() + " " + StaffDTO.staffLogging.getFirst_name();
+            String nameStaff = StaffDTO.staffLogging.getFull_name();
             tbInformation.addCell(new Paragraph(nameStaff, customFont));
             tbInformation.addCell(new Paragraph("Table:"));
             tbInformation.addCell(new Paragraph(table.getName()));

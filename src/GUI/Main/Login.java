@@ -27,8 +27,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JPasswordField;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
 /**
@@ -133,7 +137,16 @@ public class Login extends javax.swing.JFrame {
 
         usernameField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập tài khoản");
         passwordField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mật khẩu");
-
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    loginButtonActionPerformed(usernameField, passwordField);
+                }
+            }
+        
+        });
+        
         usernameField.setPreferredSize(new Dimension(300, 35));
         passwordField.setPreferredSize(new Dimension(300, 35));
 
@@ -164,9 +177,13 @@ public class Login extends javax.swing.JFrame {
        
         loginBtn.setBackground(new Color(50, 168, 82));
         loginBtn.setForeground(Color.white);
-        loginBtn.setMnemonic(KeyEvent.VK_ENTER);
+//        loginBtn.setMnemonic(KeyEvent.);
+     
+        
         logSection_panel_bot.add(new JLabel("                    "));
         logSection_panel_bot.add(loginBtn);
+        
+        
 
         logSection_panel_top.setLayout(new BorderLayout());
 

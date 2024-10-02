@@ -43,6 +43,7 @@ public class DialogActionTable extends javax.swing.JDialog {
             btnThem.setText("SỬA");
             txtIDTable.setText(table.getId() + "");
             txtNameTable.setText(table.getName());
+            txtMoTa.setText(table.getDes());
             txtNameTable.setEnabled(false);
             
         }
@@ -91,12 +92,15 @@ public class DialogActionTable extends javax.swing.JDialog {
         panelBackground16 = new GUI.Comp.Swing.PanelBackground();
         txtNameTable = new javax.swing.JTextField();
         panelBackground21 = new GUI.Comp.Swing.PanelBackground();
-        jLabel9 = new javax.swing.JLabel();
         panelBackground22 = new GUI.Comp.Swing.PanelBackground();
         panelBackground23 = new GUI.Comp.Swing.PanelBackground();
         panelBackground24 = new GUI.Comp.Swing.PanelBackground();
         cbxTrangThai = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
         panelBackground25 = new GUI.Comp.Swing.PanelBackground();
+        panelBackground26 = new GUI.Comp.Swing.PanelBackground();
+        jLabel8 = new javax.swing.JLabel();
+        txtMoTa = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -312,11 +316,6 @@ public class DialogActionTable extends javax.swing.JDialog {
         panelBackground21.setBackground(new java.awt.Color(35, 35, 35));
         panelBackground21.setLayout(new java.awt.BorderLayout(15, 0));
 
-        jLabel9.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Trạng thái");
-        panelBackground21.add(jLabel9, java.awt.BorderLayout.LINE_START);
-
         panelBackground22.setBackground(new java.awt.Color(35, 35, 35));
         panelBackground22.setPreferredSize(new java.awt.Dimension(328, 15));
 
@@ -369,6 +368,11 @@ public class DialogActionTable extends javax.swing.JDialog {
         cbxTrangThai.setForeground(new java.awt.Color(255, 255, 255));
         panelBackground21.add(cbxTrangThai, java.awt.BorderLayout.CENTER);
 
+        jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Trạng thái");
+        panelBackground21.add(jLabel10, java.awt.BorderLayout.LINE_START);
+
         pnCenter.add(panelBackground21);
 
         panelBackground25.setBackground(new java.awt.Color(35, 35, 35));
@@ -376,15 +380,56 @@ public class DialogActionTable extends javax.swing.JDialog {
         panelBackground25.setMinimumSize(new java.awt.Dimension(0, 25));
         panelBackground25.setPreferredSize(new java.awt.Dimension(328, 25));
 
+        panelBackground26.setBackground(new java.awt.Color(35, 35, 35));
+        panelBackground26.setPreferredSize(new java.awt.Dimension(328, 15));
+
+        javax.swing.GroupLayout panelBackground26Layout = new javax.swing.GroupLayout(panelBackground26);
+        panelBackground26.setLayout(panelBackground26Layout);
+        panelBackground26Layout.setHorizontalGroup(
+            panelBackground26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 328, Short.MAX_VALUE)
+        );
+        panelBackground26Layout.setVerticalGroup(
+            panelBackground26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 15, Short.MAX_VALUE)
+        );
+
+        jLabel8.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Mô tả");
+        jLabel8.setPreferredSize(new java.awt.Dimension(65, 17));
+
+        txtMoTa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtMoTa.setForeground(new java.awt.Color(255, 255, 255));
+        txtMoTa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMoTaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBackground25Layout = new javax.swing.GroupLayout(panelBackground25);
         panelBackground25.setLayout(panelBackground25Layout);
         panelBackground25Layout.setHorizontalGroup(
             panelBackground25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 328, Short.MAX_VALUE)
+            .addGroup(panelBackground25Layout.createSequentialGroup()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBackground25Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBackground26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         panelBackground25Layout.setVerticalGroup(
             panelBackground25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 62, Short.MAX_VALUE)
+            .addGroup(panelBackground25Layout.createSequentialGroup()
+                .addComponent(panelBackground26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(panelBackground25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
 
         pnCenter.add(panelBackground25);
@@ -417,9 +462,13 @@ public class DialogActionTable extends javax.swing.JDialog {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
         Date currentDate = new Date();
+        String nameTable = txtNameTable.getText().trim();
+        if (tableBUS.isNameExist(nameTable) && !isUpdate) {
+            JOptionPane.showMessageDialog(rootPane, "Trùng tên bàn");
+        }
 
         table.setName(txtNameTable.getText());
-       
+        table.setDes(txtMoTa.getText());
         table.setStatusID(listStatus.get(cbxTrangThai.getSelectedIndex()).getId());
         table.setCreateTime(currentDate);
         table.setUpdateTime(currentDate);
@@ -450,6 +499,10 @@ public class DialogActionTable extends javax.swing.JDialog {
     private void txtNameTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameTableActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameTableActionPerformed
+
+    private void txtMoTaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMoTaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMoTaActionPerformed
 
  
     public static void main(String args[]) {
@@ -494,10 +547,11 @@ public class DialogActionTable extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JComboBox<String> cbxTrangThai;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel8;
     private GUI.Comp.Swing.PanelBackground panelBackground10;
     private GUI.Comp.Swing.PanelBackground panelBackground11;
     private GUI.Comp.Swing.PanelBackground panelBackground12;
@@ -511,6 +565,7 @@ public class DialogActionTable extends javax.swing.JDialog {
     private GUI.Comp.Swing.PanelBackground panelBackground23;
     private GUI.Comp.Swing.PanelBackground panelBackground24;
     private GUI.Comp.Swing.PanelBackground panelBackground25;
+    private GUI.Comp.Swing.PanelBackground panelBackground26;
     private GUI.Comp.Swing.PanelBackground panelBackground3;
     private GUI.Comp.Swing.PanelBackground panelBackground4;
     private GUI.Comp.Swing.PanelBackground panelBackground5;
@@ -518,6 +573,7 @@ public class DialogActionTable extends javax.swing.JDialog {
     private GUI.Comp.Swing.PanelBackground panelBackground7;
     private GUI.Comp.Swing.PanelBackground pnCenter;
     private javax.swing.JTextField txtIDTable;
+    private javax.swing.JTextField txtMoTa;
     private javax.swing.JTextField txtNameTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,6 +34,20 @@ public class DetailOrderDAO {
         return false;
     }
     
+    public boolean isPaid(String listOrderId) {
+        String query = "SELECT * FROM tb_detail_order WHERE isdeleted = false  AND orderid IN (" + listOrderId + ") AND invoiceid IS NULL";
+        try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
     public ArrayList<DetailOrderDTO> findDetailByIDOrder(long idOrder) {
         ArrayList<DetailOrderDTO> list = new ArrayList<>();
         String query = "SELECT tb_detail_order.*, tb_menu_item.name FROM tb_detail_order JOIN tb_menu_item ON tb_detail_order.itemid = tb_menu_item.id WHERE orderid = ?";
@@ -59,7 +73,7 @@ public class DetailOrderDAO {
         }
         catch(Exception e) {
                 e.printStackTrace();
-            }
+        }
         return list;
     }
     

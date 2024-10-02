@@ -28,6 +28,12 @@ public class TableBUS {
         return tableDAO.read(criteria);
     }
     
+    public boolean isNameExist(String nameTable) {
+        TableCriteria criteria = new TableCriteria();
+        criteria.setName(nameTable);
+        return tableDAO.read(criteria).size() >= 1;
+    }
+    
     public ArrayList<TableDTO> getTableByCustomerCode(String customerCode) {
         TableCriteria criteria = new TableCriteria();
         criteria.setCustomerCode(customerCode);

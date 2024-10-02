@@ -417,14 +417,26 @@ public class QuanLiSupplier extends javax.swing.JPanel {
      
      btnThem.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent e) {
+                
+                String name = txtName.getText().trim();
+                if (SupplierBUS.isNameExist(name)) {
+                    JOptionPane.showMessageDialog(pnContainer, "Tên không được trùng");
+                    return;
+                }
+                if (name.matches(".*[^a-zA-Z0-9].*")) {
+                    JOptionPane.showMessageDialog(pnContainer, "Tên không được chứa kí tự đặc biệt");
+                    return;
+                }
+                
     	        if (txtName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtSDT.getText().isEmpty()) {                    
     	            JOptionPane.showMessageDialog(pnContainer, "Vui lòng điền đầy đủ thông tin.");
-    	        } else {
+    	        } 
+                else {
     	            int choice = JOptionPane.showConfirmDialog(pnContainer, "Bạn có chắc chắn thêm không ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
     	            if (choice == 0) {
     	                String phonePattern = "^[0-9]{10}$";
     	                
-    	                String name = txtName.getText();
+    	               
     	                String address = txtAddress.getText();
     	                String phone = txtSDT.getText();
     	                
@@ -480,30 +492,35 @@ public class QuanLiSupplier extends javax.swing.JPanel {
     	    public void actionPerformed(ActionEvent e) {
     	        int selectedRow = tbSupplier.getSelectedRow();
     	        if (selectedRow != -1) {
-    	            if (txtName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtSDT.getText().isEmpty()) {
-    	                JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
-    	                return;
-    	            }
-    	            String phonePattern = "^[0-9]{10}$";
-    	            SupplierDTO supplierSelected = listSupplier.get(selectedRow);
+                    int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn cập nhật nhà cung cấp này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        if (txtName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtSDT.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
+                            return;
+                        }
+                        String phonePattern = "^[0-9]{10}$";
+                        SupplierDTO supplierSelected = listSupplier.get(selectedRow);
 
-    	            supplierSelected.setName(txtName.getText());
-    	            supplierSelected.setAddress(txtAddress.getText());
-    	            supplierSelected.setPhone(txtSDT.getText());
-    	            
-    	            if (!txtSDT.getText().matches(phonePattern)) {
-    	                JOptionPane.showMessageDialog(pnContainer, "Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại gồm 10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-    	                return;
-    	            }
+                        supplierSelected.setName(txtName.getText());
+                        supplierSelected.setAddress(txtAddress.getText());
+                        supplierSelected.setPhone(txtSDT.getText());
 
-    	            boolean isUpdated = SupplierBUS.updateSupplier(supplierSelected);
-    	            if (isUpdated) {
-    	                JOptionPane.showMessageDialog(null, "Cập nhật thông tin nhà cung cấp thành công!");                       
-    	                renderSupplier(isSelectAll);
-    	            } else {
-    	                JOptionPane.showMessageDialog(null, "Không thể cập nhật thông tin nhà cung cấp.");
-    	            }
-    	        } else {
+                        if (!txtSDT.getText().matches(phonePattern)) {
+                            JOptionPane.showMessageDialog(pnContainer, "Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại gồm 10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        boolean isUpdated = SupplierBUS.updateSupplier(supplierSelected);
+                        if (isUpdated) {
+                            JOptionPane.showMessageDialog(null, "Cập nhật thông tin nhà cung cấp thành công!");                       
+                            renderSupplier(isSelectAll);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Không thể cập nhật thông tin nhà cung cấp.");
+                        }
+                        
+                    }
+    	        } 
+                else {
     	            JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp cần cập nhật.");
     	        }
                 txtName.setEnabled(true);

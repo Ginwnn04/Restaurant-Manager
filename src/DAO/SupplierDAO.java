@@ -58,6 +58,22 @@ public class SupplierDAO {
 	    return supplier;
 	}
         
+        public boolean isNameExist(String name) {
+	    String query = "SELECT * FROM tb_supplier WHERE isdeleted = false AND name = ?";
+	    try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+	        pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+	        if(rs.next()) {
+	            return true;
+	        }
+	    } catch(SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+        
+        
+        
     
 	public boolean insertSupplierData(SupplierDTO supplier) throws HeadlessException, Exception {
 	    String query = "INSERT INTO tb_supplier (id, name, address, phone, isdeleted) VALUES (?, ?, ?, ?, ?)";

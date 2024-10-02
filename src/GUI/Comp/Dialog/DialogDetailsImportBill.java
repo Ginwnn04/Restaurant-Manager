@@ -56,7 +56,7 @@ public class DialogDetailsImportBill extends javax.swing.JDialog {
         tbDetails.setModel(model);
         
         lbNcc.setText(supplierBUS.getSupplierById(importBill.getSupplierID()).getName());
-        lbTenNV.setText(staffBUS.getStaffById(importBill.getUserId()).getLast_name() + " " + staffBUS.getStaffById(importBill.getUserId()).getFirst_name());
+        lbTenNV.setText(staffBUS.getStaffById(importBill.getUserId()).getFull_name());
         lbNgayNhap.setText(Format.formatDate.format(importBill.getImport_date()));
         lbSoLuong.setText(importBill.getQuantity() + "");
         lbTongTien.setText(importBill.getTotal() + "");

@@ -70,7 +70,7 @@ public class DetailsOrder extends javax.swing.JDialog {
     }
     
     public void refresh() {
-         txtIDMonAn.setText("");
+        txtIDMonAn.setText("");
         txtTenMon.setText("");
         txtSoLuong.setText("");
         lbThanhTien.setText("0");
@@ -783,41 +783,48 @@ public class DetailsOrder extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        boolean isSuccess = true;
-        long total = 0;
-        int  cnt = 0;
-        for (DetailOrderDTO x : listDetailsOrder) {
-            if (detailOrderBUS.updateDetails(x)) {
-                cnt++;
-            }
-            total += x.getTotal();
-        }
-        OrderDTO order = orderBUS.findOrderByID(orderID);
-        order.setTotal(total);
-        
-        // Cập nhật lại nguyên liệu
-        if (distance > 0) {
-            System.out.println("xcxcx");
-            DetailOrderDTO detail = new DetailOrderDTO();
-            detail = listDetailsOrder.get(row);
-            ArrayList<DetailsRecipeDTO> listDetailRecipe = new DetailsReciptBUS().readByIDItem(detail.getItemID());
-            for (DetailsRecipeDTO detailRecipe : listDetailRecipe) {
-                IngredientsDTO ingredientsDTO = new IngredientsBUS().getIngredientById(detailRecipe.getIngredientID());
-                int newQuantity = ingredientsDTO.getQuantity() + distance;
-                ingredientsDTO.setQuantity(newQuantity);
-                System.out.println(new IngredientsBUS().updateIngredient(ingredientsDTO));
-            }
-        }
-        
-        if (orderBUS.updateTotal(order) && cnt == listDetailsOrder.size()) {
-            JOptionPane.showMessageDialog(pnContainer, "Đã lưu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            
+        if (detailOrderBUS.getInvoiceByOrderID(orderID) != 0) {
+            JOptionPane.showMessageDialog(rootPane, "Đơn này đã thanh toán nên không thể cập nhật thêm !!");
         }
         else {
-            JOptionPane.showMessageDialog(pnContainer, "Lưu thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            boolean isSuccess = true;
+            long total = 0;
+            int  cnt = 0;
+            for (DetailOrderDTO x : listDetailsOrder) {
+                if (detailOrderBUS.updateDetails(x)) {
+                    cnt++;
+                }
+                total += x.getTotal();
+            }
+            OrderDTO order = orderBUS.findOrderByID(orderID);
+            order.setTotal(total);
+
+            // Cập nhật lại nguyên liệu
+            if (distance > 0) {
+                System.out.println("xcxcx");
+                DetailOrderDTO detail = new DetailOrderDTO();
+                detail = listDetailsOrder.get(row);
+                ArrayList<DetailsRecipeDTO> listDetailRecipe = new DetailsReciptBUS().readByIDItem(detail.getItemID());
+                for (DetailsRecipeDTO detailRecipe : listDetailRecipe) {
+                    IngredientsDTO ingredientsDTO = new IngredientsBUS().getIngredientById(detailRecipe.getIngredientID());
+                    int newQuantity = ingredientsDTO.getQuantity() + distance;
+                    ingredientsDTO.setQuantity(newQuantity);
+                    System.out.println(new IngredientsBUS().updateIngredient(ingredientsDTO));
+                }
+            }
+
+            if (orderBUS.updateTotal(order) && cnt == listDetailsOrder.size()) {
+                JOptionPane.showMessageDialog(pnContainer, "Đã lưu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+            else {
+                JOptionPane.showMessageDialog(pnContainer, "Lưu thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+
+            }
+            dispose();
             
         }
-        dispose();
+        
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void tbMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMonAnMouseClicked
@@ -857,12 +864,17 @@ public class DetailsOrder extends javax.swing.JDialog {
             }
             if (quantityNew < detail.getQuantity()) {
                 distance = detail.getQuantity() - quantityNew;
+                detail.setQuantity(quantityNew);
+                detail.setTotal(quantityNew * detail.getPrice());
+                listDetailsOrder.set(row, detail);
+                refresh();
+                render(false);
             }
-            detail.setQuantity(quantityNew);
-            detail.setTotal(quantityNew * detail.getPrice());
-            listDetailsOrder.set(row, detail);
-            refresh();
-            render(false);
+            else {
+                JOptionPane.showMessageDialog(rootPane, "Không thể cập nhật số lượng >= số lượng món đang có !! Nếu  thiếu vui lòng Order thêm");
+                return;
+            }
+            
             
             
         }

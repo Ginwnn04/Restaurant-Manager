@@ -487,7 +487,7 @@ public class DialogChiTietHoaDon extends javax.swing.JDialog {
             tbInformation.addCell(new Paragraph("Date:"));
             tbInformation.addCell(new Paragraph(Helper.Format.formatDate.format(new Date()) + ""));
             tbInformation.addCell(new Paragraph("Employee:"));
-            String nameStaff = StaffDTO.staffLogging.getLast_name() + " " + StaffDTO.staffLogging.getFirst_name();
+            String nameStaff = StaffDTO.staffLogging.getFull_name();
             tbInformation.addCell(new Paragraph(nameStaff, customFont));
             tbInformation.addCell(new Paragraph("Table:"));
             tbInformation.addCell(new Paragraph(table.getName()));

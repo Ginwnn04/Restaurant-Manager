@@ -121,6 +121,36 @@ public class IngredientsDAO {
         }
         return false;
     }
+    
+    public boolean isNameExist(String name) {
+        String sql = "SELECT * FROM tb_ingredients WHERE name = ? AND isdeleted = FALSE";
+        try (PreparedStatement pstmt = Helper.ConnectDB.getInstance().getConnection().prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean isUsed(long idIngre) {
+        String sql = "SELECT * FROM tb_detail_recipe WHERE ingredientid = ? AND isdeleted = FALSE";
+        try (PreparedStatement pstmt = Helper.ConnectDB.getInstance().getConnection().prepareStatement(sql)) {
+            pstmt.setLong(1, idIngre);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    
 
     public int getIngredientQuantity(long ingredientId) {
         String sql = "SELECT quantity FROM tb_ingredients WHERE id = ?";

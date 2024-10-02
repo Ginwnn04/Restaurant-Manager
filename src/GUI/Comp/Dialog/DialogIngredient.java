@@ -224,7 +224,12 @@ public class DialogIngredient extends javax.swing.JPanel {
         String unit = txtDonVi.getText().trim();
         
         
+        
         if (isCreate) {
+            if (ingredientsBUS.isNameExist(name)) {
+                JOptionPane.showMessageDialog(pnCenter, "Không được trùng tên");
+                return;
+             }   
             if (name.isEmpty() || des.isEmpty() || unit.isEmpty()) {
                 JOptionPane.showMessageDialog(DialogIngredient.this, "Vui lòng nhập đầy đủ thông tin.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 return;

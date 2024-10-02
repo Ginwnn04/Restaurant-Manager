@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 public class PanelConfirmOrder extends javax.swing.JPanel {
    
@@ -77,10 +78,24 @@ public class PanelConfirmOrder extends javax.swing.JPanel {
         tfQuantity.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                quantity = Integer.parseInt(tfQuantity.getText());
-                MyListener.getInstance().firePropertyChange("Order", nameProduct, quantity);
-                update();
-                System.out.println(quantity + " " + total);
+                try {
+                    quantity = Integer.parseInt(tfQuantity.getText());
+                    if (quantity == 0) {
+                        MyListener.getInstance().firePropertyChange("Quantity0", "", nameProduct);
+
+                    }
+                    else {
+                        MyListener.getInstance().firePropertyChange("Order", nameProduct, quantity);
+
+                    }
+                    update();
+                    System.out.println(quantity + " " + total);
+                }
+                catch(NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "Số lượng phải là số");
+                    MyListener.getInstance().firePropertyChange("Quantity0", "", nameProduct);
+                    
+                }
             }
         
         

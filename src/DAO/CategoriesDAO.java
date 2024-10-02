@@ -55,6 +55,24 @@ public class CategoriesDAO {
         return null;
     }
     
+    
+            
+     public boolean isExist(String name) {
+        String query = "SELECT * FROM tb_categories WHERE isdeleted = FALSE AND name = ?";
+        try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
+            
+           pstm.setString(1, name);
+           ResultSet rs = pstm.executeQuery();
+           if (rs.next()) {
+               return true;
+           }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }        
+    
     public boolean insert(CategoriesDTO categories) {
         String query = "INSERT INTO tb_categories VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstm = Helper.ConnectDB.getInstance().getConnection().prepareStatement(query)) {
