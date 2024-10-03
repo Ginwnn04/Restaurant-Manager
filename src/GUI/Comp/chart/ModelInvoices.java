@@ -1,7 +1,7 @@
 package GUI.Comp.chart;
 
 import java.util.Date;
-
+import Helper.Format;
 public class ModelInvoices {
 
     public Date getDate() {
@@ -62,6 +62,6 @@ public class ModelInvoices {
     private double total;
 
     public Object[] toDataTable() {
-        return new Object[] { date, ID, price, discount, total };
+        return new Object[] { Format.formatDate.format(date), ID, Format.formatNumber.format(price), Format.formatNumber.format(discount), Format.formatNumber.format(total) };
     }
 }

@@ -56,7 +56,7 @@ public class ItemChartPie extends javax.swing.JPanel {
         int margin = 8;
         int size = getHeight() - margin * 2;
         g.setColor(data.getColor());
-        g.fillRect(margin, margin, size, size);
+        g.fillRect(lbName.getX() - 25, lbName.getY() + (lbName.getHeight() / 2) - 7, 14, 14);
         super.paintComponent(g);
     }
 

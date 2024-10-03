@@ -22,9 +22,13 @@ public class ItemChartLine extends javax.swing.JPanel {
         lbName = new javax.swing.JLabel();
         lbValues = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(190, 17));
+
+        lbName.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lbName.setForeground(new java.awt.Color(255, 255, 255));
         lbName.setText("Name");
 
+        lbValues.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lbValues.setForeground(new java.awt.Color(255, 255, 255));
         lbValues.setText("Values");
 
